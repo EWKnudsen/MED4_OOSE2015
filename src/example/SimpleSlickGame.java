@@ -24,7 +24,8 @@ public class SimpleSlickGame extends BasicGame
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
 		g.drawString("Hello World!", 250, 200);
-		g.drawString("Hey THug!", 250, 300);
+		g.drawString("Hey THcxzcxzug!", 250, 300);
+		//dsaddaii  dmsii
 	}
 
 	public static void main(String[] args)
