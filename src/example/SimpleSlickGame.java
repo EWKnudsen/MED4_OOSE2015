@@ -41,4 +41,9 @@ public class SimpleSlickGame extends BasicGame
 			Logger.getLogger(SimpleSlickGame.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
+	public static void yowMom () { }
 }
+
+
+
+
