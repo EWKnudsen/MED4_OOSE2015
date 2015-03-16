@@ -79,6 +79,4 @@ public class Hero {
 	public boolean isVisible() 				{   return this.visible;    }
 
 	public void setVisible(boolean visible) {   this.visible = visible; }
-
-	
 }

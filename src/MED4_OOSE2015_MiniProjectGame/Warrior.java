@@ -14,7 +14,6 @@ public class Warrior extends Hero
 		//something...
 	}
 	
-	
 	public int getRAGE()          {   return this.rage;  }
 	
 	public void setRAGE(int rage) {   this.rage = rage;  }
