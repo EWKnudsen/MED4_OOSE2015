@@ -4,12 +4,13 @@ import java.util.ArrayList;
 
 public class Wizard extends Hero
 {
-	private int MANA;
+	private int mana;
 	private ArrayList<Missile> missiles;  //current missiles 'alive'
 	
 	Wizard()
 	{
 		this.missiles = new ArrayList<Missile>();
+		
 	}
 	
 	public void fire() 
@@ -19,6 +20,6 @@ public class Wizard extends Hero
 	
 	public ArrayList<Missile> getMissiles() {   return this.missiles;   }
 	
-	public int getMANA() {   return this.MANA;   }
+	public int getMANA() {   return this.mana;   }
 	
 }

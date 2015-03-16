@@ -18,3 +18,8 @@ public class Warrior extends Hero
 	
 	public void setRAGE(int rage) {   this.rage = rage;  }
 }
+
+
+
+
+

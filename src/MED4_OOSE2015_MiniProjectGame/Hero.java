@@ -9,6 +9,7 @@ public class Hero {
 	private int dx, dy;                   //x and y speed
 	private int scale;                    //Hero(circle) size
 	private boolean visible;              //Visibility of Hero. Dead or alive
+	private int health;
 //	private Image image;				  //for later use when implementing an image instead of a circle
 	
 	public Hero() 
@@ -17,6 +18,7 @@ public class Hero {
 		this.visible = true;
 		this.x = 40;
 		this.y = 60;
+		this.health = 100;
 	}
 	
 	public void move() 
@@ -74,7 +76,11 @@ public class Hero {
 	
 	public int getSCALE()           {   return this.scale;       }
 	
-	public void setSCALE(int scale) {   this.scale = scale;      }
+	public void setSCALE(int health){   this.scale = scale;      }
+	
+	public int getHEALTH()            {   return this.health;        }
+	
+	public void setHEALTH(int health) {   this.health = health;     }
 
 	public boolean isVisible() 				{   return this.visible;    }
 
