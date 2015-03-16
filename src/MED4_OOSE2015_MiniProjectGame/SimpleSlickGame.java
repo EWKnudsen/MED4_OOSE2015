@@ -1,4 +1,5 @@
-package example;
+package MED4_OOSE2015_MiniProjectGame;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.AppGameContainer;
@@ -46,14 +47,10 @@ public class SimpleSlickGame extends BasicGame
 		{
 			Logger.getLogger(SimpleSlickGame.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
 	}
 	
 	public static void yowMom () {
 		//hmmmm test something else!!!
 	}
 }
-
-
-
 
