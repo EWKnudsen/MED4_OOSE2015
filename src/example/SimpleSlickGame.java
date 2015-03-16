@@ -15,10 +15,16 @@ public class SimpleSlickGame extends BasicGame
 	}
 
 	@Override
-	public void init(GameContainer gc) throws SlickException {}
+	public void init(GameContainer gc) throws SlickException 
+	{
+		
+	}
 
 	@Override
-	public void update(GameContainer gc, int i) throws SlickException {}
+	public void update(GameContainer gc, int i) throws SlickException 
+	{
+//		System.out.println("update");
+	}
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
@@ -32,7 +38,7 @@ public class SimpleSlickGame extends BasicGame
 		try
 		{
 			AppGameContainer appgc;
-			appgc = new AppGameContainer(new SimpleSlickGame("Simple Slick suuuup"));
+			appgc = new AppGameContainer(new SimpleSlickGame("Simple Slick Game"));
 			appgc.setDisplayMode(640, 480, false);
 			appgc.start();
 		}
@@ -41,6 +47,7 @@ public class SimpleSlickGame extends BasicGame
 			Logger.getLogger(SimpleSlickGame.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
+	
 	public static void yowMom () {
 		//hmmmm test something else!!!
 	}
