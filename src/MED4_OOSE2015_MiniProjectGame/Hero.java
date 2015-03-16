@@ -56,15 +56,25 @@ public class Hero {
 	}
 	
 	
-	public int getX()     {   return this.x;     }
+	public int getX()         {   return this.x;     }
+	
+	public void setX(int x)   {   this.x = x;        }
 
-	public int getY()     {   return this.y;     }
+	public int getY()         {   return this.y;     }
+	
+	public void setY(int y)   {   this.y = y;        }
 
-	public int getDX()    {   return this.dx;    }
+	public int getDX()        {   return this.dx;    }
 
-	public int getDY()    {   return this.dy;    }
+	public void setDX(int dx) {   this.dx = dx;      }
+	
+	public int getDY()        {   return this.dy;    }
 
-	public int getSCALE() {   return this.scale; }
+	public void setDY(int dy) {   this.dy = dy;      }
+	
+	public int getSCALE()           {   return this.scale;       }
+	
+	public void setSCALE(int scale) {   this.scale = scale;      }
 
 	public boolean isVisible() 				{   return this.visible;    }
 
