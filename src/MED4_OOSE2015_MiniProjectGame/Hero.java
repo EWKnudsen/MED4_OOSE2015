@@ -9,13 +9,11 @@ public class Hero {
 	private int dx, dy;                   //x and y speed
 	private int scale;                    //Hero(circle) size
 	private boolean visible;              //Visibility of Hero. Dead or alive
-	private ArrayList<Missile> missiles;  //current missiles 'alive'
 //	private Image image;				  //for later use when implementing an image instead of a circle
 	
 	public Hero() 
 	{
 		this.scale = 20;
-		this.missiles = new ArrayList<Missile>();
 		this.visible = true;
 		this.x = 40;
 		this.y = 60;
@@ -28,17 +26,12 @@ public class Hero {
 		if (x < 1) {   x = 1;   }
 		if (y < 1) {   y = 1;   }
 	}
-	
-	public void fire() 
-	{
-		missiles.add(new Missile(x + scale, y + scale));
-	}
 
 	public void keyPressed(KeyEvent e) 
 	{
 		int key = e.getKeyCode();
 
-		if (key == KeyEvent.VK_SPACE) {   fire();    }
+//		if (key == KeyEvent.VK_SPACE) {   fire();    }  maybe move in Wizard?
 
 		if (key == KeyEvent.VK_LEFT)  {   dx = -1;   }
 
@@ -63,18 +56,18 @@ public class Hero {
 	}
 	
 	
-	public int getX()  {   return x;   }
+	public int getX()     {   return this.x;     }
 
-	public int getY()  {   return y;   }
-	
-	public int getDX() {   return dx;   }
+	public int getY()     {   return this.y;     }
 
-	public int getDY() {   return dy;   }
-	
-	public ArrayList<Missile> getMissiles() {   return this.missiles;   }
+	public int getDX()    {   return this.dx;    }
+
+	public int getDY()    {   return this.dy;    }
+
+	public int getSCALE() {   return this.scale; }
 
 	public boolean isVisible() 				{   return this.visible;    }
-	
+
 	public void setVisible(boolean visible) {   this.visible = visible; }
 
 	
