@@ -7,10 +7,12 @@ public class Wizard extends Hero
 	private int mana;
 	private ArrayList<Missile> missiles;  //current missiles 'alive'
 	
-	Wizard()
+	Wizard(int x, int y)
 	{
+		super(x,y);
+		health = 100;
+		scale = 18;
 		this.missiles = new ArrayList<Missile>();
-		
 	}
 	
 	public void fire() 
