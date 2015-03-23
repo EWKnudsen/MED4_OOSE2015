@@ -27,11 +27,13 @@ public abstract class Hero
 	{
 		x += dx;
 		y += dy;
-		if (x < 1) {   x = 1;   }
-		if (y < 1) {   y = 1;   }
+		if (x < 1-scale) {   x = 1+scale;   }
+		if (y < 1-scale) {   y = 1+scale;   }
+		if (x < 640-scale) {   x = 640-scale;   }
+		if (y < 480-scale) {   y = 480-scale;   }
 	}
 	
-	public Vector2 Position() 
+	public Vector2 CurrentPos() 
 	{
 		Vector2 pos = new Vector2(x,y);
 		return pos;
