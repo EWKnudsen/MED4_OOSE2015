@@ -32,12 +32,7 @@ public abstract class Hero
 		if (x < 640-scale) {   x = 640-scale;   }
 		if (y < 480-scale) {   y = 480-scale;   }
 	}
-	
-	public Vector2 CurrentPos() 
-	{
-		Vector2 pos = new Vector2(x,y);
-		return pos;
-	}
+
 
 	public void keyPressed(KeyEvent e) 
 	{
