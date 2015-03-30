@@ -18,20 +18,20 @@ public class SimpleSlickGame extends BasicGame
 	@Override
 	public void init(GameContainer gc) throws SlickException 
 	{
-		
+	//	Warrior W = new Warrior((640/2),(480/2));
 	}
 
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException 
 	{
-//		System.out.println("update");
+		
 	}
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
-		g.drawString("Hello World!", 250, 200);
-		g.drawString("Hey THxzug!", 250, 300);
+//		g.drawString("Hello World!", 250, 200);
+
 	}
 
 	public static void main(String[] args)

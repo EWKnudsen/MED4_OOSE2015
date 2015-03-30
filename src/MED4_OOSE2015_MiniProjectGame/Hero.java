@@ -3,21 +3,23 @@ package MED4_OOSE2015_MiniProjectGame;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-public class Hero {
-
+//abstract, meaning you can't create a instant of the class.
+//(we only want to create instances of Warrior or Wizard) 
+public abstract class Hero 
+{
 	private int x, y;                     //x and y position
 	private int dx, dy;                   //x and y speed
-	private int scale;                    //Hero(circle) size
+	protected int scale;                    //Hero(circle) size
 	private boolean visible;              //Visibility of Hero. Dead or alive
-	private int health;
+	protected int health;
 //	private Image image;				  //for later use when implementing an image instead of a circle
 	
-	public Hero() 
+	public Hero(int x, int y) 
 	{
 		this.scale = 20;
 		this.visible = true;
-		this.x = 40;
-		this.y = 60;
+		this.x = x;
+		this.y = y;
 		this.health = 100;
 	}
 	
@@ -25,9 +27,12 @@ public class Hero {
 	{
 		x += dx;
 		y += dy;
-		if (x < 1) {   x = 1;   }
-		if (y < 1) {   y = 1;   }
+		if (x < 1-scale) {   x = 1+scale;   }
+		if (y < 1-scale) {   y = 1+scale;   }
+		if (x < 640-scale) {   x = 640-scale;   }
+		if (y < 480-scale) {   y = 480-scale;   }
 	}
+
 
 	public void keyPressed(KeyEvent e) 
 	{

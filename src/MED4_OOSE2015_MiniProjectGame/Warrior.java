@@ -4,8 +4,11 @@ public class Warrior extends Hero
 {
 	private int rage;
 	
-	Warrior()
+	Warrior(int x, int y)
 	{
+		super(x,y);
+		health = 120;
+		scale = 22;
 		rage = 0;
 	}
 	
