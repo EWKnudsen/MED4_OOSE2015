@@ -50,8 +50,5 @@ public class SimpleSlickGame extends BasicGame
 		}
 	}
 	
-	public static void yowMom () {
-		//hmmmm test something else!!!
-	}
 }
 
