@@ -1,36 +1,34 @@
 package MED4_OOSE2015_MiniProjectGame;
 
-public class Missile 
+public class Missile extends Entity
 {
-	private int x, y;
+	private Entity owner;
 	private int MISSILE_SPEED = 2;
-	private boolean visible;
+	// Missing direction
 	
-	public Missile(int x, int y) 
+	public Missile(SimpleSlickGame game, int x, int y, Entity owner) 
 	{
-		visible = true;
-		this.x = x;
-		this.y = y;
+		super(game, x,y);
+		this.owner = owner;
+		//visible = true;
 	}
 	
-	public void move() 
+	@Override
+	public boolean collides (Entity other)
 	{
-		x += MISSILE_SPEED;
+		if (other == owner)
+			return false;
+		else
+			return super.collides(other);
+	}
+	
+	@Override
+	public void move()
+	{
+		this.setPositionX(this.getPositionX() + MISSILE_SPEED);
+		//x += MISSILE_SPEED;
 		//Maybe instead of making it invisible we could remove it from the Array (destroy it)..?
 //		if (x > Map.getMAP_WIDTH)  {   visible = false;   }
 //		if (x > Map.getMAP_HEIGHT) {   visible = false;   }
 	}
-	
-	
-	public int getX()  {   return this.x;   }
-
-	public int getY()  {   return this.y;   }
-	
-	public int getMISSILE_SPEED()           {   return this.MISSILE_SPEED;   }
-	
-	public void setMISSILE_SPEED(int s)     {   this.MISSILE_SPEED = s;      }
-
-	public boolean isVisible()              {   return this.visible;         }
-
-	public void setVisible(Boolean visible) {   this.visible = visible;      }
 }

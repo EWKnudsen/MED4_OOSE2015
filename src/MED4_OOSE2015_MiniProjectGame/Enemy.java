@@ -2,51 +2,43 @@ package MED4_OOSE2015_MiniProjectGame;
 
 import java.util.ArrayList;
 
-public class Enemy 
+public class Enemy extends Entity
 {
-	private int x, y;                     //x and y position
 	private int dx, dy;                   //x and y speed
-	private int scale;                    //Hero(circle) size
-	private boolean visible;              //Visibility of Hero. Dead or alive
 //	private ArrayList<Missile> missiles;  //current missiles 'alive'
-//	private Image image;				  //for later use when implementing an image instead of a circle
 	
-	public Enemy() 
+	public Enemy(SimpleSlickGame game, int x, int y) 
 	{
-		this.scale = 10;
-//		this.missiles = new ArrayList<Missile>();
-		this.visible = true;
-		this.x = 200;
-		this.y = 300;
+		super(game, x, y);
 	}
 	
-	public void move() 
+	public void move()
 	{
-		x += dx;
-		y += dy;
+		for(Entity e:game.entities)
+		{
+			if (e instanceof Hero)
+			{
+				if (this.getPositionX() < e.getPositionX())
+					this.setPositionX(this.getPositionX() + 1);
+				else if (this.getPositionX() > e.getPositionX())
+					this.setPositionX(this.getPositionX() - 1);
+				
+				if (this.getPositionY() < e.getPositionY())
+					this.setPositionY(this.getPositionY() + 1);
+				else if (this.getPositionY() > e.getPositionY())
+					this.setPositionY(this.getPositionY() - 1);
+				
+				break;
+			}
+		}
+		
+		//x += dx;
+		//y += dy;
+		/*
 		if (x < 1-scale) {   x = 1+scale;   }
 		if (y < 1-scale) {   y = 1+scale;   }
 		if (x < 640-scale) {   x = 640-scale;   }
 		if (y < 480-scale) {   y = 480-scale;   }
+		*/
 	}
-	
-//	public void fire() 
-//	{
-//		missiles.add(new Missile(x + scale, y + scale));
-//	}
-	
-	
-	public int getX()  {   return x;   }
-
-	public int getY()  {   return y;   }
-
-	public int getDX() {   return dx;   }
-
-	public int getDY() {   return dy;   }
-	
-//	public ArrayList<Missile> getMissiles() {   return this.missiles;   }
-
-	public boolean isVisible() 				{   return this.visible;    }
-	
-	public void setVisible(boolean visible) {   this.visible = visible; }
 }

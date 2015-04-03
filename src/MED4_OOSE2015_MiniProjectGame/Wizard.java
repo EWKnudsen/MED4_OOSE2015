@@ -1,20 +1,20 @@
 package MED4_OOSE2015_MiniProjectGame;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 public class Wizard extends Hero
 {
-	private int mana;
-	private ArrayList<Missile> missiles;  //current missiles 'alive'
+	//private int mana;
+	//private ArrayList<Missile> missiles;  //current missiles 'alive'
 	
-	Wizard(int x, int y)
+	Wizard(SimpleSlickGame game, int x, int y)
 	{
-		super(x,y);
+		super(game, x,y);
 		health = 100;
-		scale = 18;
-		this.missiles = new ArrayList<Missile>();
+		//scale = 18;
+		//this.missiles = new ArrayList<Missile>();
 	}
-	
+	/*
 	public void fire() 
 	{
 		missiles.add(new Missile(getX() + getSCALE(), getY() + getSCALE()));
@@ -23,5 +23,5 @@ public class Wizard extends Hero
 	public ArrayList<Missile> getMissiles() {   return this.missiles;   }
 	
 	public int getMANA() {   return this.mana;   }
-	
+	*/
 }

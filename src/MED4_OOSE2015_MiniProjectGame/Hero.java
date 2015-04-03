@@ -1,39 +1,59 @@
 package MED4_OOSE2015_MiniProjectGame;
 
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-
 //abstract, meaning you can't create a instant of the class.
 //(we only want to create instances of Warrior or Wizard) 
-public abstract class Hero 
+public abstract class Hero extends Character implements KeyPressedListener, KeyReleasedListener
 {
-	private int x, y;                     //x and y position
-	private int dx, dy;                   //x and y speed
-	protected int scale;                    //Hero(circle) size
-	private boolean visible;              //Visibility of Hero. Dead or alive
 	protected int health;
-//	private Image image;				  //for later use when implementing an image instead of a circle
 	
-	public Hero(int x, int y) 
+	public Hero(SimpleSlickGame game, int x, int y) 
 	{
-		this.scale = 20;
-		this.visible = true;
-		this.x = x;
-		this.y = y;
+		super(game, x, y);
+		//this.visible = true;
 		this.health = 100;
+		
+		game.addKeyPressedListener(this);
+		game.addKeyReleasedListener(this);
+	}
+
+	@Override
+	public void close()
+	{
+		game.removeKeyPressedListener(this);
+		game.removeKeyReleasedListener(this);
+	}
+	
+	char lastChar;
+	
+	public void keyPressed(int key, char c)
+	{
+		lastChar = c;
+	}
+	
+	public void keyReleased(int key, char c)
+	{
+		lastChar = ' ';
 	}
 	
 	public void move() 
 	{
-		x += dx;
-		y += dy;
-		if (x < 1-scale) {   x = 1+scale;   }
-		if (y < 1-scale) {   y = 1+scale;   }
-		if (x < 640-scale) {   x = 640-scale;   }
-		if (y < 480-scale) {   y = 480-scale;   }
+		char pressed = lastChar;
+		if (pressed == 'a')
+		{
+			this.setPositionX(this.getPositionX() - 2);
+		}
+		else if (pressed == 'd')
+		{
+			this.setPositionX(this.getPositionX() + 2);
+		}
+		
+		//if (x < 1-scale) {   x = 1+scale;   }
+		//if (y < 1-scale) {   y = 1+scale;   }
+		//if (x < 640-scale) {   x = 640-scale;   }
+		//if (y < 480-scale) {   y = 480-scale;   }
 	}
 
-
+	/*
 	public void keyPressed(KeyEvent e) 
 	{
 		int key = e.getKeyCode();
@@ -90,4 +110,5 @@ public abstract class Hero
 	public boolean isVisible() 				{   return this.visible;    }
 
 	public void setVisible(boolean visible) {   this.visible = visible; }
+	*/
 }

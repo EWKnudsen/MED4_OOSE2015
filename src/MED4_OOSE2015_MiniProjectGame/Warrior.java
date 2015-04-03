@@ -4,14 +4,15 @@ public class Warrior extends Hero
 {
 	private int rage;
 	
-	Warrior(int x, int y)
+	Warrior(SimpleSlickGame game, int x, int y)
 	{
-		super(x,y);
+		super(game, x,y);
 		health = 120;
-		scale = 22;
+		//scale = 22;
 		rage = 0;
+		//sprite = SOMEIMAGE
 	}
-	
+	/*
 	public void hit() 
 	{
 		//something...
@@ -20,6 +21,7 @@ public class Warrior extends Hero
 	public int getRAGE()          {   return this.rage;  }
 	
 	public void setRAGE(int rage) {   this.rage = rage;  }
+	*/
 }
 
 
