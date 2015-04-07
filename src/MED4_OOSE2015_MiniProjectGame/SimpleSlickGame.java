@@ -17,7 +17,8 @@ public class SimpleSlickGame extends BasicGame
 {
 	// When removing from this collection remember to call entity.close()
 	ArrayList<Entity> entities = new ArrayList<Entity>();
-	public ArrayList<Entity> getEntities() { return entities; }
+	ArrayList<KeyPressedListener> keyPressedListeners = new ArrayList<KeyPressedListener>();
+	ArrayList<KeyReleasedListener> keyReleasedListeners = new ArrayList<KeyReleasedListener>();
 	
 	public SimpleSlickGame(String gamename)
 	{
@@ -90,10 +91,8 @@ public class SimpleSlickGame extends BasicGame
 	}
 	
 	
+	public ArrayList<Entity> getEntities() { return entities; }
 	
-	
-	ArrayList<KeyPressedListener> keyPressedListeners = new ArrayList<KeyPressedListener>();
-
     public void addKeyPressedListener(KeyPressedListener toAdd) {
     	keyPressedListeners.add(toAdd);
     }
@@ -101,9 +100,6 @@ public class SimpleSlickGame extends BasicGame
     public void removeKeyPressedListener(KeyPressedListener toAdd) {
     	keyPressedListeners.add(toAdd);
     }
-	
-	
-	ArrayList<KeyReleasedListener> keyReleasedListeners = new ArrayList<KeyReleasedListener>();
 
     public void addKeyReleasedListener(KeyReleasedListener toAdd) {
     	keyReleasedListeners.add(toAdd);

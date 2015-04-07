@@ -8,20 +8,9 @@ public class Warrior extends Hero
 	{
 		super(game, x,y);
 		health = 120;
-		//scale = 22;
 		rage = 0;
 		//sprite = SOMEIMAGE
 	}
-	/*
-	public void hit() 
-	{
-		//something...
-	}
-	
-	public int getRAGE()          {   return this.rage;  }
-	
-	public void setRAGE(int rage) {   this.rage = rage;  }
-	*/
 }
 
 

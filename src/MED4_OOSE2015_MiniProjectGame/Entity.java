@@ -89,11 +89,9 @@ public class Entity
 		this.speedY = speedY;
 	}
 
-
 	public org.newdawn.slick.Image getSprite() {
 		return sprite;
 	}
-
 
 	public void setSprite(org.newdawn.slick.Image sprite) {
 		this.sprite = sprite;

@@ -10,7 +10,6 @@ public class Missile extends Entity
 	{
 		super(game, x,y);
 		this.owner = owner;
-		//visible = true;
 	}
 	
 	@Override
@@ -26,9 +25,5 @@ public class Missile extends Entity
 	public void move()
 	{
 		this.setPositionX(this.getPositionX() + MISSILE_SPEED);
-		//x += MISSILE_SPEED;
-		//Maybe instead of making it invisible we could remove it from the Array (destroy it)..?
-//		if (x > Map.getMAP_WIDTH)  {   visible = false;   }
-//		if (x > Map.getMAP_HEIGHT) {   visible = false;   }
 	}
 }
