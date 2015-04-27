@@ -1,5 +1,7 @@
 package MED4_OOSE2015_MiniProjectGame;
 
+import org.lwjgl.util.vector.Vector2f;
+
 public class Missile extends Entity
 {
 	private Entity owner;
@@ -26,4 +28,6 @@ public class Missile extends Entity
 	{
 		this.setPositionX(this.getPositionX() + MISSILE_SPEED);
 	}
+	
 }
+

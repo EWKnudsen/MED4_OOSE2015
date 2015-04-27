@@ -8,6 +8,7 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.tiled.TiledMap;
@@ -64,6 +65,12 @@ public class SimpleSlickGame extends BasicGame
 		
 		for(Entity e:entities) {
 			e.move();
+			e.shoot();
+		}
+		
+		if( gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) 
+		{
+			entities.add(new Missile(this, gc.getInput().getMouseX(),gc.getInput().getMouseY(), null));
 		}
 	}
 

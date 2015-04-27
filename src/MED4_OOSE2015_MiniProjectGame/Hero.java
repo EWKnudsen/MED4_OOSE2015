@@ -1,5 +1,12 @@
 package MED4_OOSE2015_MiniProjectGame;
 
+import java.util.ArrayList;
+
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
+
 //abstract, meaning you can't create a instant of the class.
 //(we only want to create instances of Warrior or Wizard) 
 public abstract class Hero extends Character implements KeyPressedListener, KeyReleasedListener
@@ -53,4 +60,19 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 			this.setPositionY(this.getPositionY() + 2);
 		}
 	}
+	
+	public void shoot(GameContainer gc) 
+	{
+		if( gc.getInput().isKeyDown(Input.KEY_0))
+		{
+			System.out.println("Hello");
+			 //this(this, gc.getInput().getMouseX(),gc.getInput().getMouseY(), null); 
+			//Something that tells if you press a button/click new missiles will spawn
+			//in the direction that the mouse is pointing.
+		}
+	}
+
 }
+
+
+
