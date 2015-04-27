@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="sewer_tileset" tilewidth="16" tileheight="16">
+  <image source="sewer_tileset.png" width="192" height="217"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="40" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3UMQ6AIBBE0T0CF/UAFt7dyg4jWRbmm0zxS+WxCi0imnPCDoCh2ncORp6ffRzfE9HXc86aq21f5oxvl3Hm+1Kd12AqV2YfJFfveaJr9czUhj/NrOIfW7m37HupZ1R1z72tqb576R7nHKsbVC98L8ASAAA=
+  </data>
+ </layer>
+</map>
