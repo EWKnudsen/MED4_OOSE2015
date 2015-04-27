@@ -10,6 +10,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.tiled.TiledMap;
 
 import java.lang.Object.*;
 
@@ -19,6 +20,7 @@ public class SimpleSlickGame extends BasicGame
 	ArrayList<Entity> entities = new ArrayList<Entity>();
 	ArrayList<KeyPressedListener> keyPressedListeners = new ArrayList<KeyPressedListener>();
 	ArrayList<KeyReleasedListener> keyReleasedListeners = new ArrayList<KeyReleasedListener>();
+	private TiledMap map;
 	
 	public SimpleSlickGame(String gamename)
 	{
@@ -28,6 +30,7 @@ public class SimpleSlickGame extends BasicGame
 	@Override
 	public void init(GameContainer gc) throws SlickException 
 	{
+		map = new TiledMap("Graphics/Map2.tmx");
 		entities.add(new Warrior(this, (840/2),(480/2)));
 		entities.add(new Enemy(this, (640/2),(40/2)));
 		entities.add(new Missile(this, (40/2),(480/2), null));
@@ -67,6 +70,7 @@ public class SimpleSlickGame extends BasicGame
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
+		map.render(0,0);
 		for(Entity e:entities){
 			g.drawString("John", e.getPositionX(), e.getPositionY());
 			//g.drawImage(e.getSprite(), e.getPositionX(), e.getPositionY());
