@@ -11,6 +11,7 @@ import org.newdawn.slick.geom.Vector2f;
 //(we only want to create instances of Warrior or Wizard) 
 public abstract class Hero extends Character implements KeyPressedListener, KeyReleasedListener
 {
+	protected Missile[] missiles;
 	protected int health;
 	char lastChar;
 	
