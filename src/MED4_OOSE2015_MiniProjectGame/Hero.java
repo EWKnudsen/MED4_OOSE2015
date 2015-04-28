@@ -40,6 +40,7 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 		lastChar = ' ';
 	}
 	
+	@Override
 	public void move() 
 	{
 		char pressed = lastChar;
@@ -60,18 +61,6 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 			this.setPositionY(this.getPositionY() + 2);
 		}
 	}
-	
-	public void shoot(GameContainer gc) 
-	{
-		if( gc.getInput().isKeyDown(Input.KEY_0))
-		{
-			System.out.println("Hello");
-			 //this(this, gc.getInput().getMouseX(),gc.getInput().getMouseY(), null); 
-			//Something that tells if you press a button/click new missiles will spawn
-			//in the direction that the mouse is pointing.
-		}
-	}
-
 }
 
 
