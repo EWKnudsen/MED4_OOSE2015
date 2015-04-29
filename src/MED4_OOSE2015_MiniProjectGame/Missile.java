@@ -3,14 +3,12 @@ package MED4_OOSE2015_MiniProjectGame;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Input;
-import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.geom.Point;
 
 public class Missile extends Entity
 {
 	private Entity owner;
 	private int MISSILE_SPEED = 2;
-	private Vector2f pos;
 	private int destX = 0;
 	private int destY = 0;
 	private int startX = 0;
@@ -21,7 +19,7 @@ public class Missile extends Entity
 	Point location = new Point(0,0);
 	// Missing direction
 	
-	public Missile(SimpleSlickGame game, int x, int y, Entity owner) 
+	public Missile(SimpleSlickGame game, int x, int y, int destX, int destY, Entity owner) 
 	{
 		super(game, x,y);
 		x = startX;
@@ -29,8 +27,8 @@ public class Missile extends Entity
 		this.owner = owner;
 		this.destX = destX;
 		this.destY = destY;
-		this.startX = destX;
-		this.startY = destY;
+		location.setLocation(0, 0);
+		recalculateVector(destX, destY);
 	}
 	
 	public void recalculateVector(int destX, int destY)
@@ -38,7 +36,7 @@ public class Missile extends Entity
        float rad = (float)(Math.atan2(destX - startX, startY - destY));
        
        //Can set different speeds here, if you wanted.
-       speed = 10;
+       speed = 2;
        
        this.dx = (float) Math.sin(rad) * speed;
        this.dy = -(float) Math.cos(rad) * speed;

@@ -13,6 +13,9 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.tiled.TiledMap;
+import org.newdawn.slick.Color;
+
+import com.sun.javafx.geom.Rectangle;
 
 import java.lang.Object.*;
 
@@ -26,6 +29,8 @@ public class SimpleSlickGame extends BasicGame
 	ArrayList<KeyPressedListener> keyPressedListeners = new ArrayList<KeyPressedListener>();
 	ArrayList<KeyReleasedListener> keyReleasedListeners = new ArrayList<KeyReleasedListener>();
 	private TiledMap map;
+	private int heroPosX;
+	private int heroPosY;
 	
 	public SimpleSlickGame(String gamename)
 	{
@@ -70,6 +75,12 @@ public class SimpleSlickGame extends BasicGame
 		for(Entity e:entities) {
 			e.move();
 			e.shoot();
+			//How to get the position from a Hero
+			if (e instanceof Hero)
+			{
+				heroPosX = e.getPositionX();
+				heroPosY = e.getPositionY();
+			}
 		}
 		
 	      //Update the bullet's position.
@@ -82,21 +93,16 @@ public class SimpleSlickGame extends BasicGame
 	         //NOTE: Will need to determine if this hit something or went off the screen. Or otherwise, the list will get filled with invalid bullets.
 	         //You'll have to add that yourself.
 	      }
-		
-		if( gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON)) 
-		{
-			entities.add(new Missile(this, gc.getInput().getMouseX(),gc.getInput().getMouseY() + 2, null));
-		}
-	}
 	
+	}
 	   public void mousePressed ( int button, int x, int y )
 	   {
 	      addNewBullet(x,y);
 	   }
-	
 	   private void addNewBullet(int x, int y)
 	   {
-	      //missileList.add(new Missile(this, 10, 10, x, y, null))
+
+	      missileList.add(new Missile(this, (int)heroPosX, (int)heroPosY, x, y, null));
 	      //missileList.add(new Missile(this,heroLoactionX,heroLocationY,heroLoactionX,heroLocationY,x,y,null));
 	   }
 
@@ -110,6 +116,14 @@ public class SimpleSlickGame extends BasicGame
 		}	
 		
 		g.drawString("Hello World!", 250, 200);
+		
+		 g.setColor(Color.red);
+	      for(int i = 0;i<missileList.size();i++)
+	      {
+	         Missile missiles = missileList.get(i);
+	         
+	         g.fillRect(missiles.location.getX(), missiles.location.getY(), 5, 5);
+	      }
 	}
 
 	public static void main(String[] args)
