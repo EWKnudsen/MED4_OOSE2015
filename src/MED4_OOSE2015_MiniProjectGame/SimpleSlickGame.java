@@ -1,6 +1,7 @@
 package MED4_OOSE2015_MiniProjectGame;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -9,19 +10,28 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.tiled.TiledMap;
+import org.newdawn.slick.Color;
+
+import com.sun.javafx.geom.Rectangle;
 
 import java.lang.Object.*;
+
+import javax.swing.text.html.HTMLDocument.Iterator;
 
 public class SimpleSlickGame extends BasicGame
 {
 	// When removing from this collection remember to call entity.close()
 	ArrayList<Entity> entities = new ArrayList<Entity>();
+	private ArrayList<Missile> missileList = new ArrayList<Missile>();
 	ArrayList<KeyPressedListener> keyPressedListeners = new ArrayList<KeyPressedListener>();
 	ArrayList<KeyReleasedListener> keyReleasedListeners = new ArrayList<KeyReleasedListener>();
 	private TiledMap map;
+	public int heroPosX;
+	public int heroPosY;
 	
 	private Image wizardFrontRight = null;
 	
@@ -36,9 +46,9 @@ public class SimpleSlickGame extends BasicGame
 		map = new TiledMap("Graphics/Map2.tmx");
 		entities.add(new Warrior(this, (840/2),(480/2)));
 		entities.add(new Enemy(this, (640/2),(40/2)));
-		entities.add(new Missile(this, (40/2),(480/2), null));
+		//entities.add(new Missile(this, (40/2),(480/2), null));
 		wizardFrontRight = new Image ("Graphics/Wizard full (front right).png");
-		
+		//entities.add(new Missile(this, (40/2),(480/2), null));
 	}
 	
 	@Override
@@ -69,8 +79,36 @@ public class SimpleSlickGame extends BasicGame
 		
 		for(Entity e:entities) {
 			e.move();
+			e.shoot();
+			//How to get the position from a Hero
+			if (e instanceof Hero)
+			{
+				heroPosX = e.getPositionX();
+				heroPosY = e.getPositionY();
+			}
 		}
+		
+	      //Update the bullet's position.
+	      for(int j = 0;j<missileList.size();j++)
+	      {
+	         Missile missile = missileList.get(j);
+	         
+	         missile.move();
+	         
+	         //NOTE: Will need to determine if this hit something or went off the screen. Or otherwise, the list will get filled with invalid bullets.
+	      }
+	
 	}
+	   public void mousePressed ( int button, int x, int y )
+	   {
+	      addNewBullet(x,y);
+	   }
+	   private void addNewBullet(int x, int y)
+	   {
+
+	      missileList.add(new Missile(this, (int)heroPosX, (int)heroPosY, x, y, null));
+	      //missileList.add(new Missile(this,heroLoactionX,heroLocationY,heroLoactionX,heroLocationY,x,y,null));
+	   }
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
@@ -83,6 +121,14 @@ public class SimpleSlickGame extends BasicGame
 		}	
 		
 		g.drawString("Hello World!", 250, 200);
+		
+		 g.setColor(Color.red);
+	      for(int i = 0;i<missileList.size();i++)
+	      {
+	         Missile missiles = missileList.get(i);
+	         
+	         g.fillOval(missiles.location.getX(), missiles.location.getY(), 10, 10);
+	      }
 	}
 
 	public static void main(String[] args)
