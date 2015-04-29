@@ -1,8 +1,5 @@
 package MED4_OOSE2015_MiniProjectGame;
 
-import java.util.ArrayList;
-
-import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Point;
 
 public class Missile extends Entity
@@ -11,23 +8,25 @@ public class Missile extends Entity
 	private int MISSILE_SPEED = 2;
 	private int destX = 0;
 	private int destY = 0;
-	private int startX = 0;
-	private int startY = 0;
+	private int startX;
+	private int startY;
 	private float speed;
 	private float dx;
 	private float dy;
 	Point location = new Point(0,0);
-	// Missing direction
+	private int heroPosX;
+	private int heroPosY;
 	
 	public Missile(SimpleSlickGame game, int x, int y, int destX, int destY, Entity owner) 
 	{
+
 		super(game, x,y);
-		x = startX;
-		y = startY;
+		startX = x;
+		startY = y;
 		this.owner = owner;
 		this.destX = destX;
 		this.destY = destY;
-		location.setLocation(0, 0);
+		location.setLocation(startX, startY);
 		recalculateVector(destX, destY);
 	}
 	

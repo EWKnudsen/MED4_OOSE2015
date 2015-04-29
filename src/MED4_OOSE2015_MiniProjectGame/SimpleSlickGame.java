@@ -29,8 +29,8 @@ public class SimpleSlickGame extends BasicGame
 	ArrayList<KeyPressedListener> keyPressedListeners = new ArrayList<KeyPressedListener>();
 	ArrayList<KeyReleasedListener> keyReleasedListeners = new ArrayList<KeyReleasedListener>();
 	private TiledMap map;
-	private int heroPosX;
-	private int heroPosY;
+	public int heroPosX;
+	public int heroPosY;
 	
 	public SimpleSlickGame(String gamename)
 	{
@@ -91,7 +91,6 @@ public class SimpleSlickGame extends BasicGame
 	         missile.move();
 	         
 	         //NOTE: Will need to determine if this hit something or went off the screen. Or otherwise, the list will get filled with invalid bullets.
-	         //You'll have to add that yourself.
 	      }
 	
 	}
@@ -122,7 +121,7 @@ public class SimpleSlickGame extends BasicGame
 	      {
 	         Missile missiles = missileList.get(i);
 	         
-	         g.fillRect(missiles.location.getX(), missiles.location.getY(), 5, 5);
+	         g.fillOval(missiles.location.getX(), missiles.location.getY(), 10, 10);
 	      }
 	}
 
