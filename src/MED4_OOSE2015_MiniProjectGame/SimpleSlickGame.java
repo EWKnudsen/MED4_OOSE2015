@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -18,6 +19,7 @@ import org.newdawn.slick.Color;
 
 import com.sun.javafx.geom.Rectangle;
 
+import java.awt.Window;
 import java.lang.Object.*;
 
 import javax.swing.text.html.HTMLDocument.Iterator;
@@ -34,6 +36,11 @@ public class SimpleSlickGame extends BasicGame
 	public int heroPosY;
 	
 	private Image wizardFrontRight = null;
+	private Image wizardFrontLeft = null;
+	private Image wizardBackRight = null;
+	private Image wizardBackLeft = null;
+	
+	private Image missileImg = null;
 	
 	public SimpleSlickGame(String gamename)
 	{
@@ -44,11 +51,17 @@ public class SimpleSlickGame extends BasicGame
 	public void init(GameContainer gc) throws SlickException 
 	{
 		map = new TiledMap("Graphics/Map2.tmx");
-		entities.add(new Warrior(this, (840/2),(480/2)));
+		//entities.add(new Warrior(this, (840/2),(480/2)));
+		Warrior hero = new Warrior(this,(840/2),(480/2));
+		entities.add(hero);
 		entities.add(new Enemy(this, (640/2),(40/2)));
 		//entities.add(new Missile(this, (40/2),(480/2), null));
 		wizardFrontRight = new Image ("Graphics/Wizard full (front right).png");
+		wizardFrontLeft = new Image ("Graphics/Wizard full (front left).png");
+		wizardBackRight = new Image ("Graphics/Wizard full (back right).png");
+		wizardBackLeft = new Image ("Graphics/Wizard full (back left).png");
 		//entities.add(new Missile(this, (40/2),(480/2), null));
+		missileImg = new Image ("Graphics/Fireball.png");
 	}
 	
 	@Override
@@ -102,6 +115,9 @@ public class SimpleSlickGame extends BasicGame
 	   public void mousePressed ( int button, int x, int y )
 	   {
 	      addNewBullet(x,y);
+	      System.out.println("hero x " + heroPosX + " hero y " + heroPosY);
+	      System.out.println("mouse x " + Mouse.getEventX() + " mouse y " + Mouse.getEventY());
+	      
 	   }
 	   private void addNewBullet(int x, int y)
 	   {
@@ -115,8 +131,21 @@ public class SimpleSlickGame extends BasicGame
 	{
 		map.render(0,0);
 		for(Entity e:entities){
-			g.drawString("John", e.getPositionX(), e.getPositionY());
-			g.drawImage(wizardFrontRight, e.getPositionX()-(wizardFrontRight.getWidth()/2), e.getPositionY()-(wizardFrontRight.getHeight()/2));
+			
+		
+			if(e instanceof Hero){
+				if(Mouse.getEventX() >= heroPosX &&  (Window.HEIGHT - Mouse.getEventY())*-1 <= heroPosY )
+					g.drawImage(wizardFrontRight, heroPosX-(wizardFrontRight.getWidth()/2), heroPosY-(wizardFrontRight.getHeight()/2));
+				else if(Mouse.getEventX() <= heroPosX && Mouse.getEventY() <= heroPosY )
+					g.drawImage(wizardFrontLeft, heroPosX-(wizardFrontLeft.getWidth()/2), heroPosY-(wizardFrontLeft.getHeight()/2));
+				else if (Mouse.getEventX() >= heroPosX && Mouse.getEventY() >= heroPosY)
+					g.drawImage(wizardBackRight, heroPosX-(wizardBackRight.getWidth()/2), heroPosY-(wizardBackRight.getHeight()/2));
+				else if (Mouse.getEventX() <= heroPosX && Mouse.getEventY() >= heroPosY)
+					g.drawImage(wizardBackLeft, heroPosX-(wizardBackLeft.getWidth()/2), heroPosY-(wizardBackLeft.getHeight()/2));
+				} else {
+				g.drawString("John", e.getPositionX(), e.getPositionY());
+			}
+			//g.drawImage(wizardFrontRight, e.getPositionX()-(wizardFrontRight.getWidth()/2), e.getPositionY()-(wizardFrontRight.getHeight()/2));
 			//g.drawImage(e.getSprite(), e.getPositionX(), e.getPositionY());
 		}	
 		
@@ -127,7 +156,7 @@ public class SimpleSlickGame extends BasicGame
 	      {
 	         Missile missiles = missileList.get(i);
 	         
-	         g.fillOval(missiles.location.getX(), missiles.location.getY(), 10, 10);
+	         g.drawImage(missileImg ,missiles.location.getX()- (missileImg.getWidth()/2), missiles.location.getY()-(missileImg.getHeight()/2));
 	      }
 	}
 
