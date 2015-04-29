@@ -8,6 +8,7 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.tiled.TiledMap;
@@ -22,6 +23,8 @@ public class SimpleSlickGame extends BasicGame
 	ArrayList<KeyReleasedListener> keyReleasedListeners = new ArrayList<KeyReleasedListener>();
 	private TiledMap map;
 	
+	private Image wizardFrontRight = null;
+	
 	public SimpleSlickGame(String gamename)
 	{
 		super(gamename);
@@ -34,6 +37,8 @@ public class SimpleSlickGame extends BasicGame
 		entities.add(new Warrior(this, (840/2),(480/2)));
 		entities.add(new Enemy(this, (640/2),(40/2)));
 		entities.add(new Missile(this, (40/2),(480/2), null));
+		wizardFrontRight = new Image ("Graphics/Wizard full (front right).png");
+		
 	}
 	
 	@Override
@@ -56,7 +61,7 @@ public class SimpleSlickGame extends BasicGame
 	public void update(GameContainer gc, int i) throws SlickException 
 	{
 		try {
-			Thread.sleep(100);
+			Thread.sleep(10);
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -73,6 +78,7 @@ public class SimpleSlickGame extends BasicGame
 		map.render(0,0);
 		for(Entity e:entities){
 			g.drawString("John", e.getPositionX(), e.getPositionY());
+			g.drawImage(wizardFrontRight, e.getPositionX()-(wizardFrontRight.getWidth()/2), e.getPositionY()-(wizardFrontRight.getHeight()/2));
 			//g.drawImage(e.getSprite(), e.getPositionX(), e.getPositionY());
 		}	
 		
