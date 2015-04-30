@@ -33,7 +33,7 @@ public class Entity
 		double distance = Math.sqrt(Math.pow(this.getPositionX() - other.getPositionX(), 2) + Math.pow(this.getPositionY() - other.getPositionY(), 2));
 		int collisionDistance = this.getHitboxRadius() + other.getHitboxRadius();
 
-		return distance < collisionDistance;
+		return distance <= collisionDistance;
 	}
 	
 	public boolean collides(ArrayList<Entity> others)
