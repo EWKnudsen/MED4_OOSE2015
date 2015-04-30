@@ -28,6 +28,11 @@ public class Entity
 		
 	}
 	
+	public void shoot()
+	{
+		
+	}
+	
 	public boolean collides (Entity other)
 	{
 		double distance = Math.sqrt(Math.pow(this.getPositionX() - other.getPositionX(), 2) + Math.pow(this.getPositionY() - other.getPositionY(), 2));
