@@ -52,16 +52,13 @@ public class SimpleSlickGame extends BasicGame
 	public void init(GameContainer gc) throws SlickException 
 	{
 		map = new TiledMap("Graphics/Map3.tmx");
-		//entities.add(new Warrior(this, (840/2),(480/2)));
 		Warrior hero = new Warrior(this,(840/2),(480/2));
 		entities.add(hero);
 		entities.add(new Enemy(this, (640/2),(40/2)));
-		//entities.add(new Missile(this, (40/2),(480/2), null));
 		wizardFrontRight = new Image ("Graphics/Wizard full (front right).png");
 		wizardFrontLeft = new Image ("Graphics/Wizard full (front left).png");
 		wizardBackRight = new Image ("Graphics/Wizard full (back right).png");
 		wizardBackLeft = new Image ("Graphics/Wizard full (back left).png");
-		//entities.add(new Missile(this, (40/2),(480/2), null));
 		missileImg = new Image ("Graphics/Fireball.png");
 	}
 	
