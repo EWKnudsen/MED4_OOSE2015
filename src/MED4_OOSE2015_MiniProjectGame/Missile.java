@@ -14,10 +14,10 @@ public class Missile extends Entity
 	private float dy;
 	Point location = new Point(0,0);
 	
-	public Missile(SimpleSlickGame game, int x, int y, int destX, int destY, Entity owner) 
+	public Missile(SimpleSlickGame _game, int x, int y, int destX, int destY, Entity owner) 
 	{
 
-		super(game, x,y);
+		super(_game, x,y);
 		startX = x;
 		startY = y;
 		this.owner = owner;
