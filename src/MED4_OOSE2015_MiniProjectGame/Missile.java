@@ -19,7 +19,6 @@ public class Missile extends Entity
 	
 	public Missile(SimpleSlickGame _game, int x, int y, int destX, int destY, Entity owner) 
 	{
-
 		super(_game, x,y);
 		startX = x;
 		startY = y;

@@ -83,11 +83,10 @@ public class SimpleSlickGame extends BasicGame
 		}
 
 
-		for(Entity e:entities) 
+		for(Entity e: getEntities() ) 
 		{
 			e.move();
 			e.shoot();
-			e.drawing();
 			//How to get the position from a Hero
 			if (e instanceof Hero)
 			{
@@ -138,9 +137,13 @@ public class SimpleSlickGame extends BasicGame
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
 		map.render(0,0);
-
-		for(Entity e:entities)
+	
+		for(Entity e: getEntities() )
 		{
+			//Switching sprites according to entity's direction or mousePos.
+			e.spriteSwitch();
+			
+			//Drawing all sprites
 			g.drawImage(e.getSprite(), e.getPositionX() - (e.getSprite().getWidth()/2), e.getPositionY() - (e.getSprite().getHeight()/2));
 			
 		}	
@@ -150,6 +153,7 @@ public class SimpleSlickGame extends BasicGame
 	{
 		try
 		{
+			//Initialising the gameContainer and starting it.
 			appgc = new AppGameContainer(new SimpleSlickGame("Simple Slick Game"));
 			appgc.setDisplayMode(640, 480, false);
 			appgc.start();

@@ -34,8 +34,8 @@ public class Entity
 		
 	}
 	
-	public void drawing()
-	{
+	public void spriteSwitch()
+	{	
 		
 	}
 	
