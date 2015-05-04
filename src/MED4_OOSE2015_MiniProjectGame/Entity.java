@@ -48,7 +48,7 @@ public class Entity
 			if(this != o && this.collides(o) && o.collides(this))
 			{
 				return true;
-			}			
+			}
 		}
 		return false;
 	}
