@@ -21,7 +21,7 @@ public class Enemy extends Entity
 			this.setSprite(enemyFrontLeft);
 		} catch (SlickException e) {
 			e.printStackTrace();
-			System.out.println("Could not find sprite");
+			System.out.println("ERROR: Could not find sprite");
 		}
 	}
 	

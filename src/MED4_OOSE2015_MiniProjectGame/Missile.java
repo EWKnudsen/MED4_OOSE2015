@@ -33,7 +33,7 @@ public class Missile extends Entity
 			missileImg = new Image("Graphics/Fireball.png");
 		} catch (SlickException e) {
 			e.printStackTrace();
-			System.out.println("Could not find sprite");
+			System.out.println("ERROR: Could not find sprite");
 		}
 		this.setSprite(missileImg);
 	}
