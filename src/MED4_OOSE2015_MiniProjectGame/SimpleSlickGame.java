@@ -31,13 +31,12 @@ public class SimpleSlickGame extends BasicGame
 
 	// When removing from this collection remember to call entity.close()
 	ArrayList<Entity> entities = new ArrayList<Entity>();
-	private ArrayList<Missile> missileList = new ArrayList<Missile>();
+//	private ArrayList<Missile> missileList = new ArrayList<Missile>();
 	ArrayList<KeyPressedListener> keyPressedListeners = new ArrayList<KeyPressedListener>();
 	ArrayList<KeyReleasedListener> keyReleasedListeners = new ArrayList<KeyReleasedListener>();
 	private TiledMap map;
 	public int mapHeight, mapWidth;
-	public int heroPosX;
-	public int heroPosY;
+	public int heroPosX, heroPosY;
 
 	Random r = new Random();
 
@@ -50,9 +49,11 @@ public class SimpleSlickGame extends BasicGame
 	public void init(GameContainer gc) throws SlickException 
 	{
 		map = new TiledMap("Graphics/Map3.tmx");
-		Wizard hero = new Wizard(this,(appgc.getWidth()/2),(appgc.getHeight()/2));
-		entities.add(hero);
+		
+		Wizard wizard = new Wizard(this,(appgc.getWidth()/2),(appgc.getHeight()/2));
+		entities.add(wizard);
 
+		//Values used inside entity subclasses to limit their position range
 		mapWidth = appgc.getWidth();
 		mapHeight = appgc.getHeight();
 	}
@@ -77,39 +78,63 @@ public class SimpleSlickGame extends BasicGame
 	public void update(GameContainer gc, int i) throws SlickException 
 	{
 		try {
-			Thread.sleep(10);
+			Thread.sleep(20);
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
 
-
-		for(Entity e: getEntities() ) 
-		{
-			e.move();
-			e.shoot();
-			//How to get the position from a Hero
+		for(Entity e: entities ) 
+		{	
+			//An imperfect way to get the position our Hero
 			if (e instanceof Hero)
 			{
 				heroPosX = e.getPositionX();
 				heroPosY = e.getPositionY();
 			}
-		}
-
-		//Update the bullet's position.
-		for(int j = 0;j<missileList.size();j++)
-		{
-			Missile missile = missileList.get(j);
-
-			if(missile.getLocation().x < -100 || missile.getLocation().x > appgc.getWidth()+100 || missile.getLocation().y < -100 || missile.getLocation().y > appgc.getHeight()+100 )
+			
+			if(e.getPositionX() < -200 || e.getPositionX() > appgc.getWidth()+200 || e.getPositionY() < -200 || e.getPositionY() > appgc.getHeight()+200 )
 			{
-				missileList.remove(j);
+				//entities.remove(e.getIDumber());  
 			}
 			else 
 			{
-				missile.move();
+				e.move();
+				e.shoot();
 			}
-			//NOTE: Will need to determine if this hit something or went off the screen. Or otherwise, the list will get filled with invalid bullets.
 		}
+
+		
+		
+		
+		
+//		for(int j = 0;j<entities.size();j++)
+//		{
+//			if(e.getPositionX() < -200 || e.getPositionX() > appgc.getWidth()+200 || e.getPositionY() < -200 || e.getPositionY() > appgc.getHeight()+200 )
+//			{
+//				entities.remove(j);  
+//			}
+//			else 
+//			{
+//				e.move();
+//			}
+//		}
+
+		
+		//Update the bullet's position.
+//		for(int j = 0;j<missileList.size();j++)
+//		{
+//			Missile missile = missileList.get(j);
+//
+//			if(missile.getLocation().x < -100 || missile.getLocation().x > appgc.getWidth()+100 || missile.getLocation().y < -100 || missile.getLocation().y > appgc.getHeight()+100 )
+//			{
+//				missileList.remove(j);
+//			}
+//			else 
+//			{
+//				missile.move();
+//			}
+//			//NOTE: Will need to determine if this hit something or went off the screen. Or otherwise, the list will get filled with invalid bullets.
+//		}
 
 		int objectLayer = map.getLayerIndex("Objects");
 		map.getTileId(0, 0, objectLayer);
@@ -119,7 +144,7 @@ public class SimpleSlickGame extends BasicGame
 			Enemy enemy = new Enemy(this, r.nextInt(640), r.nextInt(480));
 			entities.add(enemy); 
 		}
-	}
+	} 
 
 	public void mousePressed ( int button, int mousePosX, int mousePosY )
 	{
