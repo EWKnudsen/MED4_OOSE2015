@@ -53,8 +53,8 @@ public class SimpleSlickGame extends BasicGame
 		map = new TiledMap("Graphics/Map3.tmx");
 		Wizard hero = new Wizard(this,(appgc.getWidth()/2),(appgc.getHeight()/2));
 		entities.add(hero);
-		mapWidth = appgc.getHeight();
-		mapHeight = appgc.getWidth();
+		mapWidth = appgc.getWidth();
+		mapHeight = appgc.getHeight();
 	}
 	
 	@Override
@@ -85,6 +85,7 @@ public class SimpleSlickGame extends BasicGame
 		for(Entity e:entities) {
 			e.move();
 			e.shoot();
+			e.drawing();
 			//How to get the position from a Hero
 			if (e instanceof Hero)
 			{

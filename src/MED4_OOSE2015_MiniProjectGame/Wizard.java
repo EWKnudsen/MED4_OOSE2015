@@ -32,7 +32,7 @@ public class Wizard extends Hero
 		
 	}
 	
-	public void move () 
+	public void drawing () 
 	{
 		if(Mouse.getEventX() >= this.getPositionX() &&  game.mapHeight - Mouse.getEventY() >= this.getPositionY() ){
 			this.setSprite(wizardFrontRight);
