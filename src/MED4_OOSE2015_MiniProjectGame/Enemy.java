@@ -27,15 +27,15 @@ public class Enemy extends Entity
 	{
 		speed = 1;
 		
-		for(Entity e:game.getEntities() )
+		for(Entity e:game.entities )
 		{
 			if (e instanceof Hero)
 			{
-				if (this.getPositionX() < e.getPositionX()){
+				if (this.getPositionX() < e.getPositionX()) {
 					this.setPositionX(this.getPositionX() + speed);
 					this.setSprite(enemyFrontRight);
 				} 
-				else if (this.getPositionX() > e.getPositionX()){
+				else if (this.getPositionX() > e.getPositionX()) {
 					this.setPositionX(this.getPositionX() - speed);
 					this.setSprite(enemyFrontLeft);
 				}
@@ -43,7 +43,7 @@ public class Enemy extends Entity
 					this.setPositionY(this.getPositionY() + speed);
 					this.setSprite(enemyFrontLeft);
 				}
-				else if (this.getPositionY() > e.getPositionY()){
+				else if (this.getPositionY() > e.getPositionY()) {
 					this.setPositionY(this.getPositionY() - speed);
 					this.setSprite(enemyBack);
 				}
