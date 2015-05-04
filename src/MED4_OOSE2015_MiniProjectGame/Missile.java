@@ -13,14 +13,12 @@ public class Missile extends Entity
 	private int startX;
 	private int startY;
 	private float speed;
-	private float dx;
-	private float dy;
+	private float dx, dy;
 	private Image missileImg = null;
 	Point location = new Point(0,0);
 	
 	public Missile(SimpleSlickGame _game, int x, int y, int destX, int destY, Entity owner) 
 	{
-
 		super(_game, x,y);
 		startX = x;
 		startY = y;
@@ -72,6 +70,9 @@ public class Missile extends Entity
         
         x += dx;
         y += dy;
+        
+        setPositionX((int) x);
+        setPositionY((int) y);
         
         location.setLocation(x, y);
 	}

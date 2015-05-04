@@ -17,7 +17,7 @@ import org.newdawn.slick.tiled.TiledMap;
 public class SimpleSlickGame extends BasicGame
 {
 	static AppGameContainer appgc;
-	
+
 	// When removing from this collection remember to call entity.close()
 	ArrayList<Entity> entities = new ArrayList<Entity>();
 	private ArrayList<Missile> missileList = new ArrayList<Missile>();
@@ -30,9 +30,7 @@ public class SimpleSlickGame extends BasicGame
 	
 	Timer timer = new Timer();
 	Random r = new Random();
-	int R = r.nextInt(400) + 100;
-	
-	
+
 	public SimpleSlickGame(String gamename)
 	{
 		super(gamename);
@@ -44,10 +42,11 @@ public class SimpleSlickGame extends BasicGame
 		map = new TiledMap("Graphics/Map3.tmx");
 		Wizard hero = new Wizard(this,(appgc.getWidth()/2),(appgc.getHeight()/2));
 		entities.add(hero);
+
 		mapWidth = appgc.getWidth();
 		mapHeight = appgc.getHeight();
 	}
-	
+
 	@Override
 	public void keyPressed(int key, char c)
 	{
@@ -55,7 +54,7 @@ public class SimpleSlickGame extends BasicGame
 			kpl.keyPressed(key, c);
 		}
 	}
-	
+
 	@Override
 	public void keyReleased(int key, char c)
 	{
@@ -74,11 +73,12 @@ public class SimpleSlickGame extends BasicGame
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
-		
-		for(Entity e:entities) {
+
+
+		for(Entity e: getEntities() ) 
+		{
 			e.move();
 			e.shoot();
-			e.drawing();
 			//How to get the position from a Hero
 			if (e instanceof Hero)
 			{
@@ -120,42 +120,42 @@ public class SimpleSlickGame extends BasicGame
 	    	  entities.add(new Enemy(this, rndX, rndY)); 
 	    	  timer.reset();
 	      }
+	}
 	      
-	 }
-				
-	   public void mousePressed ( int button, int mousePosX, int mousePosY )
-	   {
-		   missileList.add(new Missile(this, (int)heroPosX, (int)heroPosY, mousePosX, mousePosY, null));
-	   }
-	   
+
+	public void mousePressed ( int button, int mousePosX, int mousePosY )
+	{
+		addNewBullet(mousePosX,mousePosY);
+	}
+	public void addNewBullet(int destPosX, int destPosY)
+	{
+		//how do we reach our heroes position in another way than this?
+		//and set Entity owner not to null
+		Missile missile = new Missile(this, (int)heroPosX, (int)heroPosY, destPosX, destPosY, null);
+		entities.add(missile);
+	}
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
 		map.render(0,0);
-		for(Entity e:entities){
-			if(e instanceof Wizard){
-				g.drawImage(e.getSprite(), e.getPositionX()-(e.getSprite().getWidth()/2), e.getPositionY()-(e.getSprite().getHeight()/2));
-			} else if (e instanceof Enemy) {
-				g.drawImage(e.getSprite(), e.getPositionX() - (e.getSprite().getWidth()/2), e.getPositionY() - (e.getSprite().getHeight()/2));
-			}
-			//g.drawImage(wizardFrontRight, e.getPositionX()-(wizardFrontRight.getWidth()/2), e.getPositionY()-(wizardFrontRight.getHeight()/2));
-			//g.drawImage(e.getSprite(), e.getPositionX(), e.getPositionY());
-		}	
-		
-		
-		for(int i = 0; i<missileList.size(); i++)
+	
+		for(Entity e: getEntities() )
 		{
-			Missile missiles = missileList.get(i);
-
-			g.drawImage(missiles.getSprite(),missiles.location.getX()- (missiles.getSprite().getWidth()/2), missiles.location.getY()-(missiles.getSprite().getHeight()/2));
-		}
+			//Switching sprites according to entity's direction or mousePos.
+			e.spriteSwitch();
+			
+			//Drawing all sprites
+			g.drawImage(e.getSprite(), e.getPositionX() - (e.getSprite().getWidth()/2), e.getPositionY() - (e.getSprite().getHeight()/2));
+			
+		}	
 	}
 
 	public static void main(String[] args)
 	{
 		try
 		{
+			//Initialising the gameContainer and starting it.
 			appgc = new AppGameContainer(new SimpleSlickGame("Simple Slick Game"));
 			appgc.setDisplayMode(640, 480, false);
 			appgc.start();
@@ -165,31 +165,31 @@ public class SimpleSlickGame extends BasicGame
 			Logger.getLogger(SimpleSlickGame.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}	
-	
-	public ArrayList<Entity> getEntities() { return entities; }
-	
-    public void addKeyPressedListener(KeyPressedListener toAdd) {
-    	keyPressedListeners.add(toAdd);
-    }
-    
-    public void removeKeyPressedListener(KeyPressedListener toAdd) {
-    	keyPressedListeners.add(toAdd);
-    }
 
-    public void addKeyReleasedListener(KeyReleasedListener toAdd) {
-    	keyReleasedListeners.add(toAdd);
-    }
-    
-    public void removeKeyReleasedListener(KeyReleasedListener toAdd) {
-    	keyReleasedListeners.add(toAdd);
-    }
+	public ArrayList<Entity> getEntities() { return entities; }
+
+	public void addKeyPressedListener(KeyPressedListener toAdd) {
+		keyPressedListeners.add(toAdd);
+	}
+
+	public void removeKeyPressedListener(KeyPressedListener toAdd) {
+		keyPressedListeners.add(toAdd);
+	}
+
+	public void addKeyReleasedListener(KeyReleasedListener toAdd) {
+		keyReleasedListeners.add(toAdd);
+	}
+
+	public void removeKeyReleasedListener(KeyReleasedListener toAdd) {
+		keyReleasedListeners.add(toAdd);
+	}
 }
 
 interface KeyPressedListener {
-    public void keyPressed(int key, char c);
+	public void keyPressed(int key, char c);
 }
 
 interface KeyReleasedListener {
-    public void keyReleased(int key, char c);
+	public void keyReleased(int key, char c);
 }
 

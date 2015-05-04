@@ -5,16 +5,14 @@ import org.newdawn.slick.SlickException;
 
 public class Enemy extends Entity
 {
-	private int dx, dy;                   //x and y speed
-	protected Image enemyFrontLeft = null;
-	protected Image enemyFrontRight = null;
-	protected Image enemyBack = null;
+	private int speed;
+	private Image enemyFrontLeft, enemyFrontRight, enemyBack;
 	
 	public Enemy(SimpleSlickGame game, int x, int y) 
 	{
 		super(game, x, y);
-		try {
-			
+		try 
+		{
 			enemyFrontLeft = new Image("Graphics/Melee enemy front left.png");
 			enemyFrontRight = new Image("Graphics/Melee enemy front right.png");
 			enemyBack = new Image("Graphics/Melee enemy back.png");
@@ -27,25 +25,28 @@ public class Enemy extends Entity
 	
 	public void move()
 	{
-		for(Entity e:game.entities)
+		speed = 1;
+		
+		for(Entity e:game.getEntities() )
 		{
 			if (e instanceof Hero)
 			{
 				if (this.getPositionX() < e.getPositionX()){
-					this.setPositionX(this.getPositionX() + 1);
+					this.setPositionX(this.getPositionX() + speed);
 					this.setSprite(enemyFrontRight);
-				} else if (this.getPositionX() > e.getPositionX()){
-					this.setPositionX(this.getPositionX() - 1);
+				} 
+				else if (this.getPositionX() > e.getPositionX()){
+					this.setPositionX(this.getPositionX() - speed);
 					this.setSprite(enemyFrontLeft);
 				}
-				
-				if (this.getPositionY() < e.getPositionY())
-					this.setPositionY(this.getPositionY() + 1);
+				if (this.getPositionY() < e.getPositionY()) {
+					this.setPositionY(this.getPositionY() + speed);
+					this.setSprite(enemyFrontLeft);
+				}
 				else if (this.getPositionY() > e.getPositionY()){
-					this.setPositionY(this.getPositionY() - 1);
+					this.setPositionY(this.getPositionY() - speed);
 					this.setSprite(enemyBack);
 				}
-				
 				break;
 			}
 		}

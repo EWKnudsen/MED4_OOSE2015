@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class Entity 
 {
 	protected final SimpleSlickGame game;
-	private int positionX, positionY;
+	private int positionX;
+	private int positionY;
 	private int speedX, speedY;
 	private int hitboxRadius;
 	private org.newdawn.slick.Image sprite;
@@ -33,8 +34,8 @@ public class Entity
 		
 	}
 	
-	public void drawing()
-	{
+	public void spriteSwitch()
+	{	
 		
 	}
 	
@@ -53,7 +54,7 @@ public class Entity
 			if(this != o && this.collides(o) && o.collides(this))
 			{
 				return true;
-			}			
+			}
 		}
 		return false;
 	}
