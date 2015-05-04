@@ -12,6 +12,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.tiled.TiledMap;
 
 public class SimpleSlickGame extends BasicGame
@@ -25,6 +26,7 @@ public class SimpleSlickGame extends BasicGame
 	ArrayList<KeyReleasedListener> keyReleasedListeners = new ArrayList<KeyReleasedListener>();
 	private TiledMap map;
 	public int mapHeight, mapWidth;
+	private Sound soundZombie, soundShoot;
 
 	Timer timer = new Timer();
 
@@ -48,6 +50,8 @@ public class SimpleSlickGame extends BasicGame
 		//Values used inside entity subclasses to limit their position range
 		mapWidth = appgc.getWidth();
 		mapHeight = appgc.getHeight();
+		soundZombie = new Sound("Sounds/zombie.wav");
+		soundShoot = new Sound("Sounds/lazer.wav");
 	}
 
 	@Override
@@ -141,7 +145,9 @@ public class SimpleSlickGame extends BasicGame
 	    		  rndY = r.nextInt(appgc.getHeight());
 	    		  
 	    	  }
-	    	  entities.add(new Enemy(this, rndX, rndY)); 
+	    	  entities.add(new Enemy(this, rndX, rndY));
+	    	  float pitch = ((float)r.nextInt(200) + 800)/1000;
+	    	  soundZombie.play(pitch, 1f);
 	    	  timer.reset();
 	      }
 	}
@@ -150,6 +156,9 @@ public class SimpleSlickGame extends BasicGame
 	public void mousePressed ( int button, int mousePosX, int mousePosY )
 	{
 		addNewBullet(mousePosX,mousePosY);
+		float pitch = ((float)r.nextInt(200) + 800)/1000;
+		System.out.println(pitch);
+		soundShoot.play(pitch,1f);
 	}
 	public void addNewBullet(int destPosX, int destPosY)
 	{
