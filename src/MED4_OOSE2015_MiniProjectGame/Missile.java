@@ -73,6 +73,9 @@ public class Missile extends Entity
         x += dx;
         y += dy;
         
+        setPositionX((int) x);
+        setPositionY((int) y);
+        
         location.setLocation(x, y);
 	}
 	

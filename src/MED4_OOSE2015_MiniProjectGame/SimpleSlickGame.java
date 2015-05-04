@@ -143,18 +143,7 @@ public class SimpleSlickGame extends BasicGame
 		{
 			g.drawImage(e.getSprite(), e.getPositionX() - (e.getSprite().getWidth()/2), e.getPositionY() - (e.getSprite().getHeight()/2));
 			
-			if (e instanceof Missile)
-			{
-				g.drawImage(e.getSprite(), e.getPositionX()  - (e.getSprite().getWidth()/2), e.getPositionY()-(e.getSprite().getHeight()/2));
-			}
 		}	
-
-		//		for(int i = 0; i<missileList.size(); i++)
-		//		{
-		//			Missile missiles = missileList.get(i);
-		//
-		//			g.drawImage(missiles.getSprite(),missiles.location.getX()- (missiles.getSprite().getWidth()/2), missiles.location.getY()-(missiles.getSprite().getHeight()/2));
-		//		}
 	}
 
 	public static void main(String[] args)

@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class Entity 
 {
 	protected final SimpleSlickGame game;
-	private int positionX, positionY;
+	private int positionX;
+	private int positionY;
 	private int speedX, speedY;
 	private int hitboxRadius;
 	private org.newdawn.slick.Image sprite;
