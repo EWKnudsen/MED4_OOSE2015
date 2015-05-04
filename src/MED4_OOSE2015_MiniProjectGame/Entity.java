@@ -5,18 +5,18 @@ import java.util.ArrayList;
 public class Entity 
 {
 	protected final SimpleSlickGame game;
-	private int positionX;
-	private int positionY;
+	private int positionX, positionY;
 	private int speedX, speedY;
 	private int hitboxRadius;
+//	private int IDnumber;
 	private org.newdawn.slick.Image sprite;
 	
-	Entity(SimpleSlickGame game, int x, int y)
+	Entity(SimpleSlickGame game, int xPos, int yPos)
 	{
 		this.game = game;
 		
-		positionX = x;
-		positionY = y;
+		positionX = xPos;
+		positionY = yPos;
 	}
 	
 	public void close()
@@ -34,8 +34,8 @@ public class Entity
 		
 	}
 	
-	public void drawing()
-	{
+	public void spriteSwitch()
+	{	
 		
 	}
 	

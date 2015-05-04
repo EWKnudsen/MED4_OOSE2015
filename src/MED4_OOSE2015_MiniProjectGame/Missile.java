@@ -8,19 +8,15 @@ import org.newdawn.slick.geom.Vector2f;
 public class Missile extends Entity
 {
 	private Entity owner;
-	private int destX;
-	private int destY;
-	private int startX;
-	private int startY;
+	private int destX, destY;
+	private int startX, startY;
 	private float speed;
-	private float dx;
-	private float dy;
-	private Image missileImg = null;
+	private float dx, dy;
+	private Image missileImg;
 	Point location = new Point(0,0);
 	
 	public Missile(SimpleSlickGame _game, int x, int y, int destX, int destY, Entity owner) 
 	{
-
 		super(_game, x,y);
 		startX = x;
 		startY = y;
