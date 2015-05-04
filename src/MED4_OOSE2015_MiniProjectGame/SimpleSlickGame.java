@@ -121,7 +121,7 @@ public class SimpleSlickGame extends BasicGame
 	   }
 	   public void addNewBullet(int destPosX, int destPosY)
 	   {
-	      missileList.add(new Missile(this, (int)heroPosX, (int)heroPosY, destPosX, destPosY, hero));
+	      missileList.add(new Missile(this, (int)heroPosX, (int)heroPosY, destPosX, destPosY, null));
 	   }
 
 	@Override
