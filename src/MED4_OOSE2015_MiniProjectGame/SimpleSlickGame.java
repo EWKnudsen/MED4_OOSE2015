@@ -124,7 +124,6 @@ public class SimpleSlickGame extends BasicGame
 	      {
 		      entities.add(new Enemy(this, r.nextInt(640), r.nextInt(480))); 
 	      }
-
 	 }
 				
 	   public void mousePressed ( int button, int mousePosX, int mousePosY )
