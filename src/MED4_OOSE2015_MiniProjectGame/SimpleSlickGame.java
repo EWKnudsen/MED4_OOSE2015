@@ -2,6 +2,7 @@ package MED4_OOSE2015_MiniProjectGame;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,6 +39,8 @@ public class SimpleSlickGame extends BasicGame
 	private int x, y;
 	public int heroPosX;
 	public int heroPosY;
+
+	Random r = new Random();
 	
 	public SimpleSlickGame(String gamename)
 	{
@@ -99,9 +102,7 @@ public class SimpleSlickGame extends BasicGame
 	      {
 	         Missile missile = missileList.get(j);
 	         
-	         missile.move();
-	         
-	         if(missile.getLocation().x < -100 || missile.getLocation().x > appgc.getScreenWidth()+100 || missile.getLocation().y < -100 || missile.getLocation().y > appgc.getScreenHeight()+100 )
+	         if(missile.getLocation().x < -100 || missile.getLocation().x > appgc.getWidth()+100 || missile.getLocation().y < -100 || missile.getLocation().y > appgc.getHeight()+100 )
 	         {
 	        	 missileList.remove(j);
 	         }
@@ -113,6 +114,12 @@ public class SimpleSlickGame extends BasicGame
 	      
 	      int objectLayer = map.getLayerIndex("Objects");
 	      map.getTileId(0, 0, objectLayer);
+	      
+	      if(gc.getInput().isKeyPressed(Input.KEY_SPACE))
+	      {
+		      entities.add(new Enemy(this, r.nextInt(640), r.nextInt(480))); 
+	      }
+
 	 }
 				
 	   public void mousePressed ( int button, int mousePosX, int mousePosY )
@@ -123,6 +130,7 @@ public class SimpleSlickGame extends BasicGame
 	   {
 	      missileList.add(new Missile(this, (int)heroPosX, (int)heroPosY, destPosX, destPosY, null));
 	   }
+	   
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
@@ -162,8 +170,7 @@ public class SimpleSlickGame extends BasicGame
 		{
 			Logger.getLogger(SimpleSlickGame.class.getName()).log(Level.SEVERE, null, ex);
 		}
-	}
-	
+	}	
 	
 	public ArrayList<Entity> getEntities() { return entities; }
 	
