@@ -34,16 +34,10 @@ public class SimpleSlickGame extends BasicGame
 	ArrayList<KeyPressedListener> keyPressedListeners = new ArrayList<KeyPressedListener>();
 	ArrayList<KeyReleasedListener> keyReleasedListeners = new ArrayList<KeyReleasedListener>();
 	private TiledMap map;
+	public int mapHeight, mapWidth;
 	private int x, y;
 	public int heroPosX;
 	public int heroPosY;
-	
-	private Image wizardFrontRight = null;
-	private Image wizardFrontLeft = null;
-	private Image wizardBackRight = null;
-	private Image wizardBackLeft = null;
-	
-	private Image missileImg = null;
 	
 	public SimpleSlickGame(String gamename)
 	{
@@ -54,14 +48,14 @@ public class SimpleSlickGame extends BasicGame
 	public void init(GameContainer gc) throws SlickException 
 	{
 		map = new TiledMap("Graphics/Map3.tmx");
-		Wizard hero = new Wizard(this,(840/2),(480/2));
+		Wizard hero = new Wizard(this,(appgc.getWidth()/2),(appgc.getHeight()/2));
 		entities.add(hero);
-		entities.add(new Enemy(this, (640/2),(40/2)));
-		wizardFrontRight = new Image ("Graphics/Wizard full (front right).png");
-		wizardFrontLeft = new Image ("Graphics/Wizard full (front left).png");
-		wizardBackRight = new Image ("Graphics/Wizard full (back right).png");
-		wizardBackLeft = new Image ("Graphics/Wizard full (back left).png");
-		missileImg = new Image ("Graphics/Fireball.png");
+		mapWidth = appgc.getHeight();
+		mapHeight = appgc.getWidth();
+//		wizardFrontRight = new Image ("Graphics/Wizard full (front right).png");
+//		wizardFrontLeft = new Image ("Graphics/Wizard full (front left).png");
+//		wizardBackRight = new Image ("Graphics/Wizard full (back right).png");
+//		wizardBackLeft = new Image ("Graphics/Wizard full (back left).png");
 	}
 	
 	@Override
@@ -138,14 +132,7 @@ public class SimpleSlickGame extends BasicGame
 			
 		
 			if(e instanceof Hero){
-				if(Mouse.getEventX() >= heroPosX &&  appgc.getHeight()- Mouse.getEventY() >= heroPosY )
-					g.drawImage(wizardFrontRight, heroPosX-(wizardFrontRight.getWidth()/2), heroPosY-(wizardFrontRight.getHeight()/2));
-				else if(Mouse.getEventX() <= heroPosX && appgc.getHeight()- Mouse.getEventY() >= heroPosY )
-					g.drawImage(wizardFrontLeft, heroPosX-(wizardFrontLeft.getWidth()/2), heroPosY-(wizardFrontLeft.getHeight()/2));
-				else if (Mouse.getEventX() >= heroPosX && appgc.getHeight()- Mouse.getEventY() <= heroPosY)
-					g.drawImage(wizardBackRight, heroPosX-(wizardBackRight.getWidth()/2), heroPosY-(wizardBackRight.getHeight()/2));
-				else if (Mouse.getEventX() <= heroPosX && appgc.getHeight()- Mouse.getEventY() <= heroPosY)
-					g.drawImage(wizardBackLeft, heroPosX-(wizardBackLeft.getWidth()/2), heroPosY-(wizardBackLeft.getHeight()/2));
+				
 				} else if (e instanceof Enemy) {
 					g.drawImage(e.getSprite(), e.getPositionX() - (e.getSprite().getWidth()/2), e.getPositionY() - (e.getSprite().getHeight()/2));
 					
@@ -159,7 +146,7 @@ public class SimpleSlickGame extends BasicGame
 		{
 			Missile missiles = missileList.get(i);
 
-			g.drawImage(missileImg ,missiles.location.getX()- (missileImg.getWidth()/2), missiles.location.getY()-(missileImg.getHeight()/2));
+			g.drawImage(missiles.getSprite(),missiles.location.getX()- (missiles.getSprite().getWidth()/2), missiles.location.getY()-(missiles.getSprite().getHeight()/2));
 		}
 	}
 
