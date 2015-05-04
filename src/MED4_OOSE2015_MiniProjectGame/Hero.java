@@ -2,6 +2,7 @@ package MED4_OOSE2015_MiniProjectGame;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -46,20 +47,40 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 	{
 		char pressed = lastChar;
 		if (pressed == 'a')
-		{
-			this.setPositionX(this.getPositionX() - 2);
+		{	
+			if(this.getPositionX() < 38)
+			{
+				
+			}else{
+				this.setPositionX(this.getPositionX() - 2);	
+			}
 		}
 		else if (pressed == 'd')
 		{
-			this.setPositionX(this.getPositionX() + 2);
+			if(this.getPositionX() > 602)
+			{
+				
+			}else{
+				this.setPositionX(this.getPositionX() + 2);	
+			}
 		}
 		else if (pressed == 'w')
 		{
-			this.setPositionY(this.getPositionY() - 2);
+			if(this.getPositionY() < 0)
+			{
+
+			}else{
+				this.setPositionY(this.getPositionY() - 2);
+			}
 		}
 		else if (pressed == 's')
 		{
-			this.setPositionY(this.getPositionY() + 2);
+			if(this.getPositionY() > 442)
+			{
+				
+			}else{
+				this.setPositionY(this.getPositionY() + 2);
+			}
 		}
 		
 		

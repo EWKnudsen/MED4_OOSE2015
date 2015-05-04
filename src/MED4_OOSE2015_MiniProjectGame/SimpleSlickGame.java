@@ -107,9 +107,7 @@ public class SimpleSlickGame extends BasicGame
 	      {
 	         Missile missile = missileList.get(j);
 	         
-	         missile.move();
-	         
-	         if(missile.getLocation().x < -100 || missile.getLocation().x > appgc.getScreenWidth()+100 || missile.getLocation().y < -100 || missile.getLocation().y > appgc.getScreenHeight()+100 )
+	         if(missile.getLocation().x < -100 || missile.getLocation().x > appgc.getWidth()+100 || missile.getLocation().y < -100 || missile.getLocation().y > appgc.getHeight()+100 )
 	         {
 	        	 missileList.remove(j);
 	         }
