@@ -13,8 +13,7 @@ public class Missile extends Entity
 	private int startX;
 	private int startY;
 	private float speed;
-	private float dx;
-	private float dy;
+	private float dx, dy;
 	private Image missileImg = null;
 	Point location = new Point(0,0);
 	
