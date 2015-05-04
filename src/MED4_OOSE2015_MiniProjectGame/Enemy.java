@@ -5,8 +5,8 @@ import org.newdawn.slick.SlickException;
 
 public class Enemy extends Entity
 {
-	private int speed;
 	private Image enemyFrontLeft, enemyFrontRight, enemyBack;
+	private int speed;
 	
 	public Enemy(SimpleSlickGame game, int x, int y) 
 	{
@@ -34,7 +34,7 @@ public class Enemy extends Entity
 				if (this.getPositionX() < e.getPositionX()) {
 					this.setPositionX(this.getPositionX() + speed);
 					this.setSprite(enemyFrontRight);
-				} 
+				}
 				else if (this.getPositionX() > e.getPositionX()) {
 					this.setPositionX(this.getPositionX() - speed);
 					this.setSprite(enemyFrontLeft);
