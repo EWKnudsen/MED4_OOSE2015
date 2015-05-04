@@ -32,6 +32,7 @@ public class SimpleSlickGame extends BasicGame
 	ArrayList<KeyPressedListener> keyPressedListeners = new ArrayList<KeyPressedListener>();
 	ArrayList<KeyReleasedListener> keyReleasedListeners = new ArrayList<KeyReleasedListener>();
 	private TiledMap map;
+	private int x, y;
 	public int heroPosX;
 	public int heroPosY;
 	
@@ -50,17 +51,14 @@ public class SimpleSlickGame extends BasicGame
 	@Override
 	public void init(GameContainer gc) throws SlickException 
 	{
-		map = new TiledMap("Graphics/Map2.tmx");
-		//entities.add(new Warrior(this, (840/2),(480/2)));
+		map = new TiledMap("Graphics/Map3.tmx");
 		Warrior hero = new Warrior(this,(840/2),(480/2));
 		entities.add(hero);
 		entities.add(new Enemy(this, (640/2),(40/2)));
-		//entities.add(new Missile(this, (40/2),(480/2), null));
 		wizardFrontRight = new Image ("Graphics/Wizard full (front right).png");
 		wizardFrontLeft = new Image ("Graphics/Wizard full (front left).png");
 		wizardBackRight = new Image ("Graphics/Wizard full (back right).png");
 		wizardBackLeft = new Image ("Graphics/Wizard full (back left).png");
-		//entities.add(new Missile(this, (40/2),(480/2), null));
 		missileImg = new Image ("Graphics/Fireball.png");
 	}
 	
@@ -110,8 +108,12 @@ public class SimpleSlickGame extends BasicGame
 	         
 	         //NOTE: Will need to determine if this hit something or went off the screen. Or otherwise, the list will get filled with invalid bullets.
 	      }
-	
-	}
+	      
+	      int objectLayer = map.getLayerIndex("Objects");
+	      map.getTileId(0, 0, objectLayer);
+	      
+	 }
+				
 	   public void mousePressed ( int button, int x, int y )
 	   {
 	      addNewBullet(x,y);
