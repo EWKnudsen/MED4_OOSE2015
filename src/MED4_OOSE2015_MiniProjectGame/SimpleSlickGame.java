@@ -27,6 +27,8 @@ import javax.swing.text.html.HTMLDocument.Iterator;
 
 public class SimpleSlickGame extends BasicGame
 {
+	static AppGameContainer appgc;
+	
 	// When removing from this collection remember to call entity.close()
 	ArrayList<Entity> entities = new ArrayList<Entity>();
 	private ArrayList<Missile> missileList = new ArrayList<Missile>();
@@ -54,7 +56,7 @@ public class SimpleSlickGame extends BasicGame
 	public void init(GameContainer gc) throws SlickException 
 	{
 		map = new TiledMap("Graphics/Map3.tmx");
-		Warrior hero = new Warrior(this,(840/2),(480/2));
+		Wizard hero = new Wizard(this,(840/2),(480/2));
 		entities.add(hero);
 		entities.add(new Enemy(this, (640/2),(40/2)));
 		wizardFrontRight = new Image ("Graphics/Wizard full (front right).png");
@@ -86,7 +88,6 @@ public class SimpleSlickGame extends BasicGame
 		try {
 			Thread.sleep(10);
 		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -108,6 +109,13 @@ public class SimpleSlickGame extends BasicGame
 	         
 	         missile.move();
 	         
+	         if(missile.getLocation().x < -100 || missile.getLocation().x > appgc.getScreenWidth()+100 || missile.getLocation().y < -100 || missile.getLocation().y > appgc.getScreenHeight()+100 )
+	         {
+	        	 missileList.remove(j);
+	         }
+	         else {
+	            missile.move();
+	         }
 	         //NOTE: Will need to determine if this hit something or went off the screen. Or otherwise, the list will get filled with invalid bullets.
 	      }
 	      
@@ -118,20 +126,17 @@ public class SimpleSlickGame extends BasicGame
 	      {
 		      entities.add(new Enemy(this, r.nextInt(640), r.nextInt(480))); 
 	      }
-	      
+
 	 }
 				
-	   public void mousePressed ( int button, int x, int y )
+	   public void mousePressed ( int button, int mousePosX, int mousePosY )
 	   {
-	      addNewBullet(x,y);
-	      System.out.println("hero x " + heroPosX + " hero y " + heroPosY);
+	      addNewBullet(mousePosX,mousePosY);
 	      System.out.println("mouse x " + Mouse.getEventX() + " mouse y " + Mouse.getEventY());
 	   }
-	   private void addNewBullet(int x, int y)
+	   public void addNewBullet(int destPosX, int destPosY)
 	   {
-
-	      missileList.add(new Missile(this, (int)heroPosX, (int)heroPosY, x, y, null));
-	      //missileList.add(new Missile(this,heroLoactionX,heroLocationY,heroLoactionX,heroLocationY,x,y,null));
+	      missileList.add(new Missile(this, (int)heroPosX, (int)heroPosY, destPosX, destPosY, null));
 	   }
 	   
 
@@ -151,29 +156,26 @@ public class SimpleSlickGame extends BasicGame
 					g.drawImage(wizardBackRight, heroPosX-(wizardBackRight.getWidth()/2), heroPosY-(wizardBackRight.getHeight()/2));
 				else if (Mouse.getEventX() <= heroPosX && Mouse.getEventY() >= heroPosY)
 					g.drawImage(wizardBackLeft, heroPosX-(wizardBackLeft.getWidth()/2), heroPosY-(wizardBackLeft.getHeight()/2));
-				} else {
-				g.drawString("John", e.getPositionX(), e.getPositionY());
+				} else if (e instanceof Enemy) {
+					g.drawImage(e.getSprite(), e.getPositionX() - (e.getSprite().getWidth()/2), e.getPositionY() - (e.getSprite().getHeight()/2));
 			}
 			//g.drawImage(wizardFrontRight, e.getPositionX()-(wizardFrontRight.getWidth()/2), e.getPositionY()-(wizardFrontRight.getHeight()/2));
 			//g.drawImage(e.getSprite(), e.getPositionX(), e.getPositionY());
 		}	
 		
-		g.drawString("Hello World!", 250, 200);
 		
-		 g.setColor(Color.red);
-	      for(int i = 0;i<missileList.size();i++)
-	      {
-	         Missile missiles = missileList.get(i);
-	         
-	         g.drawImage(missileImg ,missiles.location.getX()- (missileImg.getWidth()/2), missiles.location.getY()-(missileImg.getHeight()/2));
-	      }
+		for(int i = 0; i<missileList.size(); i++)
+		{
+			Missile missiles = missileList.get(i);
+
+			g.drawImage(missileImg ,missiles.location.getX()- (missileImg.getWidth()/2), missiles.location.getY()-(missileImg.getHeight()/2));
+		}
 	}
 
 	public static void main(String[] args)
 	{
 		try
 		{
-			AppGameContainer appgc;
 			appgc = new AppGameContainer(new SimpleSlickGame("Simple Slick Game"));
 			appgc.setDisplayMode(640, 480, false);
 			appgc.start();

@@ -1,6 +1,7 @@
 package MED4_OOSE2015_MiniProjectGame;
 
 import org.newdawn.slick.geom.Point;
+import org.newdawn.slick.geom.Vector2f;
 
 public class Missile extends Entity
 {
@@ -14,10 +15,10 @@ public class Missile extends Entity
 	private float dy;
 	Point location = new Point(0,0);
 	
-	public Missile(SimpleSlickGame game, int x, int y, int destX, int destY, Entity owner) 
+	public Missile(SimpleSlickGame _game, int x, int y, int destX, int destY, Entity owner) 
 	{
 
-		super(game, x,y);
+		super(_game, x,y);
 		startX = x;
 		startY = y;
 		this.owner = owner;
@@ -65,5 +66,13 @@ public class Missile extends Entity
         location.setLocation(x, y);
 	}
 	
+	
+	public Vector2f getLocation() {
+		return location.getLocation();
+	}
+
+	public void setLocation(float positionX, float positionY) {
+		location.setLocation(positionX, positionY);
+	}
 }
 
