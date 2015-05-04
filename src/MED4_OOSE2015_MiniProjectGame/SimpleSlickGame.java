@@ -36,7 +36,6 @@ public class SimpleSlickGame extends BasicGame
 	ArrayList<KeyReleasedListener> keyReleasedListeners = new ArrayList<KeyReleasedListener>();
 	private TiledMap map;
 	public int mapHeight, mapWidth;
-	private int x, y;
 	public int heroPosX;
 	public int heroPosY;
 
