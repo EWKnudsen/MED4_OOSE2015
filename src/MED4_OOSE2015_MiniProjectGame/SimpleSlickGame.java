@@ -1,29 +1,17 @@
 package MED4_OOSE2015_MiniProjectGame;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.lwjgl.input.Mouse;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.tiled.TiledMap;
-import org.newdawn.slick.Color;
-
-import com.sun.javafx.geom.Rectangle;
-
-import java.awt.Window;
-import java.lang.Object.*;
-
-import javax.swing.text.html.HTMLDocument.Iterator;
 
 public class SimpleSlickGame extends BasicGame
 {
@@ -36,7 +24,6 @@ public class SimpleSlickGame extends BasicGame
 	ArrayList<KeyReleasedListener> keyReleasedListeners = new ArrayList<KeyReleasedListener>();
 	private TiledMap map;
 	public int mapHeight, mapWidth;
-	private int x, y;
 	public int heroPosX;
 	public int heroPosY;
 
@@ -124,13 +111,8 @@ public class SimpleSlickGame extends BasicGame
 				
 	   public void mousePressed ( int button, int mousePosX, int mousePosY )
 	   {
-	      addNewBullet(mousePosX,mousePosY);
-	   }
-	   public void addNewBullet(int destPosX, int destPosY)
-	   {
-	      missileList.add(new Missile(this, (int)heroPosX, (int)heroPosY, destPosX, destPosY, null));
-	   }
-	   
+		   missileList.add(new Missile(this, (int)heroPosX, (int)heroPosY, mousePosX, mousePosY, null));
+	   }	   
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
