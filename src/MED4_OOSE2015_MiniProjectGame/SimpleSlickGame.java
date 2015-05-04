@@ -40,12 +40,8 @@ public class SimpleSlickGame extends BasicGame
 		map = new TiledMap("Graphics/Map3.tmx");
 		Wizard hero = new Wizard(this,(appgc.getWidth()/2),(appgc.getHeight()/2));
 		entities.add(hero);
-		mapWidth = appgc.getHeight();
-		mapHeight = appgc.getWidth();
-//		wizardFrontRight = new Image ("Graphics/Wizard full (front right).png");
-//		wizardFrontLeft = new Image ("Graphics/Wizard full (front left).png");
-//		wizardBackRight = new Image ("Graphics/Wizard full (back right).png");
-//		wizardBackLeft = new Image ("Graphics/Wizard full (back left).png");
+		mapWidth = appgc.getWidth();
+		mapHeight = appgc.getHeight();
 	}
 	
 	@Override
@@ -76,6 +72,7 @@ public class SimpleSlickGame extends BasicGame
 		for(Entity e:entities) {
 			e.move();
 			e.shoot();
+			e.drawing();
 			//How to get the position from a Hero
 			if (e instanceof Hero)
 			{
@@ -119,13 +116,10 @@ public class SimpleSlickGame extends BasicGame
 	{
 		map.render(0,0);
 		for(Entity e:entities){
-			
-		
-			if(e instanceof Hero){
-				
-				} else if (e instanceof Enemy) {
-					g.drawImage(e.getSprite(), e.getPositionX() - (e.getSprite().getWidth()/2), e.getPositionY() - (e.getSprite().getHeight()/2));
-					
+			if(e instanceof Wizard){
+				g.drawImage(e.getSprite(), e.getPositionX()-(e.getSprite().getWidth()/2), e.getPositionY()-(e.getSprite().getHeight()/2));
+			} else if (e instanceof Enemy) {
+				g.drawImage(e.getSprite(), e.getPositionX() - (e.getSprite().getWidth()/2), e.getPositionY() - (e.getSprite().getHeight()/2));
 			}
 			//g.drawImage(wizardFrontRight, e.getPositionX()-(wizardFrontRight.getWidth()/2), e.getPositionY()-(wizardFrontRight.getHeight()/2));
 			//g.drawImage(e.getSprite(), e.getPositionX(), e.getPositionY());
