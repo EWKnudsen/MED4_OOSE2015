@@ -6,37 +6,30 @@ public class Entity
 {
 	protected final SimpleSlickGame game;
 	private int positionX, positionY;
-	private int speedX, speedY;
 	private int hitboxRadius;
-//	private int IDnumber;
 	private org.newdawn.slick.Image sprite;
 	
 	Entity(SimpleSlickGame game, int xPos, int yPos)
 	{
 		this.game = game;
-		
 		positionX = xPos;
 		positionY = yPos;
 	}
 	
 	public void close()
 	{
-		
 	}
 	
 	public void move()
 	{
-		
 	}
 	
 	public void shoot()
 	{
-		
 	}
 	
 	public void spriteSwitch()
 	{	
-		
 	}
 	
 	public boolean collides (Entity other)
@@ -84,22 +77,6 @@ public class Entity
 		this.positionY = positionY;
 	}
 
-	public int getSpeedX() {
-		return speedX;
-	}
-
-	public void setSpeedX(int speedX) {
-		this.speedX = speedX;
-	}
-
-	public int getSpeedY() {
-		return speedY;
-	}
-
-	public void setSpeedY(int speedY) {
-		this.speedY = speedY;
-	}
-
 	public org.newdawn.slick.Image getSprite() {
 		return sprite;
 	}
@@ -107,9 +84,4 @@ public class Entity
 	public void setSprite(org.newdawn.slick.Image sprite) {
 		this.sprite = sprite;
 	}
-	
-	
-	
-	
-	
 }
