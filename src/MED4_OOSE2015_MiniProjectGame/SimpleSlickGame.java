@@ -124,7 +124,6 @@ public class SimpleSlickGame extends BasicGame
 	   public void mousePressed ( int button, int mousePosX, int mousePosY )
 	   {
 	      addNewBullet(mousePosX,mousePosY);
-	      System.out.println("mouse x " + Mouse.getEventX() + " mouse y " + Mouse.getEventY());
 	   }
 	   public void addNewBullet(int destPosX, int destPosY)
 	   {
@@ -139,16 +138,17 @@ public class SimpleSlickGame extends BasicGame
 			
 		
 			if(e instanceof Hero){
-				if(Mouse.getEventX() >= heroPosX &&  (Window.HEIGHT - Mouse.getEventY())*-1 <= heroPosY )
+				if(Mouse.getEventX() >= heroPosX &&  appgc.getHeight()- Mouse.getEventY() >= heroPosY )
 					g.drawImage(wizardFrontRight, heroPosX-(wizardFrontRight.getWidth()/2), heroPosY-(wizardFrontRight.getHeight()/2));
-				else if(Mouse.getEventX() <= heroPosX && Mouse.getEventY() <= heroPosY )
+				else if(Mouse.getEventX() <= heroPosX && appgc.getHeight()- Mouse.getEventY() >= heroPosY )
 					g.drawImage(wizardFrontLeft, heroPosX-(wizardFrontLeft.getWidth()/2), heroPosY-(wizardFrontLeft.getHeight()/2));
-				else if (Mouse.getEventX() >= heroPosX && Mouse.getEventY() >= heroPosY)
+				else if (Mouse.getEventX() >= heroPosX && appgc.getHeight()- Mouse.getEventY() <= heroPosY)
 					g.drawImage(wizardBackRight, heroPosX-(wizardBackRight.getWidth()/2), heroPosY-(wizardBackRight.getHeight()/2));
-				else if (Mouse.getEventX() <= heroPosX && Mouse.getEventY() >= heroPosY)
+				else if (Mouse.getEventX() <= heroPosX && appgc.getHeight()- Mouse.getEventY() <= heroPosY)
 					g.drawImage(wizardBackLeft, heroPosX-(wizardBackLeft.getWidth()/2), heroPosY-(wizardBackLeft.getHeight()/2));
 				} else if (e instanceof Enemy) {
 					g.drawImage(e.getSprite(), e.getPositionX() - (e.getSprite().getWidth()/2), e.getPositionY() - (e.getSprite().getHeight()/2));
+					
 			}
 			//g.drawImage(wizardFrontRight, e.getPositionX()-(wizardFrontRight.getWidth()/2), e.getPositionY()-(wizardFrontRight.getHeight()/2));
 			//g.drawImage(e.getSprite(), e.getPositionX(), e.getPositionY());
