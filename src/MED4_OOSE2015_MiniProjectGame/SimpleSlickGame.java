@@ -95,7 +95,7 @@ public class SimpleSlickGame extends BasicGame
 				heroPosY = e.getPositionY();
 			}
 		}
-
+//
 		//Update the bullet's position.
 		for(int j = 0;j<missileList.size();j++)
 		{
