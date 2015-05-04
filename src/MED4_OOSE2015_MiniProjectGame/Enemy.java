@@ -20,8 +20,8 @@ public class Enemy extends Entity
 			enemyBack = new Image("Graphics/Melee enemy back.png");
 			this.setSprite(enemyFrontLeft);
 		} catch (SlickException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println("Could not find sprite");
 		}
 	}
 	

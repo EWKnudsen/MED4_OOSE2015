@@ -1,5 +1,7 @@
 package MED4_OOSE2015_MiniProjectGame;
 
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -13,6 +15,7 @@ public class Missile extends Entity
 	private float speed;
 	private float dx;
 	private float dy;
+	private Image missileImg = null;
 	Point location = new Point(0,0);
 	
 	public Missile(SimpleSlickGame _game, int x, int y, int destX, int destY, Entity owner) 
@@ -26,6 +29,13 @@ public class Missile extends Entity
 		this.destY = destY;
 		location.setLocation(startX, startY);
 		recalculateVector(destX, destY);
+		try {
+			missileImg = new Image("Graphics/Fireball.png");
+		} catch (SlickException e) {
+			e.printStackTrace();
+			System.out.println("Could not find sprite");
+		}
+		this.setSprite(missileImg);
 	}
 	
 	public void recalculateVector(int destX, int destY)
