@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.lwjgl.util.Timer;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -26,8 +27,11 @@ public class SimpleSlickGame extends BasicGame
 	public int mapHeight, mapWidth;
 	public int heroPosX;
 	public int heroPosY;
-
+	
+	Timer timer = new Timer();
 	Random r = new Random();
+	int R = r.nextInt(400) + 100;
+	
 	
 	public SimpleSlickGame(String gamename)
 	{
@@ -63,6 +67,8 @@ public class SimpleSlickGame extends BasicGame
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException 
 	{
+		
+		Timer.tick();
 		try {
 			Thread.sleep(10);
 		} catch (InterruptedException e1) {
@@ -98,18 +104,30 @@ public class SimpleSlickGame extends BasicGame
 	      
 	      int objectLayer = map.getLayerIndex("Objects");
 	      map.getTileId(0, 0, objectLayer);
-	      
-	      if(gc.getInput().isKeyPressed(Input.KEY_SPACE))
-	      {
-		      entities.add(new Enemy(this, r.nextInt(640), r.nextInt(480))); 
+	     
+	      //Spawns an enemy every 3 seconds at a position that is +-100 the position of the Hero.
+	      if(timer.getTime() > 3){
+	    	  int rndX = r.nextInt(appgc.getWidth()) ;
+	    	  
+	    	  int rndY = r.nextInt(appgc.getHeight());
+	    	  
+	    	  while(rndX < heroPosX+100 && rndX > heroPosX-100 && rndY < heroPosY +100 && rndY > heroPosY-100){
+	    		  
+	    		  rndX = r.nextInt(appgc.getWidth());
+	    		  rndY = r.nextInt(appgc.getHeight());
+	    		  
+	    	  }
+	    	  entities.add(new Enemy(this, rndX, rndY)); 
+	    	  timer.reset();
 	      }
-
+	      
 	 }
 				
 	   public void mousePressed ( int button, int mousePosX, int mousePosY )
 	   {
 		   missileList.add(new Missile(this, (int)heroPosX, (int)heroPosY, mousePosX, mousePosY, null));
-	   }	   
+	   }
+	   
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
