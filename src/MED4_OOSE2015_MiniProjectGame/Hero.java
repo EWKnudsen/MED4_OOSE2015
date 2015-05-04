@@ -48,7 +48,7 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 		char pressed = lastChar;
 		if (pressed == 'a')
 		{	
-			if(this.getPositionX() < 38)
+			if(this.getPositionX() <= 0)
 			{
 				
 			}else{
@@ -57,7 +57,7 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 		}
 		else if (pressed == 'd')
 		{
-			if(this.getPositionX() > 602)
+			if(this.getPositionX() > game.mapWidth)
 			{
 				
 			}else{
@@ -66,7 +66,7 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 		}
 		else if (pressed == 'w')
 		{
-			if(this.getPositionY() < 0)
+			if(this.getPositionY() <= 0)
 			{
 
 			}else{
@@ -75,7 +75,7 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 		}
 		else if (pressed == 's')
 		{
-			if(this.getPositionY() > 442)
+			if(this.getPositionY() > game.mapHeight)
 			{
 				
 			}else{
