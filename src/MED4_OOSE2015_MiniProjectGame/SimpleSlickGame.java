@@ -52,7 +52,7 @@ public class SimpleSlickGame extends BasicGame
 	public void init(GameContainer gc) throws SlickException 
 	{
 		map = new TiledMap("Graphics/Map3.tmx");
-		Warrior hero = new Warrior(this,(840/2),(480/2));
+		Wizard hero = new Wizard(this,(840/2),(480/2));
 		entities.add(hero);
 		entities.add(new Enemy(this, (640/2),(40/2)));
 		wizardFrontRight = new Image ("Graphics/Wizard full (front right).png");
@@ -144,8 +144,8 @@ public class SimpleSlickGame extends BasicGame
 					g.drawImage(wizardBackRight, heroPosX-(wizardBackRight.getWidth()/2), heroPosY-(wizardBackRight.getHeight()/2));
 				else if (Mouse.getEventX() <= heroPosX && Mouse.getEventY() >= heroPosY)
 					g.drawImage(wizardBackLeft, heroPosX-(wizardBackLeft.getWidth()/2), heroPosY-(wizardBackLeft.getHeight()/2));
-				} else {
-				g.drawString("John", e.getPositionX(), e.getPositionY());
+				} else if (e instanceof Enemy) {
+					g.drawImage(e.getSprite(), e.getPositionX() - (e.getSprite().getWidth()/2), e.getPositionY() - (e.getSprite().getHeight()/2));
 			}
 			//g.drawImage(wizardFrontRight, e.getPositionX()-(wizardFrontRight.getWidth()/2), e.getPositionY()-(wizardFrontRight.getHeight()/2));
 			//g.drawImage(e.getSprite(), e.getPositionX(), e.getPositionY());

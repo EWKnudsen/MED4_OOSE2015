@@ -61,6 +61,8 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 		{
 			this.setPositionY(this.getPositionY() + 2);
 		}
+		
+		
 	}
 }
 
