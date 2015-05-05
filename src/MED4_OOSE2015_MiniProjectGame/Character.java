@@ -7,16 +7,16 @@ public class Character extends Entity
 	public Character(SimpleSlickGame game, int x, int y) 
 	{
 		super(game,x,y);
-		health = 100;
+		this.health = 100;
 	}
 	
 	public int getHealth()
 	{
-		return health;
+		return this.health;
 	}
 	
 	public void setHealth(int newHealth)
 	{
-		health = newHealth;
+		this.health = newHealth;
 	}
 }
