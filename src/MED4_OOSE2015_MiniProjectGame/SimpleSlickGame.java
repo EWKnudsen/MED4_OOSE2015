@@ -25,9 +25,8 @@ public class SimpleSlickGame extends BasicGame
 	ArrayList<KeyReleasedListener> keyReleasedListeners = new ArrayList<KeyReleasedListener>();
 	private TiledMap map;
 	public int mapHeight, mapWidth;
-	private Sound soundZombie, soundShoot;
+	private Sound soundZombie, soundShoot, soundWizard;
 	public int heroPosX, heroPosY;
-
 
 	Timer timer = new Timer();
 	Timer timer2 = new Timer();
@@ -51,6 +50,7 @@ public class SimpleSlickGame extends BasicGame
 		mapHeight = appgc.getHeight();
 		soundZombie = new Sound("Sounds/zombie.wav");
 		soundShoot = new Sound("Sounds/lazer.wav");
+		soundWizard = new Sound("Sounds/WizardHit.wav");
 	}
 
 	@Override
@@ -74,13 +74,14 @@ public class SimpleSlickGame extends BasicGame
 	{	
 		Timer.tick();
 		try {
-			Thread.sleep(20);
+			Thread.sleep(10);
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
 
 		for(int index = 0; index < entities.size();index++) 
 		{	
+			
 			//Reference to the entity
 			Entity e = entities.get(index);
 
@@ -89,7 +90,11 @@ public class SimpleSlickGame extends BasicGame
 				
 				if(e instanceof Enemy && eCollided instanceof Hero) {
 					System.out.println("Hero looses 10 Health");
+			
 			//		e.setHealth();
+					
+					float pitch = ((float)r.nextInt(300) +1100)/1000;
+			    	soundWizard.play(pitch, 1f);
 					entities.remove(e);
 				}
 				if(e instanceof Enemy && eCollided instanceof Missile) {
@@ -121,16 +126,15 @@ public class SimpleSlickGame extends BasicGame
 		map.getTileId(0, 0, objectLayer);
 	     
 	      //Spawns an enemy every 3 seconds at a position that is +-100 the position of the Hero.
-	      if(timer.getTime() > 1){
+	      if(timer.getTime() > 1)
+	      {
 	    	  int rndX = r.nextInt(appgc.getWidth()) ;
-	    	  
 	    	  int rndY = r.nextInt(appgc.getHeight());
 	    	  
-	    	  while(rndX < heroPosX+100 && rndX > heroPosX-100 && rndY < heroPosY +100 && rndY > heroPosY-100){
-	    		  
+	    	  while(rndX < heroPosX+100 && rndX > heroPosX-100 && rndY < heroPosY +100 && rndY > heroPosY-100)
+	    	  {  
 	    		  rndX = r.nextInt(appgc.getWidth());
-	    		  rndY = r.nextInt(appgc.getHeight());
-	    		  
+	    		  rndY = r.nextInt(appgc.getHeight());	  
 	    	  }
 	    	  entities.add(new Enemy(this, rndX, rndY));
 	    	  float pitch = ((float)r.nextInt(200) + 800)/1000;
