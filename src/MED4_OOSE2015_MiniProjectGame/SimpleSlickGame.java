@@ -96,6 +96,7 @@ public class SimpleSlickGame extends BasicGame
 				}
 				if(e instanceof Enemy && eCollided instanceof Missile) {
 					System.out.println("lol it works");
+					e.getSprite().drawFlash((float)e.getPositionX(), (float)e.getPositionY(), (float)(e.getSprite().getWidth()*1.1f), (float) (e.getSprite().getHeight()*1.1f));
 					entities.remove(e);
 				
 					entities.remove(eCollided);
