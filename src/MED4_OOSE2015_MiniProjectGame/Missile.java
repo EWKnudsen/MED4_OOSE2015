@@ -68,8 +68,6 @@ public class Missile extends Entity
 	public void recalculateVector(int destX, int destY)
     {
        float rad = (float)(Math.atan2(destX - startX, startY - destY));
-       
-       //Can set different speeds here, if you wanted.
        speed = 2;
        
        this.dx = (float) Math.sin(rad) * speed;
@@ -101,7 +99,6 @@ public class Missile extends Entity
 	@Override
 	public void move()
 	{
-		//this.setPositionX(this.getPositionX() + MISSILE_SPEED);
         float x = location.getX();
         float y = location.getY();
         
@@ -114,7 +111,6 @@ public class Missile extends Entity
         location.setLocation(x, y);
         
 	}
-	
 	
 	public Vector2f getLocation() {
 		return location.getLocation();
