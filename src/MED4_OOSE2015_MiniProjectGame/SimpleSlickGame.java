@@ -154,7 +154,8 @@ public class SimpleSlickGame extends BasicGame
 
 			//Drawing all sprites
 			g.drawImage(e.getSprite(), e.getPositionX() - (e.getSprite().getWidth()/2), e.getPositionY() - (e.getSprite().getHeight()/2));
-		}	
+		}
+		//g.drawString(Float.toString(timer.getTime()) , 100, 100);
 	}
 
 	public static void main(String[] args)

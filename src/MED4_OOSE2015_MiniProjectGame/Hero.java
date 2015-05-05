@@ -45,7 +45,7 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 			{
 				
 			}else{
-				this.setPositionX(this.getPositionX() - 2);	
+				this.setPositionX(this.getPositionX() - 3);	
 			}
 		}
 		else if (pressed == 'd')
@@ -54,7 +54,7 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 			{
 				
 			}else{
-				this.setPositionX(this.getPositionX() + 2);	
+				this.setPositionX(this.getPositionX() + 3);	
 			}
 		}
 		else if (pressed == 'w')
@@ -63,7 +63,7 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 			{
 
 			}else{
-				this.setPositionY(this.getPositionY() - 2);
+				this.setPositionY(this.getPositionY() - 3);
 			}
 		}
 		else if (pressed == 's')
@@ -72,7 +72,7 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 			{
 				
 			}else{
-				this.setPositionY(this.getPositionY() + 2);
+				this.setPositionY(this.getPositionY() + 3);
 			}
 		}
 		
