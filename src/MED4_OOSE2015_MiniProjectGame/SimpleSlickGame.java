@@ -89,7 +89,7 @@ public class SimpleSlickGame extends BasicGame
 				
 				if(e instanceof Enemy && eCollided instanceof Hero) {
 					System.out.println("Hero looses 10 Health");
-					
+			//		e.setHealth();
 					entities.remove(e);
 				}
 				if(e instanceof Enemy && eCollided instanceof Missile) {
@@ -121,7 +121,7 @@ public class SimpleSlickGame extends BasicGame
 		map.getTileId(0, 0, objectLayer);
 	     
 	      //Spawns an enemy every 3 seconds at a position that is +-100 the position of the Hero.
-	      if(timer.getTime() > 3){
+	      if(timer.getTime() > 1){
 	    	  int rndX = r.nextInt(appgc.getWidth()) ;
 	    	  
 	    	  int rndY = r.nextInt(appgc.getHeight());

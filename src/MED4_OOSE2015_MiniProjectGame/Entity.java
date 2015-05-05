@@ -23,7 +23,6 @@ public class Entity
 	
 	public void particleUpdate()
 	{
-		
 	}
 	
 	public void close()
@@ -33,8 +32,6 @@ public class Entity
 	public void move()
 	{
 	}
-	
-
 	
 	public void spriteSwitch()
 	{	
