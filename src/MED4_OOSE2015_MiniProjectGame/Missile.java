@@ -1,9 +1,15 @@
 package MED4_OOSE2015_MiniProjectGame;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.particles.ConfigurableEmitter;
+import org.newdawn.slick.particles.ParticleIO;
+import org.newdawn.slick.particles.ParticleSystem;
 
 public class Missile extends Entity
 {
@@ -14,6 +20,8 @@ public class Missile extends Entity
 	private float dx, dy;
 	private Image missileImg;
 	Point location = new Point(0,0);
+	private ParticleSystem particles;
+	private ConfigurableEmitter emitter;
 	
 	public Missile(SimpleSlickGame _game, int x, int y, int destX, int destY, Entity owner) 
 	{
@@ -25,6 +33,29 @@ public class Missile extends Entity
 		this.destY = destY;
 		location.setLocation(startX, startY);
 		recalculateVector(destX, destY);
+		
+		try {
+			Image particleImg = new Image ("Graphics/Particles/particle.png");
+			particles = new ParticleSystem(particleImg,100);
+			
+			File xmlFile = new File ("Graphics/Particles/fire effect.png");
+			emitter = ParticleIO.loadEmitter(xmlFile);
+			
+			emitter.setPosition(this.getPositionX(), this.getPositionY());
+			particles.addEmitter(emitter);
+			
+		} catch (SlickException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("cannot find xml file / particle image");
+			e1.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Cannot assign xml file to emitter. File might be missing.");
+			e.printStackTrace();
+		}
+		particles.setBlendingMode(ParticleSystem.BLEND_ADDITIVE);
+		
+		
 		try {
 			missileImg = new Image("Graphics/Fireball.png");
 		} catch (SlickException e) {
@@ -59,6 +90,14 @@ public class Missile extends Entity
 			return super.collides(other);
 	}
 	
+	public void update()
+	{
+        
+        emitter.setPosition(this.getPositionX(), this.getPositionY());
+        particles.update(1);
+        particles.render();
+	}
+	
 	@Override
 	public void move()
 	{
@@ -73,6 +112,7 @@ public class Missile extends Entity
         setPositionY((int) y);
         
         location.setLocation(x, y);
+        
 	}
 	
 	
