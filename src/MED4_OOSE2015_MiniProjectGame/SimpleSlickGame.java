@@ -48,9 +48,14 @@ public class SimpleSlickGame extends BasicGame
 		//Values used inside entity subclasses to limit their position range
 		mapWidth = appgc.getWidth();
 		mapHeight = appgc.getHeight();
+		
+		try{
 		soundZombie = new Sound("Sounds/zombie.wav");
 		soundShoot = new Sound("Sounds/lazer.wav");
 		soundWizard = new Sound("Sounds/WizardHit.wav");
+		} catch (SlickException e){
+			System.out.println("Could not find sound file");
+		}
 	}
 
 	@Override
