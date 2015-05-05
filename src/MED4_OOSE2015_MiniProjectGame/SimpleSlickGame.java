@@ -72,7 +72,6 @@ public class SimpleSlickGame extends BasicGame
 	public void update(GameContainer gc, int i) throws SlickException 
 	{	
 		Timer.tick();
-
 		try {
 			Thread.sleep(20);
 		} catch (InterruptedException e1) {
@@ -101,6 +100,7 @@ public class SimpleSlickGame extends BasicGame
 				e.move();
 				e.shoot();
 			}
+			e.particleUpdate();
 		}
 
 		int objectLayer = map.getLayerIndex("Objects");
@@ -154,7 +154,9 @@ public class SimpleSlickGame extends BasicGame
 
 			//Drawing all sprites
 			g.drawImage(e.getSprite(), e.getPositionX() - (e.getSprite().getWidth()/2), e.getPositionY() - (e.getSprite().getHeight()/2));
-		}	
+			if(e instanceof Missile)
+				e.particles.render();
+		}
 	}
 
 	public static void main(String[] args)

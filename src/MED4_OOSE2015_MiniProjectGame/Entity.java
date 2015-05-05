@@ -2,18 +2,28 @@ package MED4_OOSE2015_MiniProjectGame;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.particles.ConfigurableEmitter;
+import org.newdawn.slick.particles.ParticleSystem;
+
 public class Entity 
 {
 	protected final SimpleSlickGame game;
 	private int positionX, positionY;
 	private int hitboxRadius;
 	private org.newdawn.slick.Image sprite;
+	protected ParticleSystem particles;
+	protected ConfigurableEmitter emitter;
 	
 	Entity(SimpleSlickGame game, int xPos, int yPos)
 	{
 		this.game = game;
 		positionX = xPos;
 		positionY = yPos;
+	}
+	
+	public void particleUpdate()
+	{
+		
 	}
 	
 	public void close()

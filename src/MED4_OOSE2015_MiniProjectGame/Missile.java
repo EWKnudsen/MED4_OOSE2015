@@ -2,6 +2,7 @@ package MED4_OOSE2015_MiniProjectGame;
 
 import java.io.File;
 import java.io.IOException;
+import org.lwjgl.util.Timer;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -20,8 +21,7 @@ public class Missile extends Entity
 	private float dx, dy;
 	private Image missileImg;
 	Point location = new Point(0,0);
-	private ParticleSystem particles;
-	private ConfigurableEmitter emitter;
+
 	
 	public Missile(SimpleSlickGame _game, int x, int y, int destX, int destY, Entity owner) 
 	{
@@ -36,12 +36,12 @@ public class Missile extends Entity
 		
 		try {
 			Image particleImg = new Image ("Graphics/Particles/particle.png");
-			particles = new ParticleSystem(particleImg,100);
+			particles = new ParticleSystem(particleImg,150);
 			
-			File xmlFile = new File ("Graphics/Particles/fire effect.png");
+			File xmlFile = new File ("Graphics/Particles/fire effect.xml");
 			emitter = ParticleIO.loadEmitter(xmlFile);
 			
-			emitter.setPosition(this.getPositionX(), this.getPositionY());
+			emitter.setPosition(this.getPositionX(), this.getPositionY(),false);
 			particles.addEmitter(emitter);
 			
 		} catch (SlickException e1) {
@@ -88,12 +88,9 @@ public class Missile extends Entity
 			return super.collides(other);
 	}
 	
-	public void update()
+	public void particleUpdate()
 	{
-        
-        emitter.setPosition(this.getPositionX(), this.getPositionY());
         particles.update(1);
-        particles.render();
 	}
 	
 	@Override
@@ -109,6 +106,8 @@ public class Missile extends Entity
         setPositionY((int) y);
         
         location.setLocation(x, y);
+        
+        emitter.setPosition(x, y,false);
         
 	}
 	
