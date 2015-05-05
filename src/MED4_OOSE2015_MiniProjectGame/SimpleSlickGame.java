@@ -12,6 +12,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.tiled.TiledMap;
 
 public class SimpleSlickGame extends BasicGame
@@ -24,7 +25,9 @@ public class SimpleSlickGame extends BasicGame
 	ArrayList<KeyReleasedListener> keyReleasedListeners = new ArrayList<KeyReleasedListener>();
 	private TiledMap map;
 	public int mapHeight, mapWidth;
+	private Sound soundZombie, soundShoot;
 	public int heroPosX, heroPosY;
+
 
 	Timer timer = new Timer();
 	Random r = new Random();
@@ -45,6 +48,8 @@ public class SimpleSlickGame extends BasicGame
 		//Values used inside entity subclasses to limit their position range
 		mapWidth = appgc.getWidth();
 		mapHeight = appgc.getHeight();
+		soundZombie = new Sound("Sounds/zombie.wav");
+		soundShoot = new Sound("Sounds/lazer.wav");
 	}
 
 	@Override
@@ -79,7 +84,6 @@ public class SimpleSlickGame extends BasicGame
 			//Reference to the entity
 			Entity e = entities.get(index);
 			
-			
 			Entity eCollided;
 			if((eCollided = e.collides(entities)) != null) {
 				
@@ -113,30 +117,36 @@ public class SimpleSlickGame extends BasicGame
 
 		int objectLayer = map.getLayerIndex("Objects");
 		map.getTileId(0, 0, objectLayer);
-
-		//Spawns an enemy every 3 seconds at a position that is +-100 the position of the Hero.
-		if(timer.getTime() > 3)
-		{
-			int rndX = r.nextInt(appgc.getWidth());
-			int rndY = r.nextInt(appgc.getHeight());
-
-			while(rndX < heroPosX+100 && rndX > heroPosX-100 && rndY < heroPosY +100 && rndY > heroPosY-100)
-			{
-				rndX = r.nextInt(appgc.getWidth());
-				rndY = r.nextInt(appgc.getHeight());
-			}
-			entities.add(new Enemy(this, rndX, rndY)); 
-			timer.reset();
-		}
+	     
+	      //Spawns an enemy every 3 seconds at a position that is +-100 the position of the Hero.
+	      if(timer.getTime() > 3){
+	    	  int rndX = r.nextInt(appgc.getWidth()) ;
+	    	  
+	    	  int rndY = r.nextInt(appgc.getHeight());
+	    	  
+	    	  while(rndX < heroPosX+100 && rndX > heroPosX-100 && rndY < heroPosY +100 && rndY > heroPosY-100){
+	    		  
+	    		  rndX = r.nextInt(appgc.getWidth());
+	    		  rndY = r.nextInt(appgc.getHeight());
+	    		  
+	    	  }
+	    	  entities.add(new Enemy(this, rndX, rndY));
+	    	  float pitch = ((float)r.nextInt(200) + 800)/1000;
+	    	  soundZombie.play(pitch, 1f);
+	    	  timer.reset();
+	      }
 	}
 
 
 	public void mousePressed ( int button, int mousePosX, int mousePosY )
 	{
-		addNewBullet(mousePosX,mousePosY);
+		addNewMissile(mousePosX,mousePosY);
+		float pitch = ((float)r.nextInt(200) + 800)/1000;
+		System.out.println(pitch);
+		soundShoot.play(pitch,1f);
 	}
 
-	public void addNewBullet(int destPosX, int destPosY)
+	public void addNewMissile(int destPosX, int destPosY)
 	{
 		//How do we reach our heroes position in another way than this?
 		//and set Entity owner not to null?
