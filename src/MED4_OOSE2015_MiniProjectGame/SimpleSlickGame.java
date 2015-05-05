@@ -30,6 +30,7 @@ public class SimpleSlickGame extends BasicGame
 
 
 	Timer timer = new Timer();
+	Timer timer2 = new Timer();
 	Random r = new Random();
 
 	public SimpleSlickGame(String gamename)
@@ -169,7 +170,7 @@ public class SimpleSlickGame extends BasicGame
 			//Drawing all sprites
 			g.drawImage(e.getSprite(), e.getPositionX() - (e.getSprite().getWidth()/2), e.getPositionY() - (e.getSprite().getHeight()/2));
 		}
-		//g.drawString(Float.toString(timer.getTime()) , 100, 100);
+		g.drawString("Seconds survived: " + Float.toString((int)timer2.getTime()) , 380, 15);
 	}
 
 	public static void main(String[] args)

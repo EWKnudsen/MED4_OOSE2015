@@ -41,7 +41,6 @@ public class Enemy extends Character
 				}
 				if (this.getPositionY() < e.getPositionY()) {
 					this.setPositionY(this.getPositionY() + speed);
-					this.setSprite(enemyFrontLeft);
 				}
 				else if (this.getPositionY() > e.getPositionY()) {
 					this.setPositionY(this.getPositionY() - speed);
