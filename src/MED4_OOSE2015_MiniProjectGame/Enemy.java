@@ -3,7 +3,7 @@ package MED4_OOSE2015_MiniProjectGame;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class Enemy extends Entity
+public class Enemy extends Character
 {
 	private Image enemyFrontLeft, enemyFrontRight, enemyBack;
 	private int speed;

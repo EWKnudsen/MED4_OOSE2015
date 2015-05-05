@@ -12,7 +12,6 @@ public class Wizard extends Hero
 	Wizard(SimpleSlickGame game, int x, int y)
 	{
 		super(game, x,y);
-		health = 100;
 	//	mana = 100;
 		try {
 			wizardFrontRight = new Image ("Graphics/Wizard full (front right).png");
