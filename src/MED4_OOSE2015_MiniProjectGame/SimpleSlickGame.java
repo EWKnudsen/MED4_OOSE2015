@@ -81,7 +81,6 @@ public class SimpleSlickGame extends BasicGame
 
 		for(int index = 0; index < entities.size();index++) 
 		{	
-			
 			//Reference to the entity
 			Entity e = entities.get(index);
 
@@ -104,7 +103,8 @@ public class SimpleSlickGame extends BasicGame
 			    	soundWizard.play(pitch, 1f);
 					entities.remove(e);
 				}
-				if(e instanceof Enemy && eCollided instanceof Missile) {
+				if(e instanceof Enemy && eCollided instanceof Missile)
+				{
 					System.out.println("lol it works");
 					entities.remove(e);
 					entities.remove(eCollided);

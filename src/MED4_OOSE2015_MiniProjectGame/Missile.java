@@ -106,7 +106,8 @@ public class Missile extends Entity
         setPositionX((int) x);
         setPositionY((int) y);
         
-        emitter.setPosition(x, y,false);
+        emitter.setPosition(this.getPositionX(), this.getPositionY(),false);
+        //emitter.setPosition(x, y,false);
         
         setLocation(x, y);
 	}
