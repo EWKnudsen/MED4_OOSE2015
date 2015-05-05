@@ -25,9 +25,8 @@ public class SimpleSlickGame extends BasicGame
 	ArrayList<KeyReleasedListener> keyReleasedListeners = new ArrayList<KeyReleasedListener>();
 	private TiledMap map;
 	public int mapHeight, mapWidth;
-	private Sound soundZombie, soundShoot;
+	private Sound soundZombie, soundShoot, soundWizard;
 	public int heroPosX, heroPosY;
-
 
 	Timer timer = new Timer();
 	Timer timer2 = new Timer();
@@ -51,6 +50,7 @@ public class SimpleSlickGame extends BasicGame
 		mapHeight = appgc.getHeight();
 		soundZombie = new Sound("Sounds/zombie.wav");
 		soundShoot = new Sound("Sounds/lazer.wav");
+		soundWizard = new Sound("Sounds/WizardHit.wav");
 	}
 
 	@Override
@@ -74,13 +74,14 @@ public class SimpleSlickGame extends BasicGame
 	{	
 		Timer.tick();
 		try {
-			Thread.sleep(20);
+			Thread.sleep(10);
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
 
 		for(int index = 0; index < entities.size();index++) 
 		{	
+			
 			//Reference to the entity
 			Entity e = entities.get(index);
 
@@ -89,7 +90,8 @@ public class SimpleSlickGame extends BasicGame
 				
 				if(e instanceof Enemy && eCollided instanceof Hero) {
 					System.out.println("Hero looses 10 Health");
-					
+					float pitch = ((float)r.nextInt(300) +1100)/1000;
+			    	  soundWizard.play(pitch, 1f);
 					entities.remove(e);
 				}
 				if(e instanceof Enemy && eCollided instanceof Missile) {
@@ -121,7 +123,7 @@ public class SimpleSlickGame extends BasicGame
 		map.getTileId(0, 0, objectLayer);
 	     
 	      //Spawns an enemy every 3 seconds at a position that is +-100 the position of the Hero.
-	      if(timer.getTime() > 3){
+	      if(timer.getTime() > 0.5){
 	    	  int rndX = r.nextInt(appgc.getWidth()) ;
 	    	  
 	    	  int rndY = r.nextInt(appgc.getHeight());
