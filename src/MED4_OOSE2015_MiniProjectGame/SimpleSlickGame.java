@@ -98,7 +98,7 @@ public class SimpleSlickGame extends BasicGame
 			    	try{
 					soundWizard.play(pitch, 1f);
 			    	} catch (NullPointerException n) {
-			    		System.out.println("could not find sound file");
+			    		System.out.println("Could not find Wizard sound file");
 			    	}
 					entities.remove(e);
 				}
@@ -145,7 +145,13 @@ public class SimpleSlickGame extends BasicGame
 	    	  }
 	    	  entities.add(new Enemy(this, rndX, rndY));
 	    	  float pitch = ((float)r.nextInt(200) + 800)/1000;
-	    	  soundZombie.play(pitch, 1f);
+	    	  
+	    	  try{
+	    		  soundZombie.play(pitch, 1f);
+	    	  } catch(NullPointerException n){
+	    		  System.out.println("Could not find Zombie sound file");
+	    	  }
+	    	 
 	    	  timer.reset();
 	      }
 	}
@@ -156,7 +162,13 @@ public class SimpleSlickGame extends BasicGame
 		addNewMissile(mousePosX,mousePosY);
 		float pitch = ((float)r.nextInt(200) + 800)/1000;
 		System.out.println(pitch);
-		soundShoot.play(pitch,1f);
+		
+		try{
+			soundShoot.play(pitch,1f);
+	    } catch (NullPointerException n) {
+	    	System.out.println("Could not find Shoot sound file");
+	    }
+		
 	}
 
 	public void addNewMissile(int destPosX, int destPosY)
