@@ -1,7 +1,12 @@
 package MED4_OOSE2015_MiniProjectGame;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.particles.ParticleIO;
+import org.newdawn.slick.particles.ParticleSystem;
 
 public class Enemy extends Character
 {
@@ -22,7 +27,34 @@ public class Enemy extends Character
 			System.out.println("ERROR: Could not find sprite");
 		}
 		
+		try {
+			Image particleImg = new Image ("Graphics/Particles/particle.png");
+			particles = new ParticleSystem(particleImg,1500);
+			
+			File xmlFile = new File ("Graphics/Particles/blood effect.xml");
+			emitter = ParticleIO.loadEmitter(xmlFile);
+			
+			emitter.setPosition(this.getPositionX(), this.getPositionY(),false);
+			particles.addEmitter(emitter);
+			
+		} catch (SlickException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("cannot find xml file / particle image");
+			e1.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Cannot assign xml file to emitter. File might be missing.");
+			e.printStackTrace();
+		}
+		
+		particles.setBlendingMode(ParticleSystem.BLEND_ADDITIVE);
+		
 		this.setHealth(30);
+	}
+	
+	public void particleUpdate()
+	{
+		particles.update(1);
 	}
 	
 	public void move()
@@ -51,5 +83,6 @@ public class Enemy extends Character
 				break;
 			}
 		}
+		emitter.setPosition(this.getPositionX(), this.getPositionY(),false);
 	}
 }

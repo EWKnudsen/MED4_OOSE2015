@@ -95,6 +95,7 @@ public class SimpleSlickGame extends BasicGame
 				if(e instanceof Enemy && eCollided instanceof Missile) {
 					System.out.println("lol it works");
 					entities.remove(e);
+				
 					entities.remove(eCollided);
 				}
 			}
@@ -169,7 +170,7 @@ public class SimpleSlickGame extends BasicGame
 			//Drawing all sprites
 			g.drawImage(e.getSprite(), e.getPositionX() - (e.getSprite().getWidth()/2), e.getPositionY() - (e.getSprite().getHeight()/2));
 
-			if(e instanceof Missile)
+			if(e instanceof Missile || e instanceof Enemy)
 				e.particles.render();
 		}
 
