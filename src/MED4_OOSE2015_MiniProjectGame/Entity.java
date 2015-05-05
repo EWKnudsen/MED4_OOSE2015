@@ -45,7 +45,7 @@ public class Entity
 		return distance <= collisionDistance;
 	}
 	
-	//was bool
+	//returned a bool before
 	public Entity collides (ArrayList<Entity> others)
 	{
 		for(Entity o:others)

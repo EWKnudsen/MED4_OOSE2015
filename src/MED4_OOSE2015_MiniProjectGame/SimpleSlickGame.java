@@ -85,9 +85,10 @@ public class SimpleSlickGame extends BasicGame
 			Entity e = entities.get(index);
 
 			Entity eCollided;
-			if((eCollided = e.collides(entities)) != null) {
-				
-				if(e instanceof Enemy && eCollided instanceof Hero) {
+			if((eCollided = e.collides(entities)) != null) 
+			{	
+				if(e instanceof Enemy && eCollided instanceof Hero) 
+				{
 					System.out.println("Hero looses 10 Health");
 					
 					//How do i reach the subclass functions while keeping it 'general'  
@@ -103,6 +104,7 @@ public class SimpleSlickGame extends BasicGame
 			    	soundWizard.play(pitch, 1f);
 					entities.remove(e);
 				}
+				
 				if(e instanceof Enemy && eCollided instanceof Missile)
 				{
 					System.out.println("lol it works");

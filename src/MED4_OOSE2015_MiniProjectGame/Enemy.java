@@ -27,7 +27,8 @@ public class Enemy extends Character
 			System.out.println("ERROR: Could not find sprite");
 		}
 		
-		try {
+		try 
+		{
 			Image particleImg = new Image ("Graphics/Particles/particle.png");
 			particles = new ParticleSystem(particleImg,1500);
 			
@@ -38,11 +39,9 @@ public class Enemy extends Character
 			particles.addEmitter(emitter);
 			
 		} catch (SlickException e1) {
-			// TODO Auto-generated catch block
 			System.out.println("cannot find xml file / particle image");
 			e1.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println("Cannot assign xml file to emitter. File might be missing.");
 			e.printStackTrace();
 		}
@@ -65,18 +64,22 @@ public class Enemy extends Character
 		{
 			if (e instanceof Hero)
 			{
-				if (this.getPositionX() < e.getPositionX()) {
+				if (this.getPositionX() < e.getPositionX()) 
+				{
 					this.setPositionX(this.getPositionX() + speed);
 					this.setSprite(enemyFrontRight);
 				}
-				else if (this.getPositionX() > e.getPositionX()) {
+				else if (this.getPositionX() > e.getPositionX()) 
+				{
 					this.setPositionX(this.getPositionX() - speed);
 					this.setSprite(enemyFrontLeft);
 				}
-				if (this.getPositionY() < e.getPositionY()) {
+				if (this.getPositionY() < e.getPositionY()) 
+				{
 					this.setPositionY(this.getPositionY() + speed);
 				}
-				else if (this.getPositionY() > e.getPositionY()) {
+				else if (this.getPositionY() > e.getPositionY()) 
+				{
 					this.setPositionY(this.getPositionY() - speed);
 					this.setSprite(enemyBack);
 				}
