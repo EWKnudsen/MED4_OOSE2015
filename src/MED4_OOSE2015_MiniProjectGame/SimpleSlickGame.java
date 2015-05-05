@@ -101,7 +101,14 @@ public class SimpleSlickGame extends BasicGame
 			//		System.out.println("Hero's health: " + en.getHealth());
 					
 					float pitch = ((float)r.nextInt(300) +1100)/1000;
-			    	soundWizard.play(pitch, 1f);
+
+			    	try
+			    	{
+					soundWizard.play(pitch, 1f);
+			    	} catch (NullPointerException n) {
+			    		System.out.println("Could not find Wizard sound file");
+			    	}
+			    	eCollided.particles.addEmitter(eCollided.emitter);
 					entities.remove(e);
 				}
 				
@@ -182,7 +189,7 @@ public class SimpleSlickGame extends BasicGame
 			//Drawing all sprites
 			g.drawImage(e.getSprite(), e.getPositionX() - (e.getSprite().getWidth()/2), e.getPositionY() - (e.getSprite().getHeight()/2));
 
-			if(e instanceof Missile)
+			if(e instanceof Missile || e instanceof Enemy || e instanceof Hero)
 				e.particles.render();
 		}
 
