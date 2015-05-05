@@ -83,7 +83,7 @@ public class SimpleSlickGame extends BasicGame
 		{	
 			//Reference to the entity
 			Entity e = entities.get(index);
-			
+
 			Entity eCollided;
 			if((eCollided = e.collides(entities)) != null) {
 				

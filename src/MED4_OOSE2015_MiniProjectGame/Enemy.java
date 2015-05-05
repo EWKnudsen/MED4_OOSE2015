@@ -7,6 +7,7 @@ public class Enemy extends Entity
 {
 	private Image enemyFrontLeft, enemyFrontRight, enemyBack;
 	private int speed;
+	private int health;
 	
 	public Enemy(SimpleSlickGame game, int x, int y) 
 	{
@@ -21,6 +22,8 @@ public class Enemy extends Entity
 			e.printStackTrace();
 			System.out.println("ERROR: Could not find sprite");
 		}
+		
+		health = 30;
 	}
 	
 	public void move()
