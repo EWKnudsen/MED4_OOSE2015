@@ -84,6 +84,7 @@ public class SimpleSlickGame extends BasicGame
 			//Reference to the entity
 			Entity e = entities.get(index);
 			
+			
 			//An imperfect way to get the position our Hero
 			if (e instanceof Hero)
 			{
@@ -127,13 +128,13 @@ public class SimpleSlickGame extends BasicGame
 
 	public void mousePressed ( int button, int mousePosX, int mousePosY )
 	{
-		addNewBullet(mousePosX,mousePosY);
+		addNewMissile(mousePosX,mousePosY);
 		float pitch = ((float)r.nextInt(200) + 800)/1000;
 		System.out.println(pitch);
 		soundShoot.play(pitch,1f);
 	}
 
-	public void addNewBullet(int destPosX, int destPosY)
+	public void addNewMissile(int destPosX, int destPosY)
 	{
 		//How do we reach our heroes position in another way than this?
 		//and set Entity owner not to null?
