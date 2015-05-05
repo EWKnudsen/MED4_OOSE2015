@@ -100,6 +100,7 @@ public class SimpleSlickGame extends BasicGame
 			    	} catch (NullPointerException n) {
 			    		System.out.println("Could not find Wizard sound file");
 			    	}
+			    	eCollided.particles.addEmitter(eCollided.emitter);
 					entities.remove(e);
 				}
 				if(e instanceof Enemy && eCollided instanceof Missile) {
@@ -192,7 +193,7 @@ public class SimpleSlickGame extends BasicGame
 			//Drawing all sprites
 			g.drawImage(e.getSprite(), e.getPositionX() - (e.getSprite().getWidth()/2), e.getPositionY() - (e.getSprite().getHeight()/2));
 
-			if(e instanceof Missile || e instanceof Enemy)
+			if(e instanceof Missile || e instanceof Enemy || e instanceof Hero)
 				e.particles.render();
 		}
 

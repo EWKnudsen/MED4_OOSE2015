@@ -23,27 +23,28 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 		game.addKeyPressedListener(this);
 		game.addKeyReleasedListener(this);
 		
-//		try {
-//			Image particleImg = new Image ("Graphics/Particles/particle.png");
-//			particles = new ParticleSystem(particleImg,1500);
-//			
-//			File xmlFile = new File ("Graphics/Particles/blood effect.xml");
-//			emitter = ParticleIO.loadEmitter(xmlFile);
-//			
-//			emitter.setPosition(this.getPositionX(), this.getPositionY(),false);
-//			particles.addEmitter(emitter);
-//			
-//		} catch (SlickException e1) {
-//			// TODO Auto-generated catch block
-//			System.out.println("cannot find xml file / particle image");
-//			e1.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			System.out.println("Cannot assign xml file to emitter. File might be missing.");
-//			e.printStackTrace();
-//		}
-//		
-//		particles.setBlendingMode(ParticleSystem.BLEND_ADDITIVE);
+		try {
+			Image particleImg = new Image ("Graphics/Particles/particle.png");
+			particles = new ParticleSystem(particleImg,1500);
+			
+			File xmlFile = new File ("Graphics/Particles/ouch effect.xml");
+			emitter = ParticleIO.loadEmitter(xmlFile);
+			
+			emitter.setPosition(this.getPositionX(), this.getPositionY(),false);
+			//particles.addEmitter(emitter);
+			particles.setRemoveCompletedEmitters(true);
+			
+		} catch (SlickException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("cannot find xml file / particle image");
+			e1.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Cannot assign xml file to emitter. File might be missing.");
+			e.printStackTrace();
+		}
+		
+		particles.setBlendingMode(ParticleSystem.BLEND_ADDITIVE);
 		
 	}
 
@@ -62,6 +63,11 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 	public void keyReleased(int key, char c)
 	{
 		lastChar = ' ';
+	}
+	
+	public void particleUpdate()
+	{
+		particles.update(1);
 	}
 	
 	@Override
@@ -104,8 +110,7 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 				this.setPositionY(this.getPositionY() + 3);
 			}
 		}
-		
-		
+		emitter.setPosition(this.getPositionX(), this.getPositionY());
 	}
 }
 
