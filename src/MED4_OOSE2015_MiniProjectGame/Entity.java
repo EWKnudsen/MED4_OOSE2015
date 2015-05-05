@@ -40,16 +40,17 @@ public class Entity
 		return distance <= collisionDistance;
 	}
 	
-	public boolean collides(ArrayList<Entity> others)
+	//was bool
+	public Entity collides (ArrayList<Entity> others)
 	{
 		for(Entity o:others)
 		{
 			if(this != o && this.collides(o) && o.collides(this))
 			{
-				return true;
+				return o;
 			}
 		}
-		return false;
+		return null;
 	}
 
 	
