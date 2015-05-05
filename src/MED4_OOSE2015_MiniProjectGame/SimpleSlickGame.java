@@ -48,9 +48,13 @@ public class SimpleSlickGame extends BasicGame
 		//Values used inside entity subclasses to limit their position range
 		mapWidth = appgc.getWidth();
 		mapHeight = appgc.getHeight();
+		try{
 		soundZombie = new Sound("Sounds/zombie.wav");
 		soundShoot = new Sound("Sounds/lazer.wav");
 		soundWizard = new Sound("Sounds/WizardHit.wav");
+		} catch (SlickException e){
+			System.out.println("couldn't find sound files");
+		}
 	}
 
 	@Override
@@ -91,14 +95,17 @@ public class SimpleSlickGame extends BasicGame
 				if(e instanceof Enemy && eCollided instanceof Hero) {
 					System.out.println("Hero looses 10 Health");
 					float pitch = ((float)r.nextInt(300) +1100)/1000;
-			    	  soundWizard.play(pitch, 1f);
+			    	try{
+					soundWizard.play(pitch, 1f);
+			    	} catch (NullPointerException n) {
+			    		System.out.println("could not find sound file");
+			    	}
 					entities.remove(e);
 				}
 				if(e instanceof Enemy && eCollided instanceof Missile) {
 					System.out.println("lol it works");
-					e.getSprite().drawFlash((float)e.getPositionX(), (float)e.getPositionY(), (float)(e.getSprite().getWidth()*1.1f), (float) (e.getSprite().getHeight()*1.1f));
+									
 					entities.remove(e);
-				
 					entities.remove(eCollided);
 				}
 			}
