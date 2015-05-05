@@ -24,9 +24,7 @@ public class Entity
 	{
 	}
 	
-	public void shoot()
-	{
-	}
+
 	
 	public void spriteSwitch()
 	{	

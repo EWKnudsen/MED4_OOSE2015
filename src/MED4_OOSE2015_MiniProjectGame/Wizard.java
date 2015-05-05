@@ -24,6 +24,8 @@ public class Wizard extends Hero
 			System.out.println("ERROR: Could not find sprite");
 		}
 		this.setSprite(wizardFrontLeft);
+		
+		this.setHealth(100);
 	}
 
 	public void spriteSwitch () 

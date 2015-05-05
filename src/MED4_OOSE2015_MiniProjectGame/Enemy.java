@@ -7,7 +7,6 @@ public class Enemy extends Character
 {
 	private Image enemyFrontLeft, enemyFrontRight, enemyBack;
 	private int speed;
-	private int health;
 	
 	public Enemy(SimpleSlickGame game, int x, int y) 
 	{
@@ -23,7 +22,7 @@ public class Enemy extends Character
 			System.out.println("ERROR: Could not find sprite");
 		}
 		
-		health = 30;
+		this.setHealth(30);
 	}
 	
 	public void move()
