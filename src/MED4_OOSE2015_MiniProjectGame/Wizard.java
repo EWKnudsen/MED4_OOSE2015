@@ -11,11 +11,11 @@ public class Wizard extends Hero
 
 	Wizard(SimpleSlickGame game, int x, int y)
 	{
-		
 		super(game, x,y);
 		setHitboxRadius(30);
 	//	mana = 100;
-		try {
+		try 
+		{
 			wizardFrontRight = new Image ("Graphics/Wizard full (front right).png");
 			wizardFrontLeft = new Image ("Graphics/Wizard full (front left).png");
 			wizardBackRight = new Image ("Graphics/Wizard full (back right).png");

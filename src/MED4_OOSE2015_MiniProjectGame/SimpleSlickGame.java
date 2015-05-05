@@ -90,8 +90,15 @@ public class SimpleSlickGame extends BasicGame
 				
 				if(e instanceof Enemy && eCollided instanceof Hero) {
 					System.out.println("Hero looses 10 Health");
+					
+					//How do i reach the subclass functions while keeping it 'general'  
+				//	Enemy en = new Enemy(this, 100, 100));
+				//	en = (Enemy) e;    //typecast maybe?..
+				//	en.setHealth(); 
 			
-			//		e.setHealth();
+			//		Character en = (Character) eCollided;
+			//		en.setHealth(en.getHealth() - 10);
+			//		System.out.println("Hero's health: " + en.getHealth());
 					
 					float pitch = ((float)r.nextInt(300) +1100)/1000;
 			    	soundWizard.play(pitch, 1f);
