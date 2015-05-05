@@ -83,6 +83,20 @@ public class SimpleSlickGame extends BasicGame
 			//Reference to the entity
 			Entity e = entities.get(index);
 			
+			Entity eCollided;
+			if((eCollided = e.collides(entities)) != null) {
+				
+				if(e instanceof Enemy && eCollided instanceof Hero) {
+					System.out.println("Hero looses 10 Health");
+					
+					entities.remove(e);
+				}
+				if(e instanceof Enemy && eCollided instanceof Missile) {
+					System.out.println("lol it works");
+					entities.remove(e);
+					entities.remove(eCollided);
+				}
+			}
 			
 			//An imperfect way to get the position our Hero
 			if (e instanceof Hero)
@@ -154,9 +168,11 @@ public class SimpleSlickGame extends BasicGame
 
 			//Drawing all sprites
 			g.drawImage(e.getSprite(), e.getPositionX() - (e.getSprite().getWidth()/2), e.getPositionY() - (e.getSprite().getHeight()/2));
+
 			if(e instanceof Missile)
 				e.particles.render();
 		}
+		//g.drawString(Float.toString(timer.getTime()) , 100, 100);
 	}
 
 	public static void main(String[] args)

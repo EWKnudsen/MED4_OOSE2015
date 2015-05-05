@@ -26,6 +26,7 @@ public class Missile extends Entity
 	public Missile(SimpleSlickGame _game, int x, int y, int destX, int destY, Entity owner) 
 	{
 		super(_game, x,y);
+		setHitboxRadius(20); 
 		startX = x;
 		startY = y;
 		this.owner = owner;
@@ -68,7 +69,7 @@ public class Missile extends Entity
 	public void recalculateVector(int destX, int destY)
     {
        float rad = (float)(Math.atan2(destX - startX, startY - destY));
-       speed = 2;
+       speed = 10;
        
        this.dx = (float) Math.sin(rad) * speed;
        this.dy = -(float) Math.cos(rad) * speed;

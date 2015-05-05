@@ -6,13 +6,11 @@ package MED4_OOSE2015_MiniProjectGame;
 public abstract class Hero extends Character implements KeyPressedListener, KeyReleasedListener
 {
 	protected Missile[] missiles;
-	protected int health;
 	char lastChar;
 	
 	public Hero(SimpleSlickGame game, int x, int y) 
 	{
 		super(game, x, y);
-		this.health = 100;
 		
 		game.addKeyPressedListener(this);
 		game.addKeyReleasedListener(this);
@@ -45,7 +43,7 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 			{
 				
 			}else{
-				this.setPositionX(this.getPositionX() - 2);	
+				this.setPositionX(this.getPositionX() - 3);	
 			}
 		}
 		else if (pressed == 'd')
@@ -54,7 +52,7 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 			{
 				
 			}else{
-				this.setPositionX(this.getPositionX() + 2);	
+				this.setPositionX(this.getPositionX() + 3);	
 			}
 		}
 		else if (pressed == 'w')
@@ -63,7 +61,7 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 			{
 
 			}else{
-				this.setPositionY(this.getPositionY() - 2);
+				this.setPositionY(this.getPositionY() - 3);
 			}
 		}
 		else if (pressed == 's')
@@ -72,7 +70,7 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 			{
 				
 			}else{
-				this.setPositionY(this.getPositionY() + 2);
+				this.setPositionY(this.getPositionY() + 3);
 			}
 		}
 		
