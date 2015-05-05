@@ -30,6 +30,7 @@ public class SimpleSlickGame extends BasicGame
 
 
 	Timer timer = new Timer();
+	Timer timer2 = new Timer();
 	Random r = new Random();
 
 	public SimpleSlickGame(String gamename)
@@ -82,7 +83,7 @@ public class SimpleSlickGame extends BasicGame
 		{	
 			//Reference to the entity
 			Entity e = entities.get(index);
-			
+
 			Entity eCollided;
 			if((eCollided = e.collides(entities)) != null) {
 				
@@ -112,7 +113,6 @@ public class SimpleSlickGame extends BasicGame
 			else 
 			{
 				e.move();
-				e.shoot();
 			}
 			e.particleUpdate();
 		}
@@ -161,7 +161,7 @@ public class SimpleSlickGame extends BasicGame
 	{
 		map.render(0,0);
 
-		for(Entity e: getEntities() )
+		for(Entity e: entities )
 		{
 			//Switching sprite according to entity's direction or mousePos.
 			e.spriteSwitch();
@@ -172,7 +172,11 @@ public class SimpleSlickGame extends BasicGame
 			if(e instanceof Missile)
 				e.particles.render();
 		}
+
 		//g.drawString(Float.toString(timer.getTime()) , 100, 100);
+
+		g.drawString("Seconds survived: " + Float.toString((int)timer2.getTime()) , 380, 15);
+
 	}
 
 	public static void main(String[] args)

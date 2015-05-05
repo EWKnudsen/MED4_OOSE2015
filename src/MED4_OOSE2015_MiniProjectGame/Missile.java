@@ -106,10 +106,9 @@ public class Missile extends Entity
         setPositionX((int) x);
         setPositionY((int) y);
         
-        location.setLocation(x, y);
-        
         emitter.setPosition(x, y,false);
         
+        setLocation(x, y);
 	}
 	
 	public Vector2f getLocation() {

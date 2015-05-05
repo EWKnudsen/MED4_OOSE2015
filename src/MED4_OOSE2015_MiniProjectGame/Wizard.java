@@ -11,7 +11,9 @@ public class Wizard extends Hero
 
 	Wizard(SimpleSlickGame game, int x, int y)
 	{
+		
 		super(game, x,y);
+		setHitboxRadius(30);
 	//	mana = 100;
 		try {
 			wizardFrontRight = new Image ("Graphics/Wizard full (front right).png");
@@ -24,6 +26,8 @@ public class Wizard extends Hero
 			System.out.println("ERROR: Could not find sprite");
 		}
 		this.setSprite(wizardFrontLeft);
+		
+		this.setHealth(100);
 	}
 
 	public void spriteSwitch () 
