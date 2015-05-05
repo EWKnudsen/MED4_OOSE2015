@@ -6,13 +6,11 @@ package MED4_OOSE2015_MiniProjectGame;
 public abstract class Hero extends Character implements KeyPressedListener, KeyReleasedListener
 {
 	protected Missile[] missiles;
-	protected int health;
 	char lastChar;
 	
 	public Hero(SimpleSlickGame game, int x, int y) 
 	{
 		super(game, x, y);
-		this.health = 100;
 		
 		game.addKeyPressedListener(this);
 		game.addKeyReleasedListener(this);

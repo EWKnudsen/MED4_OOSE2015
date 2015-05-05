@@ -89,11 +89,13 @@ public class SimpleSlickGame extends BasicGame
 				
 				if(e instanceof Enemy && eCollided instanceof Hero) {
 					System.out.println("Hero looses 10 Health");
-							entities.remove(e);
+					
+					entities.remove(e);
 				}
 				if(e instanceof Enemy && eCollided instanceof Missile) {
 					System.out.println("lol it works");
-							entities.remove(e);
+					entities.remove(e);
+					entities.remove(eCollided);
 				}
 			}
 			
