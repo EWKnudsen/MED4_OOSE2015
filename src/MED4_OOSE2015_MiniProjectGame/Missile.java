@@ -70,7 +70,7 @@ public class Missile extends Entity
         setPositionX((int) x);
         setPositionY((int) y);
         
-        location.setLocation(x, y);
+        setLocation(x, y);
 	}
 	
 	public Vector2f getLocation() {

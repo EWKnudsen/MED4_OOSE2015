@@ -84,7 +84,7 @@ public class SimpleSlickGame extends BasicGame
 		{	
 			//Reference to the entity
 			Entity e = entities.get(index);
-			
+
 			Entity eCollided;
 			if((eCollided = e.collides(entities)) != null) {
 				
@@ -114,7 +114,6 @@ public class SimpleSlickGame extends BasicGame
 			else 
 			{
 				e.move();
-				e.shoot();
 			}
 		}
 
@@ -162,7 +161,7 @@ public class SimpleSlickGame extends BasicGame
 	{
 		map.render(0,0);
 
-		for(Entity e: getEntities() )
+		for(Entity e: entities )
 		{
 			//Switching sprite according to entity's direction or mousePos.
 			e.spriteSwitch();

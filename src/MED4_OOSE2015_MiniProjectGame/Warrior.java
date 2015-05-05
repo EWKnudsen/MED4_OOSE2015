@@ -7,9 +7,11 @@ public class Warrior extends Hero
 	Warrior(SimpleSlickGame game, int x, int y)
 	{
 		super(game, x,y);
-		//health = 120;
-		rage = 0;
-		//sprite = SOMEIMAGE
+
+		this.setHealth(120);
+		this.rage = 0;
+		//this.setSprite(SOMEIMAGE);
+
 	}
 }
 

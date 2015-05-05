@@ -21,6 +21,8 @@ public class Enemy extends Character
 			e.printStackTrace();
 			System.out.println("ERROR: Could not find sprite");
 		}
+		
+		this.setHealth(30);
 	}
 	
 	public void move()
