@@ -119,7 +119,8 @@ public class SimpleSlickGame extends BasicGame
 
 			//Drawing all sprites
 			g.drawImage(e.getSprite(), e.getPositionX() - (e.getSprite().getWidth()/2), e.getPositionY() - (e.getSprite().getHeight()/2));
-
+			
+			//Rendering all Particles.
 			e.renderParticles();
 		}
 		
