@@ -80,6 +80,15 @@ public class SimpleSlickGame extends BasicGame
 			{
 				deadEntities.add(e);
 			}
+			//pauses the timer of showing how many seconds the hero has survived if he dies. 
+			if (e instanceof Hero )
+			{
+				if(!e.isAlive)
+				{
+					timer2.pause();
+					
+				}
+			}
 		}
 
 		for (Entity e : deadEntities) {
@@ -105,6 +114,7 @@ public class SimpleSlickGame extends BasicGame
 			entities.add(new Enemy(this, rndX, rndY));
 			timer.reset();
 		}
+		
 	}
 
 	@Override
@@ -125,7 +135,7 @@ public class SimpleSlickGame extends BasicGame
 		}
 		
 		//maybe make GUI func   and call: GUI(); instead
-		g.drawString("Seconds survived: " + Float.toString((int)timer2.getTime()) , 380, 15);
+		g.drawString("Seconds survived: " + Float.toString(timer2.getTime()) , 380, 15);
 	}
 
 	public static void main(String[] args)
