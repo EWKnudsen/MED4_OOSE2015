@@ -80,6 +80,7 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 			{
 				System.out.println("Died");
 				this.isAlive = false;
+				
 			}
 			System.out.println("lost 20 health current health: " + this.getHealth());
 		}
