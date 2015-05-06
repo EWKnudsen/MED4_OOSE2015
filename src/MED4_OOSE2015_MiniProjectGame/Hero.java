@@ -23,7 +23,8 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 		game.addKeyPressedListener(this);
 		game.addKeyReleasedListener(this);
 		
-		try {
+		try 
+		{
 			Image particleImg = new Image ("Graphics/Particles/particle.png");
 			particles = new ParticleSystem(particleImg,1500);
 			
@@ -33,19 +34,15 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 			emitter.setPosition(this.getPositionX(), this.getPositionY(),false);
 			//particles.addEmitter(emitter);
 			particles.setRemoveCompletedEmitters(true);
+			particles.setBlendingMode(ParticleSystem.BLEND_ADDITIVE);
 			
 		} catch (SlickException e1) {
-			// TODO Auto-generated catch block
 			System.out.println("cannot find xml file / particle image");
 			e1.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println("Cannot assign xml file to emitter. File might be missing.");
 			e.printStackTrace();
-		}
-		
-		particles.setBlendingMode(ParticleSystem.BLEND_ADDITIVE);
-		
+		}	
 	}
 
 	@Override
@@ -68,6 +65,19 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 	public void particleUpdate()
 	{
 		particles.update(1);
+	}
+	
+	@Override
+	public void Collision(Entity e)
+	{
+		super.Collision(e);
+		
+		if (e instanceof Enemy)
+		{
+			// ... Loose health
+			this.setHealth(getHealth() - 20);
+			System.out.println("lost 20 health current health: " + this.getHealth());
+		}
 	}
 	
 	@Override
@@ -110,6 +120,7 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 				this.setPositionY(this.getPositionY() + 3);
 			}
 		}
+	
 		emitter.setPosition(this.getPositionX(), this.getPositionY());
 	}
 }

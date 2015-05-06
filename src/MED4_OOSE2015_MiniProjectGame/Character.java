@@ -15,6 +15,12 @@ public class Character extends Entity
 		return this.health;
 	}
 	
+	@Override
+	public void renderParticles()
+	{
+		particles.render();
+	}
+	
 	public void setHealth(int newHealth)
 	{
 		this.health = newHealth;

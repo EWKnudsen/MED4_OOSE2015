@@ -20,13 +20,13 @@ public class SimpleSlickGame extends BasicGame
 	static AppGameContainer appgc;
 
 	// When removing from this collection remember to call entity.close()
-	ArrayList<Entity> entities = new ArrayList<Entity>();
+	private ArrayList<Entity> entities = new ArrayList<Entity>();
 	ArrayList<KeyPressedListener> keyPressedListeners = new ArrayList<KeyPressedListener>();
 	ArrayList<KeyReleasedListener> keyReleasedListeners = new ArrayList<KeyReleasedListener>();
+	ArrayList<MousePressedListener> mousePressedListeners = new ArrayList<MousePressedListener>();
 	private TiledMap map;
 	public int mapHeight, mapWidth;
-	private Sound soundZombie, soundShoot, soundWizard;
-	public int heroPosX, heroPosY;
+	private Hero hero;
 
 	Timer timer = new Timer();
 	Timer timer2 = new Timer();
@@ -42,36 +42,12 @@ public class SimpleSlickGame extends BasicGame
 	{
 		map = new TiledMap("Graphics/Map3.tmx");
 
-		Wizard wizard = new Wizard(this,(appgc.getWidth()/2),(appgc.getHeight()/2));
-		entities.add(wizard);
+		hero = new Wizard(this,(appgc.getWidth()/2),(appgc.getHeight()/2));
+		entities.add(hero);
 
 		//Values used inside entity subclasses to limit their position range
 		mapWidth = appgc.getWidth();
 		mapHeight = appgc.getHeight();
-		
-		try{
-		soundZombie = new Sound("Sounds/zombie.wav");
-		soundShoot = new Sound("Sounds/lazer.wav");
-		soundWizard = new Sound("Sounds/WizardHit.wav");
-		} catch (SlickException e){
-			System.out.println("Could not find sound file");
-		}
-	}
-
-	@Override
-	public void keyPressed(int key, char c)
-	{
-		for(KeyPressedListener kpl:keyPressedListeners) {
-			kpl.keyPressed(key, c);
-		}
-	}
-
-	@Override
-	public void keyReleased(int key, char c)
-	{
-		for(KeyReleasedListener krl:keyReleasedListeners) {
-			krl.keyReleased(key, c);
-		}
 	}
 
 	@Override
@@ -84,101 +60,51 @@ public class SimpleSlickGame extends BasicGame
 			e1.printStackTrace();
 		}
 
-		for(int index = 0; index < entities.size();index++) 
+		ArrayList<Entity> deadEntities = new ArrayList<Entity>();
+		for (Entity e : entities)
 		{	
-			//Reference to the entity
-			Entity e = entities.get(index);
+			e.collides(entities);			
 
-			Entity eCollided;
-			if((eCollided = e.collides(entities)) != null) 
-			{	
-				if(e instanceof Enemy && eCollided instanceof Hero) 
-				{
-					System.out.println("Hero looses 10 Health");
-					
-					//How do i reach the subclass functions while keeping it 'general'  
-				//	Enemy en = new Enemy(this, 100, 100));
-				//	en = (Enemy) e;    //typecast maybe?..
-				//	en.setHealth(); 
-			
-			//		Character en = (Character) eCollided;
-			//		en.setHealth(en.getHealth() - 10);
-			//		System.out.println("Hero's health: " + en.getHealth());
-					
-					float pitch = ((float)r.nextInt(300) +1100)/1000;
-
-			    	try
-			    	{
-					soundWizard.play(pitch, 1f);
-			    	} catch (NullPointerException n) {
-			    		System.out.println("Could not find Wizard sound file");
-			    	}
-			    	eCollided.particles.addEmitter(eCollided.emitter);
-					entities.remove(e);
-				}
-				
-				if(e instanceof Enemy && eCollided instanceof Missile)
-				{
-					System.out.println("lol it works");
-					entities.remove(e);
-					entities.remove(eCollided);
-				}
-			}
-			
-			//An imperfect way to get the position our Hero
-			if (e instanceof Hero)
+			if(e.getPositionX() < -200 || e.getPositionX() > appgc.getWidth()+200 ||
+			   e.getPositionY() < -200 || e.getPositionY() > appgc.getHeight()+200 )
 			{
-				heroPosX = e.getPositionX();
-				heroPosY = e.getPositionY();
-			}
-
-			if(e.getPositionX() < -200 || e.getPositionX() > appgc.getWidth()+200 || e.getPositionY() < -200 || e.getPositionY() > appgc.getHeight()+200 )
-			{
-				entities.remove(e);	
+				e.isAlive = false;
 			}
 			else 
 			{
 				e.move();
+				e.particleUpdate();
+			}			
+	
+			if (!e.isAlive)
+			{
+				deadEntities.add(e);
 			}
-			e.particleUpdate();
+		}
+
+		for (Entity e : deadEntities) {
+			e.close();
+			entities.remove(e);
 		}
 
 		int objectLayer = map.getLayerIndex("Objects");
 		map.getTileId(0, 0, objectLayer);
-	     
-	      //Spawns an enemy every 3 seconds at a position that is +-100 the position of the Hero.
-	      if(timer.getTime() > 1)
-	      {
-	    	  int rndX = r.nextInt(appgc.getWidth()) ;
-	    	  int rndY = r.nextInt(appgc.getHeight());
-	    	  
-	    	  while(rndX < heroPosX+100 && rndX > heroPosX-100 && rndY < heroPosY +100 && rndY > heroPosY-100)
-	    	  {  
-	    		  rndX = r.nextInt(appgc.getWidth());
-	    		  rndY = r.nextInt(appgc.getHeight());	  
-	    	  }
-	    	  entities.add(new Enemy(this, rndX, rndY));
-	    	  float pitch = ((float)r.nextInt(200) + 800)/1000;
-	    	  soundZombie.play(pitch, 1f);
-	    	  timer.reset();
-	      }
-	}
 
+		//Spawns an enemy every 3 seconds at a position that is +-100 the position of the Hero.
+		if(timer.getTime() > 1)
+		{
+			int rndX = r.nextInt(appgc.getWidth()) ;
+			int rndY = r.nextInt(appgc.getHeight());
 
-	public void mousePressed ( int button, int mousePosX, int mousePosY )
-	{
-		addNewMissile(mousePosX,mousePosY);
-		float pitch = ((float)r.nextInt(200) + 800)/1000;
-		System.out.println(pitch);
-		soundShoot.play(pitch,1f);
-	}
-
-	public void addNewMissile(int destPosX, int destPosY)
-	{
-		//How do we reach our heroes position in another way than this?
-		//and set Entity owner not to null?
-		Missile missile = new Missile(this, (int)heroPosX, (int)heroPosY, destPosX, destPosY, null);
-		entities.add(missile);
+			while(rndX < hero.getPositionX()+100 && rndX > hero.getPositionX()-100 &&
+				  rndY < hero.getPositionY() +100 && rndY > hero.getPositionY()-100)
+			{  
+				rndX = r.nextInt(appgc.getWidth());
+				rndY = r.nextInt(appgc.getHeight());	  
+			}
+			entities.add(new Enemy(this, rndX, rndY));
+			timer.reset();
+		}
 	}
 
 	@Override
@@ -194,14 +120,11 @@ public class SimpleSlickGame extends BasicGame
 			//Drawing all sprites
 			g.drawImage(e.getSprite(), e.getPositionX() - (e.getSprite().getWidth()/2), e.getPositionY() - (e.getSprite().getHeight()/2));
 
-			if(e instanceof Missile || e instanceof Enemy || e instanceof Hero)
-				e.particles.render();
+			e.renderParticles();
 		}
-
-		//g.drawString(Float.toString(timer.getTime()) , 100, 100);
-
+		
+		//maybe make GUI func   and call: GUI(); instead
 		g.drawString("Seconds survived: " + Float.toString((int)timer2.getTime()) , 380, 15);
-
 	}
 
 	public static void main(String[] args)
@@ -217,7 +140,31 @@ public class SimpleSlickGame extends BasicGame
 		{
 			Logger.getLogger(SimpleSlickGame.class.getName()).log(Level.SEVERE, null, ex);
 		}
-	}	
+	}
+	
+	@Override
+	public void keyPressed(int key, char c)
+	{
+		for(KeyPressedListener kpl:keyPressedListeners) {
+			kpl.keyPressed(key, c);
+		}
+	}
+
+	@Override
+	public void keyReleased(int key, char c)
+	{
+		for(KeyReleasedListener krl:keyReleasedListeners) {
+			krl.keyReleased(key, c);
+		}
+	}
+	
+	@Override
+	public void mousePressed ( int button, int mousePosX, int mousePosY )
+	{
+		for(MousePressedListener mpl:mousePressedListeners) {
+			mpl.mousePressed(button, mousePosX, mousePosY);
+		}
+	}
 
 	public ArrayList<Entity> getEntities() { return entities; }
 
@@ -236,6 +183,14 @@ public class SimpleSlickGame extends BasicGame
 	public void removeKeyReleasedListener(KeyReleasedListener toAdd) {
 		keyReleasedListeners.add(toAdd);
 	}
+
+	public void addMousePressedListener(MousePressedListener toAdd) {
+		mousePressedListeners.add(toAdd);
+	}
+
+	public void removeMousePressedListener(MousePressedListener toAdd) {
+		mousePressedListeners.add(toAdd);
+	}
 }
 
 interface KeyPressedListener {
@@ -244,5 +199,9 @@ interface KeyPressedListener {
 
 interface KeyReleasedListener {
 	public void keyReleased(int key, char c);
+}
+
+interface MousePressedListener {
+	public void mousePressed(int button, int mousePosX, int mousePosY);
 }
 

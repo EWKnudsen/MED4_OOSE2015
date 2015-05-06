@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.particles.ParticleIO;
 import org.newdawn.slick.particles.ParticleSystem;
 
@@ -16,6 +17,9 @@ public class Enemy extends Character
 	public Enemy(SimpleSlickGame game, int x, int y) 
 	{
 		super(game, x, y);
+		
+		this.setHealth(30);
+		
 		try 
 		{
 			enemyFrontLeft = new Image("Graphics/Melee enemy front left.png");
@@ -34,9 +38,10 @@ public class Enemy extends Character
 			
 			File xmlFile = new File ("Graphics/Particles/blood effect.xml");
 			emitter = ParticleIO.loadEmitter(xmlFile);
-			
 			emitter.setPosition(this.getPositionX(), this.getPositionY(),false);
+			
 			particles.addEmitter(emitter);
+			particles.setBlendingMode(ParticleSystem.BLEND_ADDITIVE);
 			
 		} catch (SlickException e1) {
 			System.out.println("cannot find xml file / particle image");
@@ -46,9 +51,14 @@ public class Enemy extends Character
 			e.printStackTrace();
 		}
 		
-		particles.setBlendingMode(ParticleSystem.BLEND_ADDITIVE);
-		
-		this.setHealth(30);
+		try 
+		{
+			Sound sound = new Sound("Sounds/zombie.wav");
+			float pitch = ((float)game.r.nextInt(200) + 800)/1000;
+			sound.play(pitch, 1f);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void particleUpdate()
@@ -56,11 +66,21 @@ public class Enemy extends Character
 		particles.update(1);
 	}
 	
+	@Override
+	public void Collision(Entity e)
+	{
+		if (e instanceof Hero || e instanceof Missile)
+		{
+			particles.addEmitter(this.emitter);
+			isAlive = false;
+		}
+	}
+	
 	public void move()
 	{
 		speed = 1;
 		
-		for(Entity e:game.entities )
+		for(Entity e:game.getEntities() )
 		{
 			if (e instanceof Hero)
 			{

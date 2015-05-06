@@ -14,6 +14,8 @@ public class Entity
 	protected ParticleSystem particles;
 	protected ConfigurableEmitter emitter;
 	
+	protected boolean isAlive = true;
+	
 	Entity(SimpleSlickGame game, int xPos, int yPos)
 	{
 		this.game = game;
@@ -37,6 +39,16 @@ public class Entity
 	{	
 	}
 	
+	public void Collision(Entity e)
+	{
+		
+	}
+	
+	public void renderParticles()
+	{
+		
+	}
+	
 	public boolean collides (Entity other)
 	{
 		double distance = Math.sqrt(Math.pow(this.getPositionX() - other.getPositionX(), 2) + Math.pow(this.getPositionY() - other.getPositionY(), 2));
@@ -46,16 +58,18 @@ public class Entity
 	}
 	
 	//returned a bool before
-	public Entity collides (ArrayList<Entity> others)
+	public boolean collides (ArrayList<Entity> others)
 	{
+		boolean col = false;
 		for(Entity o:others)
 		{
 			if(this != o && this.collides(o) && o.collides(this))
-			{
-				return o;
+			{				
+				this.Collision(o);
+				col = true;
 			}
 		}
-		return null;
+		return col;
 	}
 
 	
