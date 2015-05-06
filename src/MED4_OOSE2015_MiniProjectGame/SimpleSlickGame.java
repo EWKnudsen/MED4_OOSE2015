@@ -104,14 +104,18 @@ public class SimpleSlickGame extends BasicGame
 		{
 			int rndX = r.nextInt(appgc.getWidth()) ;
 			int rndY = r.nextInt(appgc.getHeight());
-
+			int rndNum = r.nextInt(20);
 			while(rndX < hero.getPositionX()+100 && rndX > hero.getPositionX()-100 &&
 				  rndY < hero.getPositionY() +100 && rndY > hero.getPositionY()-100)
 			{  
 				rndX = r.nextInt(appgc.getWidth());
 				rndY = r.nextInt(appgc.getHeight());	  
 			}
-			entities.add(new Enemy(this, rndX, rndY));
+			if(rndNum > 5){
+				entities.add(new Enemy(this, rndX, rndY));
+			} else {
+				entities.add(new Spider(this, rndX, rndY));
+			}			
 			timer.reset();
 		}
 		
