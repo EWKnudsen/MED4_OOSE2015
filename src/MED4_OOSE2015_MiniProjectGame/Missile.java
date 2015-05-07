@@ -23,7 +23,15 @@ public class Missile extends Entity
 	private Image missileImg;
 	Point location = new Point(0,0);
 	
-	//The constructor initialises the missile with essential variables.
+	/**
+	 * The constructor initializes the missile with essential variables.
+	 * @param _game
+	 * @param x
+	 * @param y
+	 * @param destX
+	 * @param destY
+	 * @param owner
+	 */
 	public Missile(SimpleSlickGame _game, int x, int y, int destX, int destY, Entity owner) 
 	{
 		//the super constructor is called to give the x and y coordinates and call the game to use its variable and 
@@ -79,7 +87,11 @@ public class Missile extends Entity
 		}
 	}
 	
-	//Recalculates the vector to the destination (where the user clicks) with a certain speed.
+	/**
+	 * Recalculates the vector to the destination (where the user clicks) with a certain speed.
+	 * @param destX
+	 * @param destY
+	 */
 	public void recalculateVector(int destX, int destY)
     {
        float rad = (float)(Math.atan2(destX - startX, startY - destY));
@@ -89,13 +101,17 @@ public class Missile extends Entity
        this.dy = -(float) Math.cos(rad) * speed;
     }
 	
-	//calls the recalculateVector(int destX, int destY) 
+	/**
+	 * calls the recalculateVector(int destX, int destY) 
+	 */
 	public void recalculateVector()
     {
        recalculateVector(destX, destY);
     }
 	
-	//Overrides the collides() function from entity parent class to return true only if the entity collided is not a Hero or missile.
+	/**
+	 * Overrides the collides() function from entity parent class to return true only if the entity collided is not a Hero or missile.
+	 */
 	@Override
 	public boolean collides (Entity other)
 	{
@@ -105,20 +121,27 @@ public class Missile extends Entity
 			return super.collides(other);
 	}
 	
-	//Overrides the collision() of the Entity parent class to set isAlive to false when colliding.
+	/**
+	 * Overrides the collision() of the Entity parent class to set isAlive to false when colliding.
+	 * @param Entity e
+	 */
 	@Override
 	public void Collision(Entity e)
 	{
 		this.isAlive = false;
 	}
 	
-	//Updates particles
+	/**
+	 * Updates particles
+	 */
 	public void particleUpdate()
 	{
         particles.update(1);
 	}
 	
-	//Renders particles
+	/**
+	 * Renders particles
+	 */
 	@Override
 	public void renderParticles()
 	{
@@ -126,7 +149,9 @@ public class Missile extends Entity
 	}
 	
 	
-	//Move function controls the movement of the missile
+	/**
+	 * Move function controls the movement of the missile
+	 */
 	@Override
 	public void move()
 	{

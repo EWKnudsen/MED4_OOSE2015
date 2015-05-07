@@ -9,18 +9,28 @@ import org.newdawn.slick.Sound;
 import org.newdawn.slick.particles.ParticleIO;
 import org.newdawn.slick.particles.ParticleSystem;
 
+//Enemy class extends the Character class
 public class Enemy extends Character
 {
-	
+	//initialises variables for the class
 	private Image enemyFrontLeft, enemyFrontRight, enemyBack;
 	private int speed;
 	
+	/**
+	 * The constructor sets the X and Y position of the entity and refers to the slick game in to reach its variables and functions
+	 * @param game
+	 * @param x
+	 * @param y
+	 */
 	public Enemy(SimpleSlickGame game, int x, int y) 
 	{
+		//The super constructor (the Entity constructor) is called to give the x and y position and refer to game.
 		super(game, x, y);
 		
+		//the enemy health is set to a default 30
 		this.setHealth(30);
 		
+		//Initializes and adds a particle system to the entity
 		try 
 		{
 			enemyFrontLeft = new Image("Graphics/Melee enemy front left.png");
@@ -32,6 +42,7 @@ public class Enemy extends Character
 			System.out.println("ERROR: Could not find sprite");
 		}
 		
+		//Adds sprites to the entity
 		try 
 		{
 			Image particleImg = new Image ("Graphics/Particles/particle.png");
@@ -52,6 +63,7 @@ public class Enemy extends Character
 			e.printStackTrace();
 		}
 		
+		//Adds sound files to the entity
 		try 
 		{
 			Sound sound = new Sound("Sounds/zombie.wav");
@@ -62,51 +74,69 @@ public class Enemy extends Character
 		}
 	}
 	
+	/**
+	 * updates the particle system for the entity
+	 */
 	public void particleUpdate()
 	{
 		particles.update(1);
 	}
 	
+	/**
+	 * Overrides the collision() of the Entity parent class to set isAlive to false when colliding with a missile entity.
+	 * @param Entity e
+	 */
 	@Override
 	public void Collision(Entity e)
 	{
 		if (e instanceof Hero || e instanceof Missile)
 		{
-			particles.addEmitter(this.emitter);
 			isAlive = false;
 		}
 	}
 	
+	/**
+	 * Controls the movement of the Enemy class
+	 */
 	public void move()
 	{
 		speed = 1;
 		
 		for(Entity e:game.getEntities() )
 		{
+			//checks if entity is a Hero
 			if (e instanceof Hero)
 			{
+				//if and else if statements checks where the Hero is acrodding to the Enemy
 				if (this.getPositionX() < e.getPositionX()) 
 				{
+					//moves enemy
 					this.setPositionX(this.getPositionX() + speed);
+					//sets new sprite
 					this.setSprite(enemyFrontRight);
 				}
 				else if (this.getPositionX() > e.getPositionX()) 
 				{
+					//moves enemy
 					this.setPositionX(this.getPositionX() - speed);
+					//sets new sprite
 					this.setSprite(enemyFrontLeft);
 				}
 				if (this.getPositionY() < e.getPositionY()) 
 				{
+					//moves enemy
 					this.setPositionY(this.getPositionY() + speed);
 				}
 				else if (this.getPositionY() > e.getPositionY()) 
 				{
 					this.setPositionY(this.getPositionY() - speed);
+					//sets new sprite
 					this.setSprite(enemyBack);
 				}
 				break;
 			}
 		}
+		//Updates the particle emitter's position to the enemy position
 		emitter.setPosition(this.getPositionX(), this.getPositionY(),false);
 	}
 }
