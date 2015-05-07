@@ -22,7 +22,6 @@ public class Missile extends Entity
 	private float dx, dy;
 	private Image missileImg;
 	Point location = new Point(0,0);
-
 	
 	public Missile(SimpleSlickGame _game, int x, int y, int destX, int destY, Entity owner) 
 	{
