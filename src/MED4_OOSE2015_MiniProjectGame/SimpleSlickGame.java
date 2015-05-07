@@ -54,6 +54,7 @@ public class SimpleSlickGame extends BasicGame
 		entities.add(hero);
 	}
 
+	//Update function
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException 
 	{	
