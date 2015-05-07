@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import org.lwjgl.util.Timer;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -80,6 +81,14 @@ public class SimpleSlickGame extends BasicGame
 			{
 				deadEntities.add(e);
 			}
+			//pauses the timer of showing how many seconds the hero has survived if he dies. 
+			if (e instanceof Hero)
+			{
+				if(!e.isAlive)
+				{
+					timer2.pause();
+				}
+			}
 		}
 
 		for (Entity e : deadEntities) {
@@ -93,18 +102,23 @@ public class SimpleSlickGame extends BasicGame
 		//Spawns an enemy every 3 seconds at a position that is +-100 the position of the Hero.
 		if(timer.getTime() > 3)
 		{
-			int rndX = r.nextInt(appgc.getWidth()) ;
+			int rndX = r.nextInt(appgc.getWidth());
 			int rndY = r.nextInt(appgc.getHeight());
-
+			int rndNum = r.nextInt(20);
 			while(rndX < hero.getPositionX()+100 && rndX > hero.getPositionX()-100 &&
 				  rndY < hero.getPositionY() +100 && rndY > hero.getPositionY()-100)
 			{  
 				rndX = r.nextInt(appgc.getWidth());
 				rndY = r.nextInt(appgc.getHeight());	  
 			}
-			entities.add(new Enemy(this, rndX, rndY));
+			if(rndNum > 5){
+				entities.add(new Enemy(this, rndX, rndY));
+			} else {
+				entities.add(new Spider(this, rndX, rndY));
+			}			
 			timer.reset();
 		}
+		
 	}
 
 	@Override
@@ -114,17 +128,24 @@ public class SimpleSlickGame extends BasicGame
 
 		for(Entity e: entities )
 		{
+			if (e instanceof Hero)
+			{
+			g.setColor(Color.red);
+			g.fillRect(appgc.getWidth()/5, appgc.getHeight()/20, ((Hero) e).getHealth()*1.5f , 10);
+			}
 			//Switching sprite according to entity's direction or mousePos.
 			e.spriteSwitch();
 
 			//Drawing all sprites
 			g.drawImage(e.getSprite(), e.getPositionX() - (e.getSprite().getWidth()/2), e.getPositionY() - (e.getSprite().getHeight()/2));
-
+			
+			//Rendering all Particles.
 			e.renderParticles();
 		}
-		
+
 		//maybe make GUI func   and call: GUI(); instead
-		g.drawString("Seconds survived: " + Float.toString((int)timer2.getTime()) , 380, 15);
+		g.setColor(Color.white);
+		g.drawString("Seconds survived: " + Float.toString(timer2.getTime()) , appgc.getWidth()-240, appgc.getHeight()/23);
 	}
 
 	public static void main(String[] args)
