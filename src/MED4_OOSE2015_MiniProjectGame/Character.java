@@ -25,4 +25,10 @@ public class Character extends Entity
 	{
 		this.health = newHealth;
 	}
+	
+	@Override
+	public void close()
+	{
+		super.close();
+	}
 }

@@ -50,6 +50,7 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 	{
 		game.removeKeyPressedListener(this);
 		game.removeKeyReleasedListener(this);
+		super.close();
 	}
 	
 	public void keyPressed(int key, char c)

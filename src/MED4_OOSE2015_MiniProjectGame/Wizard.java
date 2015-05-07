@@ -30,8 +30,8 @@ public class Wizard extends Hero implements MousePressedListener
 			e.printStackTrace();
 			System.out.println("ERROR: Could not find sprite");
 		}
-		this.setSprite(wizardFrontLeft);
 		
+		this.setSprite(wizardFrontLeft);
 		this.setHealth(100);
 		
 		try {
@@ -44,7 +44,6 @@ public class Wizard extends Hero implements MousePressedListener
 	@Override
 	public void Collision(Entity e)
 	{
-		//calls one up (Hero class)
 		super.Collision(e);
 		
 		if (e instanceof Enemy)
@@ -58,8 +57,8 @@ public class Wizard extends Hero implements MousePressedListener
 	    		System.out.println("Could not find Wizard sound file");
 	    	}
 	    	
-			// ... should have already lost health from super collision, - only play sound its specific sound?
-			//death animation and stuff?
+			//Should have already lost health from super collision - only play sound its specific sound
+			//could also play a specific death animation and other specific stuff for the wizard
 		}
 	}
 	
