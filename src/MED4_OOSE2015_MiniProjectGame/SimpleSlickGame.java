@@ -29,10 +29,8 @@ public class SimpleSlickGame extends BasicGame
 	public int mapHeight, mapWidth;
 	private Hero hero;
 	private float spawnTimer = 1f;
-	private int spawnTime = 10;
+	private int levelTimer = 10;
 	private int levelCounter = 1;
-	
-
 
 	Timer enemySpawnTimer = new Timer();
 	Timer gameTime = new Timer();
@@ -73,7 +71,7 @@ public class SimpleSlickGame extends BasicGame
 			e.collides(entities);			
 
 			if(e.getPositionX() < -200 || e.getPositionX() > appgc.getWidth()+200 ||
-			   e.getPositionY() < -200 || e.getPositionY() > appgc.getHeight()+200 )
+					e.getPositionY() < -200 || e.getPositionY() > appgc.getHeight()+200 )
 			{
 				e.isAlive = false;
 			}
@@ -82,64 +80,70 @@ public class SimpleSlickGame extends BasicGame
 				e.move();
 				e.particleUpdate();
 			}			
-	
+
 			if (!e.isAlive)
 			{
 				deadEntities.add(e);
 			}
-			//pauses the timer of showing how many seconds the hero has survived if he dies. 
-			if (e instanceof Hero)
+		}
+
+		if(hero.isAlive)
+		{ 
+			int objectLayer = map.getLayerIndex("Objects");
+			map.getTileId(0, 0, objectLayer);
+
+			if(gameTime.getTime() > levelTimer)
 			{
-				if(!e.isAlive)
-				{
-					gameTime.pause();
-				}
+				spawnTimer -= 0.05;
+				levelTimer += 10;
+				levelCounter += 1;
+				System.out.println(levelCounter);
+			}
+			//Spawns an enemy every 3 seconds at a position that is +-100 the position of the Hero.
+
+			if(enemySpawnTimer.getTime() > spawnTimer)
+			{
+				int rndX = r.nextInt(appgc.getWidth());
+				int rndY = r.nextInt(appgc.getHeight());
+				int rndNum = r.nextInt(20);
+
+				if(rndNum > 5){
+					while(rndX < hero.getPositionX()+100 && rndX > hero.getPositionX()-100 &&
+							rndY < hero.getPositionY() +100 && rndY > hero.getPositionY()-100)
+					{  
+						rndX = r.nextInt(appgc.getWidth());
+						rndY = r.nextInt(appgc.getHeight());	  
+					}
+					entities.add(new Enemy(this, rndX, rndY));
+				} else {
+					while(rndX < hero.getPositionX()+200 && rndX > hero.getPositionX()-200 &&
+							rndY < hero.getPositionY() + 100 && rndY > hero.getPositionY()-100)
+					{  
+						rndX = r.nextInt(appgc.getWidth());
+						rndY = r.nextInt(appgc.getHeight());	  
+					}
+					entities.add(new Spider(this, rndX, rndY));
+				}			
+				enemySpawnTimer.reset();
 			}
 		}
 
-		for (Entity e : deadEntities) {
-			e.close();
-			entities.remove(e);
-		}
-
-		int objectLayer = map.getLayerIndex("Objects");
-		map.getTileId(0, 0, objectLayer);
-		
-		if(gameTime.getTime() > spawnTime)
+		for (Entity e : deadEntities) 
 		{
-			spawnTimer -= 0.05;
-			spawnTime += 10;
-			levelCounter += 1;
-			System.out.println(levelCounter);
+			//pauses the timer of showing how many seconds the hero has survived if he dies. 
+			if (e instanceof Hero)
+			{
+				e.close();
+				entities.remove(e);
+				gameTime.pause();
+				//	gameTime.pause();
+			}
+			else
+			{
+				e.close();
+				entities.remove(e);
+			}
 		}
-		//Spawns an enemy every 3 seconds at a position that is +-100 the position of the Hero.
-
-		if(enemySpawnTimer.getTime() > spawnTimer)
-		{
-			int rndX = r.nextInt(appgc.getWidth());
-			int rndY = r.nextInt(appgc.getHeight());
-			int rndNum = r.nextInt(20);
-			
-			if(rndNum > 5){
-				while(rndX < hero.getPositionX()+100 && rndX > hero.getPositionX()-100 &&
-						  rndY < hero.getPositionY() +100 && rndY > hero.getPositionY()-100)
-					{  
-						rndX = r.nextInt(appgc.getWidth());
-						rndY = r.nextInt(appgc.getHeight());	  
-					}
-				entities.add(new Enemy(this, rndX, rndY));
-			} else {
-				while(rndX < hero.getPositionX()+200 && rndX > hero.getPositionX()-200 &&
-						  rndY < hero.getPositionY() + 100 && rndY > hero.getPositionY()-100)
-					{  
-						rndX = r.nextInt(appgc.getWidth());
-						rndY = r.nextInt(appgc.getHeight());	  
-					}
-				entities.add(new Spider(this, rndX, rndY));
-			}			
-			enemySpawnTimer.reset();
-		}
-		
 	}
 
 	@Override
@@ -151,15 +155,15 @@ public class SimpleSlickGame extends BasicGame
 		{
 			if (e instanceof Hero)
 			{
-			g.setColor(Color.red);
-			g.fillRect(appgc.getWidth()/5, appgc.getHeight()/20, ((Hero) e).getHealth()*1.5f , 10);
+				g.setColor(Color.red);
+				g.fillRect(appgc.getWidth()/5, appgc.getHeight()/20, ((Hero) e).getHealth()*1.5f , 10);
 			}
 			//Switching sprite according to entity's direction or mousePos.
 			e.spriteSwitch();
 
 			//Drawing all sprites
 			g.drawImage(e.getSprite(), e.getPositionX() - (e.getSprite().getWidth()/2), e.getPositionY() - (e.getSprite().getHeight()/2));
-			
+
 			//Rendering all Particles.
 			e.renderParticles();
 		}
@@ -184,8 +188,8 @@ public class SimpleSlickGame extends BasicGame
 			Logger.getLogger(SimpleSlickGame.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
-	
-	
+
+
 	@Override
 	public void keyPressed(int key, char c)
 	{
@@ -201,7 +205,7 @@ public class SimpleSlickGame extends BasicGame
 			krl.keyReleased(key, c);
 		}
 	}
-	
+
 	@Override
 	public void mousePressed ( int button, int mousePosX, int mousePosY )
 	{

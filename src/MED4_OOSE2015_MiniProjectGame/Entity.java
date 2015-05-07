@@ -41,12 +41,10 @@ public class Entity
 	
 	public void Collision(Entity e)
 	{
-		
 	}
 	
 	public void renderParticles()
 	{
-		
 	}
 	
 	public boolean collides (Entity other)

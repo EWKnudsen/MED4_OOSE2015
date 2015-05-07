@@ -72,9 +72,8 @@ public class Wizard extends Hero implements MousePressedListener
 	@Override
 	public void close()
 	{
-		super.close();
-		
 		game.removeMousePressedListener(this);
+		super.close();
 	}
 
 	public void spriteSwitch () 
