@@ -21,14 +21,11 @@ public class SimpleSlickGame extends BasicGame
 	static AppGameContainer appgc;
 
 	// Initializing entity and keys-pressed lists
-	// // When removing from this collection remember to call entity.close()
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
 	ArrayList<KeyPressedListener> keyPressedListeners = new ArrayList<KeyPressedListener>();
 	ArrayList<KeyReleasedListener> keyReleasedListeners = new ArrayList<KeyReleasedListener>();
 	ArrayList<MousePressedListener> mousePressedListeners = new ArrayList<MousePressedListener>();
-	//Initializing global variables, such as map height and level counter.
 	private TiledMap map;
-	public int mapHeight, mapWidth;
 	private Hero hero;
 	private float spawnTimer = 1f;
 	private int levelTimer = 10;
@@ -56,10 +53,6 @@ public class SimpleSlickGame extends BasicGame
 		//Instantiating hero, created as a wizard (Other classes not yet implemented). Adds the hero to entities list for later use.
 		hero = new Wizard(this,(appgc.getWidth()/2),(appgc.getHeight()/2));
 		entities.add(hero);
-
-		//Values used inside entity subclasses to limit their position range
-		mapWidth = appgc.getWidth();
-		mapHeight = appgc.getHeight();
 	}
 
 	@Override
@@ -109,13 +102,13 @@ public class SimpleSlickGame extends BasicGame
 		if(hero.isAlive){
 			//If statement to check if the game time has proceeded the spawnTime variable.
 			if(gameTime.getTime() > levelTimer){
-					//if the game time has proceeded the spawnTime variable, the spawnTimer is decreased, so enemies will spawn faster.
-					spawnTimer -= 0.05;
-					//spawnTime is increased by 10 sec.
-					levelTimer += 10;
-					//The level is increased
-					levelCounter += 1;
-					System.out.println(levelCounter);
+				//if the game time has proceeded the spawnTime variable, the spawnTimer is decreased, so enemies will spawn faster.
+				spawnTimer -= 0.05;
+				//spawnTime is increased by 10 sec.
+				levelTimer += 10;
+				//The level is increased
+				levelCounter += 1;
+				System.out.println(levelCounter);
 			}
 
 			//Spawns an enemy at the specified spawn rate, and handles the spawn position of them.
@@ -153,17 +146,17 @@ public class SimpleSlickGame extends BasicGame
 				enemySpawnTimer.reset();
 			}
 		}
+
 		// checks through all dead entities
 		for (Entity e : deadEntities) {
-			//closes all dead entities and removes them from the entities list.
 			//pauses the timer of showing how many seconds the hero has survived if he dies. 
 			if (e instanceof Hero)
 			{
 				e.close();
 				entities.remove(e);
 				gameTime.pause();
-				//	gameTime.pause();
 			}
+			//closes all dead entities and removes them from the entities list.
 			else
 			{
 				e.close();
