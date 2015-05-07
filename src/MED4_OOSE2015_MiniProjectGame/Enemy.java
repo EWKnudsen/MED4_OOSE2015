@@ -11,7 +11,6 @@ import org.newdawn.slick.particles.ParticleSystem;
 
 public class Enemy extends Character
 {
-	
 	private Image enemyFrontLeft, enemyFrontRight, enemyBack;
 	private int speed;
 	

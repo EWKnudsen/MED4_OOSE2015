@@ -21,10 +21,10 @@ public class Wizard extends Hero implements MousePressedListener
 		//	mana = 100;
 		try 
 		{
-			wizardFrontRight = new Image ("Graphics/Wizard full (front right).png");
-			wizardFrontLeft = new Image ("Graphics/Wizard full (front left).png");
-			wizardBackRight = new Image ("Graphics/Wizard full (back right).png");
-			wizardBackLeft = new Image ("Graphics/Wizard full (back left).png");
+			wizardFrontRight = new Image ("Graphics/Wizard full front right.png");
+			wizardFrontLeft = new Image ("Graphics/Wizard full front left.png");
+			wizardBackRight = new Image ("Graphics/Wizard full back right.png");
+			wizardBackLeft = new Image ("Graphics/Wizard full back left.png");
 
 		} catch (SlickException e) {
 			e.printStackTrace();
