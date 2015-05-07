@@ -81,16 +81,16 @@ public class Wizard extends Hero implements MousePressedListener
 
 	public void spriteSwitch () 
 	{
-		if(Mouse.getEventX() >= this.getPositionX() &&  game.mapHeight - Mouse.getEventY() >= this.getPositionY() ){
+		if(Mouse.getEventX() >= this.getPositionX() &&  game.appgc.getHeight() - Mouse.getEventY() >= this.getPositionY() ){
 			this.setSprite(wizardFrontRight);
 		}
-		else if(Mouse.getEventX() <= this.getPositionX() && game.mapHeight- Mouse.getEventY() >= this.getPositionY() ){
+		else if(Mouse.getEventX() <= this.getPositionX() && game.appgc.getHeight() - Mouse.getEventY() >= this.getPositionY() ){
 			this.setSprite(wizardFrontLeft);
 		}
-		else if (Mouse.getEventX() >= this.getPositionX() && game.mapHeight- Mouse.getEventY() <= this.getPositionY()){
+		else if (Mouse.getEventX() >= this.getPositionX() && game.appgc.getHeight() - Mouse.getEventY() <= this.getPositionY()){
 			this.setSprite(wizardBackRight);
 		}
-		else if (Mouse.getEventX() <= this.getPositionX() && game.mapHeight- Mouse.getEventY() <= this.getPositionY()){
+		else if (Mouse.getEventX() <= this.getPositionX() && game.appgc.getHeight() - Mouse.getEventY() <= this.getPositionY()){
 			this.setSprite(wizardBackLeft);
 		}
 	}
