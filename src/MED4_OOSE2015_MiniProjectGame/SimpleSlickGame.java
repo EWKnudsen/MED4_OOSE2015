@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import org.lwjgl.util.Timer;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -81,12 +82,11 @@ public class SimpleSlickGame extends BasicGame
 				deadEntities.add(e);
 			}
 			//pauses the timer of showing how many seconds the hero has survived if he dies. 
-			if (e instanceof Hero )
+			if (e instanceof Hero)
 			{
 				if(!e.isAlive)
 				{
 					timer2.pause();
-					
 				}
 			}
 		}
@@ -102,7 +102,7 @@ public class SimpleSlickGame extends BasicGame
 		//Spawns an enemy every 3 seconds at a position that is +-100 the position of the Hero.
 		if(timer.getTime() > 1)
 		{
-			int rndX = r.nextInt(appgc.getWidth()) ;
+			int rndX = r.nextInt(appgc.getWidth());
 			int rndY = r.nextInt(appgc.getHeight());
 			int rndNum = r.nextInt(20);
 			
@@ -135,6 +135,11 @@ public class SimpleSlickGame extends BasicGame
 
 		for(Entity e: entities )
 		{
+			if (e instanceof Hero)
+			{
+			g.setColor(Color.red);
+			g.fillRect(appgc.getWidth()/5, appgc.getHeight()/20, ((Hero) e).getHealth()*1.5f , 10);
+			}
 			//Switching sprite according to entity's direction or mousePos.
 			e.spriteSwitch();
 
@@ -144,9 +149,10 @@ public class SimpleSlickGame extends BasicGame
 			//Rendering all Particles.
 			e.renderParticles();
 		}
-		
+
 		//maybe make GUI func   and call: GUI(); instead
-		g.drawString("Seconds survived: " + Float.toString(timer2.getTime()) , 380, 15);
+		g.setColor(Color.white);
+		g.drawString("Seconds survived: " + Float.toString(timer2.getTime()) , appgc.getWidth()-240, appgc.getHeight()/23);
 	}
 
 	public static void main(String[] args)
