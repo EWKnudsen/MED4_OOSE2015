@@ -11,7 +11,9 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.tiled.TiledMap;
 
 public class SimpleSlickGame extends BasicGame
@@ -29,27 +31,22 @@ public class SimpleSlickGame extends BasicGame
 	private float spawnTimer = 1f;
 	private int levelTimer = 10;
 	private int levelCounter = 1;
-
-	// Creating global timers to keep track of game time and the spawn timer.
+	
 	Timer enemySpawnTimer = new Timer();
 	Timer gameTime = new Timer();
 
-	//Creates a global random variable to create random numbers troughout the game code.
 	Random r = new Random();
 
 	public SimpleSlickGame(String gamename)
 	{
-		//Creates a new slick-game
 		super(gamename);
 	}
 
 	@Override
 	public void init(GameContainer gc) throws SlickException 
 	{
-		//Loading map file
 		map = new TiledMap("Graphics/Map3.tmx");
 
-		//Instantiating hero, created as a wizard (Other classes not yet implemented). Adds the hero to entities list for later use.
 		hero = new Wizard(this,(appgc.getWidth()/2),(appgc.getHeight()/2));
 		entities.add(hero);
 	}
@@ -58,48 +55,37 @@ public class SimpleSlickGame extends BasicGame
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException 
 	{	
-		//Timer.tick updates the time of all timers.
 		Timer.tick();
-		//Controls the frame rate by adding a delay to the update function.
 		try {
 			Thread.sleep(10);
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
 
-		//Creating a new list to keep track of dead entities
 		ArrayList<Entity> deadEntities = new ArrayList<Entity>();
-
-		//for loop goes through all entities in the entities list.
 		for (Entity e : entities)
 		{	
-			//The collides function is run to check if entities collide in the game.
 			e.collides(entities);			
 
-			//If statement detects if entities have moved too far away from the screen.
 			if(e.getPositionX() < -200 || e.getPositionX() > appgc.getWidth()+200 ||
-				e.getPositionY() < -200 || e.getPositionY() > appgc.getHeight()+200 )
+			   e.getPositionY() < -200 || e.getPositionY() > appgc.getHeight()+200 )
 			{
-				//If the entity is too far away, it is set to "dead".
 				e.isAlive = false;
 			}
 			else 
 			{
-				//If the entities are not too far away, the move() and particleUpdate() functions are run.
-				e.move();  //Controls the movement of entities.
-				e.particleUpdate(); //Controls the updating of particles in entities.
+				e.move();
+				e.particleUpdate();
 			}			
-
-			//Checks if the entities are dead.
+	
 			if (!e.isAlive)
 			{
-				//If the entitiy is dead, add them to the deadEntities list.
 				deadEntities.add(e);
 			}
 		}
 
-
-		if(hero.isAlive){
+		if(hero.isAlive)
+		{
 			//If statement to check if the game time has proceeded the spawnTime variable.
 			if(gameTime.getTime() > levelTimer){
 				//if the game time has proceeded the spawnTime variable, the spawnTimer is decreased, so enemies will spawn faster.
@@ -152,63 +138,61 @@ public class SimpleSlickGame extends BasicGame
 			//pauses the timer of showing how many seconds the hero has survived if he dies. 
 			if (e instanceof Hero)
 			{
-				e.close();
-				entities.remove(e);
-				gameTime.pause();
+				if(!e.isAlive)
+				{
+					gameTime.pause();
+				}
 			}
-			//closes all dead entities and removes them from the entities list.
-			else
-			{
-				e.close();
-				entities.remove(e);
-			}
+		}
+
+		for (Entity e : deadEntities) {
+			e.close();
+			entities.remove(e);
+		}
+		
+		if(gameTime.getTime() > levelTimer)
+		{
+			spawnTimer -= 0.05;
+			levelTimer += 10;
+			levelCounter += 1;
+			System.out.println(levelCounter);
 		}
 	}
 
-
-
-	//The render function controls the rendering of graphics such as sprites and particles.
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
-
-		//renders the map at position (0.0).
 		map.render(0,0);
 
-		//Checks through all entities
 		for(Entity e: entities )
 		{
-			//If the entity is a hero, set the color to red and draw a health bar according to the amount of health the hero has.
 			if (e instanceof Hero)
 			{
 				g.setColor(Color.red);
-				g.fillRect(appgc.getWidth()/5, appgc.getHeight()/20, ((Hero) e).getHealth()*1.5f , 10);			
-
+				g.fillRect(appgc.getWidth()/5, appgc.getHeight()/20, hero.getHealth()*1.5f , 10);
 			}
 			//Switching sprite according to entity's direction or mousePos.
 			e.spriteSwitch();
 
 			//Drawing all sprites
 			g.drawImage(e.getSprite(), e.getPositionX() - (e.getSprite().getWidth()/2), e.getPositionY() - (e.getSprite().getHeight()/2));
-
+			
 			//Rendering all Particles.
 			e.renderParticles();
 		}
 
-		//Brute force GUI: draws the amount of seconds survived and the current level.
+		//maybe make GUI func   and call: GUI(); instead
 		g.setColor(Color.white);
 		g.drawString("Seconds survived: " + Float.toString(gameTime.getTime()) , appgc.getWidth()-240, appgc.getHeight()/23);
 		g.drawString("Level: " + levelCounter, appgc.getWidth()/2, appgc.getHeight()/2);
 	}
 
-	//Start of Main class
 	public static void main(String[] args)
 	{
 		try
 		{
 			//Initialising the gameContainer and starting it.
 			appgc = new AppGameContainer(new SimpleSlickGame("Simple Slick Game"));
-			//Sets the window to 640*480 pixels.
 			appgc.setDisplayMode(640, 480, false);
 			appgc.start();
 		}
@@ -217,8 +201,8 @@ public class SimpleSlickGame extends BasicGame
 			Logger.getLogger(SimpleSlickGame.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
-
-	//keyPressed function to detect which key is pressed.
+	
+	
 	@Override
 	public void keyPressed(int key, char c)
 	{
@@ -227,7 +211,6 @@ public class SimpleSlickGame extends BasicGame
 		}
 	}
 
-	//keyReleased function to detect which keys are released
 	@Override
 	public void keyReleased(int key, char c)
 	{
@@ -235,8 +218,7 @@ public class SimpleSlickGame extends BasicGame
 			krl.keyReleased(key, c);
 		}
 	}
-
-	//mousePressed function to detect when and where the mouse is pressed
+	
 	@Override
 	public void mousePressed ( int button, int mousePosX, int mousePosY )
 	{
@@ -245,9 +227,7 @@ public class SimpleSlickGame extends BasicGame
 		}
 	}
 
-	// getEntities function that returns the entities list
 	public ArrayList<Entity> getEntities() { return entities; }
-
 
 	public void addKeyPressedListener(KeyPressedListener toAdd) {
 		keyPressedListeners.add(toAdd);
