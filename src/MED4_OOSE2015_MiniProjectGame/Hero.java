@@ -39,7 +39,7 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 			Image particleImg = new Image ("src/Graphics/particle.png");
 			particles = new ParticleSystem(particleImg,1500);
 			
-			File xmlFile = new File ("src/Graphics/ouch aeffect.xml");
+			File xmlFile = new File ("src/Graphics/ouch effect.xml");
 			emitter = ParticleIO.loadEmitter(xmlFile);
 			
 			emitter.setPosition(this.getPositionX(), this.getPositionY(),false);
