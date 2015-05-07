@@ -18,9 +18,10 @@ import org.newdawn.slick.tiled.TiledMap;
 
 public class SimpleSlickGame extends BasicGame
 {
+	//Instantiating Game container
 	static AppGameContainer appgc;
 
-	// When removing from this collection remember to call entity.close()
+	// Initializing entity and keys- mousePressed lists
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
 	ArrayList<KeyPressedListener> keyPressedListeners = new ArrayList<KeyPressedListener>();
 	ArrayList<KeyReleasedListener> keyReleasedListeners = new ArrayList<KeyReleasedListener>();
@@ -32,8 +33,6 @@ public class SimpleSlickGame extends BasicGame
 	private int levelTimer = 10;
 	private int levelCounter = 1;
 	
-
-
 	Timer enemySpawnTimer = new Timer();
 	Timer gameTime = new Timer();
 
