@@ -49,10 +49,6 @@ public class SimpleSlickGame extends BasicGame
 
 		hero = new Wizard(this,(appgc.getWidth()/2),(appgc.getHeight()/2));
 		entities.add(hero);
-
-		//Values used inside entity subclasses to limit their position range
-		mapWidth = appgc.getWidth();
-		mapHeight = appgc.getHeight();
 	}
 
 	@Override
@@ -130,7 +126,7 @@ public class SimpleSlickGame extends BasicGame
 
 		for (Entity e : deadEntities) 
 		{
-			//pauses the timer of showing how many seconds the hero has survived if he dies. 
+			//Pauses the timer of showing how many seconds the hero has survived if he dies. 
 			if (e instanceof Hero)
 			{
 				e.close();
