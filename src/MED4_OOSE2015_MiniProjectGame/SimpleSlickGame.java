@@ -181,7 +181,7 @@ public class SimpleSlickGame extends BasicGame
 			if (e instanceof Hero)
 			{
 				g.setColor(Color.red);
-				g.fillRect(appgc.getWidth()/5, appgc.getHeight()/20, ((Hero) e).getHealth()*1.5f , 10);			
+				g.fillRect(appgc.getWidth()/5, appgc.getHeight()/20, hero.getHealth()*1.5f , 10);			
 
 			}
 			//Switching sprite according to entity's direction or mousePos.
