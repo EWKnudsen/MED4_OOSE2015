@@ -16,11 +16,10 @@ import org.newdawn.slick.tiled.TiledMap;
 
 public class SimpleSlickGame extends BasicGame
 {
-
 	//Instantiating Game container
 	static AppGameContainer appgc;
 
-	// Initializing entity and keys-pressed lists
+	// Initializing entity and keys- mousePressed lists
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
 	ArrayList<KeyPressedListener> keyPressedListeners = new ArrayList<KeyPressedListener>();
 	ArrayList<KeyReleasedListener> keyReleasedListeners = new ArrayList<KeyReleasedListener>();
@@ -78,7 +77,7 @@ public class SimpleSlickGame extends BasicGame
 
 			//If statement detects if entities have moved too far away from the screen.
 			if(e.getPositionX() < -200 || e.getPositionX() > appgc.getWidth()+200 ||
-					e.getPositionY() < -200 || e.getPositionY() > appgc.getHeight()+200 )
+				e.getPositionY() < -200 || e.getPositionY() > appgc.getHeight()+200 )
 			{
 				//If the entity is too far away, it is set to "dead".
 				e.isAlive = false;
