@@ -28,9 +28,13 @@ public class SimpleSlickGame extends BasicGame
 	private TiledMap map;
 	public int mapHeight, mapWidth;
 	private Hero hero;
+	private float spawnTimer = 1f;
+	private int spawnTime = 10;
+	private int levelCounter = 1;
+	
 
-	Timer timer = new Timer();
-	Timer timer2 = new Timer();
+	Timer enemySpawnTimer = new Timer();
+	Timer gameTime = new Timer();
 	Random r = new Random();
 
 	public SimpleSlickGame(String gamename)
@@ -86,7 +90,7 @@ public class SimpleSlickGame extends BasicGame
 			{
 				if(!e.isAlive)
 				{
-					timer2.pause();
+					gameTime.pause();
 				}
 			}
 		}
@@ -98,9 +102,16 @@ public class SimpleSlickGame extends BasicGame
 
 		int objectLayer = map.getLayerIndex("Objects");
 		map.getTileId(0, 0, objectLayer);
-
+		
+		if(gameTime.getTime() > spawnTime)
+		{
+			spawnTimer -= 0.05;
+			spawnTime += 10;
+			levelCounter += 1;
+			System.out.println(levelCounter);
+		}
 		//Spawns an enemy every 3 seconds at a position that is +-100 the position of the Hero.
-		if(timer.getTime() > 1)
+		if(enemySpawnTimer.getTime() > spawnTimer)
 		{
 			int rndX = r.nextInt(appgc.getWidth());
 			int rndY = r.nextInt(appgc.getHeight());
@@ -116,7 +127,7 @@ public class SimpleSlickGame extends BasicGame
 			} else {
 				entities.add(new Spider(this, rndX, rndY));
 			}			
-			timer.reset();
+			enemySpawnTimer.reset();
 		}
 		
 	}
@@ -145,7 +156,8 @@ public class SimpleSlickGame extends BasicGame
 
 		//maybe make GUI func   and call: GUI(); instead
 		g.setColor(Color.white);
-		g.drawString("Seconds survived: " + Float.toString(timer2.getTime()) , appgc.getWidth()-240, appgc.getHeight()/23);
+		g.drawString("Seconds survived: " + Float.toString(gameTime.getTime()) , appgc.getWidth()-240, appgc.getHeight()/23);
+		g.drawString("Level: " + levelCounter, appgc.getWidth()/2, appgc.getHeight()/2);
 	}
 
 	public static void main(String[] args)
