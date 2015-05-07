@@ -95,6 +95,7 @@ public class Missile extends Entity
        recalculateVector(destX, destY);
     }
 	
+	//Overrides the collides() function from entity parent class to return true only if the entity collided is not a Hero or missile.
 	@Override
 	public boolean collides (Entity other)
 	{
@@ -104,38 +105,47 @@ public class Missile extends Entity
 			return super.collides(other);
 	}
 	
+	//Overrides the collision() of the Entity parent class to set isAlive to false when colliding.
 	@Override
 	public void Collision(Entity e)
 	{
 		this.isAlive = false;
 	}
 	
+	//Updates particles
 	public void particleUpdate()
 	{
         particles.update(1);
 	}
 	
+	//Renders particles
 	@Override
 	public void renderParticles()
 	{
 		particles.render();
 	}
 	
+	
+	//Move function controls the movement of the missile
 	@Override
 	public void move()
 	{
+		//Updates the X and Y position by using dx and dy
         float x = location.getX() + dx;
         float y = location.getY() + dy;
         
+        //Updates the particle emitter's position to the missiles current position
         emitter.setPosition(this.getPositionX(), this.getPositionY(),false);
         
+        //Updates the location of the missile
         setLocation(x, y);
 	}
 	
+	//Returns the location vector of the missile
 	public Vector2f getLocation() {
 		return location.getLocation();
 	}
-
+	//sets the location vector of the missile using the positionX and positionY variables.
 	public void setLocation(float positionX, float positionY) {
 		this.setPositionX((int)positionX);
 		this.setPositionY((int)positionY);
