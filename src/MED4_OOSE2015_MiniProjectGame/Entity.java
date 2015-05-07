@@ -81,35 +81,42 @@ public class Entity
 		return col;
 	}
 
-	
+	//function to get the hitbox radius of the entity
 	public int getHitboxRadius() {
 		return hitboxRadius;
 	}
-
+	
+	// function to set the hitbox radius of the entity
 	public void setHitboxRadius(int hitboxRadius) {
 		this.hitboxRadius = hitboxRadius;
 	}
 
+	// function to get the X position of the entity
 	public int getPositionX() {
 		return positionX;
 	}
-
+	
+	// function to set the X position of the entity
 	public void setPositionX(int positionX) {
 		this.positionX = positionX;
 	}
 
+	// function to get the Y position of the entity
 	public int getPositionY() {
 		return positionY;
 	}
 
+	// function to set the Y position of the entity
 	public void setPositionY(int positionY) {
 		this.positionY = positionY;
 	}
 
+	//function to get the sprite of the entity
 	public org.newdawn.slick.Image getSprite() {
 		return sprite;
 	}
 
+	//function to set the sprite of the entity
 	public void setSprite(org.newdawn.slick.Image sprite) {
 		this.sprite = sprite;
 	}
