@@ -1,7 +1,12 @@
 package MED4_OOSE2015_MiniProjectGame;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.particles.ParticleIO;
+import org.newdawn.slick.particles.ParticleSystem;
 
 public class Spider extends Enemy {
 
@@ -26,16 +31,27 @@ public class Spider extends Enemy {
 			System.out.println("ERROR: Could not find Spider sprite");
 		}
 		
-		speed = 1;
-	}
-	
-	@Override
-	public void Collision(Entity e)
-	{
-		if (e instanceof Hero || e instanceof Missile)
+		try 
 		{
-			isAlive = false;
+			Image particleImg = new Image ("Graphics/Particles/web.png");
+			particles = new ParticleSystem(particleImg,1500);
+			
+			File xmlFile = new File ("Graphics/Particles/web effect.xml");
+			emitter = ParticleIO.loadEmitter(xmlFile);
+			emitter.setPosition(this.getPositionX(), this.getPositionY(),false);
+			
+			particles.addEmitter(emitter);
+			particles.setBlendingMode(ParticleSystem.BLEND_ADDITIVE);
+			
+		} catch (SlickException e1) {
+			System.out.println("cannot find xml file / particle image");
+			e1.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("Cannot assign xml file to emitter. File might be missing.");
+			e.printStackTrace();
 		}
+		
+		speed = 1;
 	}
 	
 	public void move()
@@ -44,16 +60,19 @@ public class Spider extends Enemy {
 		{
 			if (e instanceof Hero)
 			{
+				
 				if (this.getPositionX() < e.getPositionX() - 10) 
 				{
 					this.setPositionX(this.getPositionX() + speed);
 					this.setSprite(spiderEast);
+//					particles.setPosition(this.getPositionX(), this.getPositionY());
 					speed = 1;
 				}
 				else if (this.getPositionX() > e.getPositionX() + 10) 
 				{
 					this.setPositionX(this.getPositionX() - speed);
 					this.setSprite(spiderWest);
+					
 					speed = 1;
 				}
 				else if (this.getPositionY() < e.getPositionY()) 
@@ -68,7 +87,7 @@ public class Spider extends Enemy {
 					this.setSprite(spiderNorth);
 					speed = 5;
 				}
-				break;
+				break;	
 			}
 		}
 	}
