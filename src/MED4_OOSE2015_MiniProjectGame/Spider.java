@@ -8,17 +8,27 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.particles.ParticleIO;
 import org.newdawn.slick.particles.ParticleSystem;
 
+//The Spider class extends the Enemy class
 public class Spider extends Enemy {
 
+	//Spider class variables initialized
 	private Image spiderWest, spiderEast, spiderNorth, spiderSouth;
 	private int speed;
 	
+	/**
+	 * The constructor sets the X and Y position of the entity and refers to the slick game in to reach its variables and functions
+	 * @param game
+	 * @param x
+	 * @param y
+	 */
 	public Spider(SimpleSlickGame game, int x, int y) {
+		//The super constructor (the Entity constructor) is called to give the x and y position and refer to game.
 		super(game, x, y);
-		// TODO Auto-generated constructor stub
 		
+		//The spider health is set to 15
 		this.setHealth(15);
 		
+		//Adds sprites to the entity
 		try 
 		{
 			spiderEast = new Image("Graphics/Spider east.png");
@@ -31,15 +41,16 @@ public class Spider extends Enemy {
 			System.out.println("ERROR: Could not find Spider sprite");
 		}
 		
+		//Initializes and adds a particle system to the entity
 		try 
 		{
 			Image particleImg = new Image ("Particles/web.png");
+
 			particles = new ParticleSystem(particleImg,1500);
 			
 			//File xmlFile = new File ("Particles/web effect.xml");
 			//emitter = ParticleIO.loadEmitter(xmlFile);
 			emitter = ParticleIO.loadEmitter("Particles/web effect.xml");
-			
 			
 			emitter.setPosition(this.getPositionX(), this.getPositionY(),false);
 			
@@ -54,45 +65,60 @@ public class Spider extends Enemy {
 			e.printStackTrace();
 		}
 		
+		//set speed to an initial 1
 		speed = 1;
 	}
 	
+	/**
+	 * The move() function controls the spider movement
+	 */
 	public void move()
 	{	
 		for(Entity e:game.getEntities() )
 		{
+			//checks if entity is Hero
 			if (e instanceof Hero)
 			{
 				
+				//if and else if statements checks where the Hero is
 				if (this.getPositionX() < e.getPositionX() - 10) 
 				{
+					//move Spider
 					this.setPositionX(this.getPositionX() + speed);
+					//set new sprite
 					this.setSprite(spiderEast);
-//					particles.setPosition(this.getPositionX(), this.getPositionY());
+					//Set new speed
 					speed = 1;
 				}
 				else if (this.getPositionX() > e.getPositionX() + 10) 
 				{
+					//move Spider
 					this.setPositionX(this.getPositionX() - speed);
+					//set new sprite
 					this.setSprite(spiderWest);
-					
+					//Set new speed
 					speed = 1;
 				}
 				else if (this.getPositionY() < e.getPositionY()) 
 				{
+					//move Spider
 					this.setPositionY(this.getPositionY() + speed);
+					//set new sprite
 					this.setSprite(spiderSouth);
+					//Set new speed
 					speed = 5;
 				}
 				else if (this.getPositionY() > e.getPositionY()) 
 				{
+					//move Spider
 					this.setPositionY(this.getPositionY() - speed);
+					//set new sprite
 					this.setSprite(spiderNorth);
+					//Set new speed
 					speed = 5;
 				}
 				break;	
 			}
 		}
 	}
-
 }

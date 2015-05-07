@@ -23,7 +23,15 @@ public class Missile extends Entity
 	private Image missileImg;
 	Point location = new Point(0,0);
 	
-	//The constructor initialises the missile with essential variables.
+	/**
+	 * The constructor initializes the missile with essential variables.
+	 * @param _game
+	 * @param x
+	 * @param y
+	 * @param destX
+	 * @param destY
+	 * @param owner
+	 */
 	public Missile(SimpleSlickGame _game, int x, int y, int destX, int destY, Entity owner) 
 	{
 		//the super constructor is called to give the x and y coordinates and call the game to use its variable and 
@@ -40,14 +48,16 @@ public class Missile extends Entity
 		//Initializes and adds a particle system to the entity
 		try 
 		{
+
 			Image particleImg = new Image ("Particles/particle.png");
+
 			particles = new ParticleSystem(particleImg,150);
 			
+
 		//	File xmlFile = new File ("Particles/fire effect.xml");
 		//	emitter = ParticleIO.loadEmitter(xmlFile);
 			emitter = ParticleIO.loadEmitter("Particles/fire effect.xml");
-			
-			
+
 			emitter.setPosition(this.getPositionX(), this.getPositionY(),false);
 			
 			particles.addEmitter(emitter);
@@ -82,7 +92,11 @@ public class Missile extends Entity
 		}
 	}
 	
-	//Recalculates the vector to the destination (where the user clicks) with a certain speed.
+	/**
+	 * Recalculates the vector to the destination (where the user clicks) with a certain speed.
+	 * @param destX
+	 * @param destY
+	 */
 	public void recalculateVector(int destX, int destY)
     {
        float rad = (float)(Math.atan2(destX - startX, startY - destY));
@@ -92,12 +106,17 @@ public class Missile extends Entity
        this.dy = -(float) Math.cos(rad) * speed;
     }
 	
-	//calls the recalculateVector(int destX, int destY) 
+	/**
+	 * calls the recalculateVector(int destX, int destY) 
+	 */
 	public void recalculateVector()
     {
        recalculateVector(destX, destY);
     }
 	
+	/**
+	 * Overrides the collides() function from entity parent class to return true only if the entity collided is not a Hero or missile.
+	 */
 	@Override
 	public boolean collides (Entity other)
 	{
@@ -107,38 +126,56 @@ public class Missile extends Entity
 			return super.collides(other);
 	}
 	
+	/**
+	 * Overrides the collision() of the Entity parent class to set isAlive to false when colliding.
+	 * @param Entity e
+	 */
 	@Override
 	public void Collision(Entity e)
 	{
 		this.isAlive = false;
 	}
 	
+	/**
+	 * Updates particles
+	 */
 	public void particleUpdate()
 	{
         particles.update(1);
 	}
 	
+	/**
+	 * Renders particles
+	 */
 	@Override
 	public void renderParticles()
 	{
 		particles.render();
 	}
 	
+	
+	/**
+	 * Move function controls the movement of the missile
+	 */
 	@Override
 	public void move()
 	{
+		//Updates the X and Y position by using dx and dy
         float x = location.getX() + dx;
         float y = location.getY() + dy;
         
+        //Updates the particle emitter's position to the missiles current position
         emitter.setPosition(this.getPositionX(), this.getPositionY(),false);
         
+        //Updates the location of the missile
         setLocation(x, y);
 	}
 	
+	//Returns the location vector of the missile
 	public Vector2f getLocation() {
 		return location.getLocation();
 	}
-
+	//sets the location vector of the missile using the positionX and positionY variables.
 	public void setLocation(float positionX, float positionY) {
 		this.setPositionX((int)positionX);
 		this.setPositionY((int)positionY);

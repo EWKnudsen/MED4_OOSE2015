@@ -11,9 +11,7 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
 import org.newdawn.slick.tiled.TiledMap;
 
 public class SimpleSlickGame extends BasicGame
@@ -41,7 +39,10 @@ public class SimpleSlickGame extends BasicGame
 	{
 		super(gamename);
 	}
-
+	
+	/**
+	 * init function
+	 */
 	@Override
 	public void init(GameContainer gc) throws SlickException 
 	{
@@ -51,7 +52,9 @@ public class SimpleSlickGame extends BasicGame
 		entities.add(hero);
 	}
 
-	//Update function
+	/**
+	 * Update function
+	 */
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException 
 	{	
@@ -158,7 +161,10 @@ public class SimpleSlickGame extends BasicGame
 			System.out.println(levelCounter);
 		}
 	}
-
+	
+	/**
+	 * render function
+	 */
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
@@ -187,6 +193,10 @@ public class SimpleSlickGame extends BasicGame
 		g.drawString("Level: " + levelCounter, appgc.getWidth()/2, appgc.getHeight()/2);
 	}
 
+	/**
+	 * Main class
+	 * @param args
+	 */
 	public static void main(String[] args)
 	{
 		try
@@ -202,7 +212,9 @@ public class SimpleSlickGame extends BasicGame
 		}
 	}
 	
-	
+	/**
+	 * keyPressed
+	 */
 	@Override
 	public void keyPressed(int key, char c)
 	{
@@ -210,7 +222,9 @@ public class SimpleSlickGame extends BasicGame
 			kpl.keyPressed(key, c);
 		}
 	}
-
+	/**
+	 * keyReleased
+	 */
 	@Override
 	public void keyReleased(int key, char c)
 	{
@@ -219,6 +233,9 @@ public class SimpleSlickGame extends BasicGame
 		}
 	}
 	
+	/**
+	 * mousePressed
+	 */
 	@Override
 	public void mousePressed ( int button, int mousePosX, int mousePosY )
 	{
@@ -227,6 +244,10 @@ public class SimpleSlickGame extends BasicGame
 		}
 	}
 
+	/**
+	 * getEntities returns the entities in the entities list.
+	 * @return
+	 */
 	public ArrayList<Entity> getEntities() { return entities; }
 
 	public void addKeyPressedListener(KeyPressedListener toAdd) {
