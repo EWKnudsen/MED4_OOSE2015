@@ -80,7 +80,7 @@ public class Missile extends Entity
        float rad = (float)(Math.atan2(destX - startX, startY - destY));
        speed = 5;
        
-       this.dx = (float) Math.sin(rad) * speed;
+       this.dx =  (float) Math.sin(rad) * speed;
        this.dy = -(float) Math.cos(rad) * speed;
     }
 	

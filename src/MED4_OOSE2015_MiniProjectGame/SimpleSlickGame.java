@@ -16,10 +16,10 @@ import org.newdawn.slick.tiled.TiledMap;
 
 public class SimpleSlickGame extends BasicGame
 {
-	
+
 	//Instantiating Game container
 	static AppGameContainer appgc;
-	
+
 	// Initializing entity and keys-pressed lists
 	// // When removing from this collection remember to call entity.close()
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
@@ -31,9 +31,8 @@ public class SimpleSlickGame extends BasicGame
 	public int mapHeight, mapWidth;
 	private Hero hero;
 	private float spawnTimer = 1f;
-	private int spawnTime = 10;
+	private int levelTimer = 10;
 	private int levelCounter = 1;
-	
 
 	// Creating global timers to keep track of game time and the spawn timer.
 	Timer enemySpawnTimer = new Timer();
@@ -74,19 +73,19 @@ public class SimpleSlickGame extends BasicGame
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
-		
+
 		//Creating a new list to keep track of dead entities
 		ArrayList<Entity> deadEntities = new ArrayList<Entity>();
-		
+
 		//for loop goes through all entities in the entities list.
 		for (Entity e : entities)
 		{	
 			//The collides function is run to check if entities collide in the game.
 			e.collides(entities);			
-			
+
 			//If statement detects if entities have moved too far away from the screen.
 			if(e.getPositionX() < -200 || e.getPositionX() > appgc.getWidth()+200 ||
-			   e.getPositionY() < -200 || e.getPositionY() > appgc.getHeight()+200 )
+					e.getPositionY() < -200 || e.getPositionY() > appgc.getHeight()+200 )
 			{
 				//If the entity is too far away, it is set to "dead".
 				e.isAlive = false;
@@ -97,86 +96,95 @@ public class SimpleSlickGame extends BasicGame
 				e.move();  //Controls the movement of entities.
 				e.particleUpdate(); //Controls the updating of particles in entities.
 			}			
+
 			//Checks if the entities are dead.
 			if (!e.isAlive)
 			{
 				//If the entitiy is dead, add them to the deadEntities list.
 				deadEntities.add(e);
 			}
-			//pauses the timer of showing how many seconds the hero has survived if he dies. 
-			if (e instanceof Hero)
-			{
-				if(!e.isAlive)
+		}
+
+
+		if(hero.isAlive){
+			//If statement to check if the game time has proceeded the spawnTime variable.
+			if(gameTime.getTime() > levelTimer){
+				for (Entity e : deadEntities) 
 				{
-					gameTime.pause();
+					//if the game time has proceeded the spawnTime variable, the spawnTimer is decreased, so enemies will spawn faster.
+					spawnTimer -= 0.05;
+					//spawnTime is increased by 10 sec.
+					levelTimer += 10;
+					//The level is increased
+					levelCounter += 1;
+					System.out.println(levelCounter);
 				}
 			}
+
+			//Spawns an enemy at the specified spawn rate, and handles the spawn position of them.
+			if(enemySpawnTimer.getTime() > spawnTimer)
+			{
+				//Generates random X and Y positions for the enemy
+				int rndX = r.nextInt(appgc.getWidth());
+				int rndY = r.nextInt(appgc.getHeight());
+				//Random number to determine which enemy to spawn
+				int rndNum = r.nextInt(20);
+
+				//Check which enemy should spawn by using the random number
+				if(rndNum > 5){
+					//To ensure the random position is not near the player, the random X and Y will be randomized until the criterias are met.
+					while(rndX < hero.getPositionX()+100 && rndX > hero.getPositionX()-100 &&
+							rndY < hero.getPositionY() +100 && rndY > hero.getPositionY()-100)
+					{  
+						rndX = r.nextInt(appgc.getWidth());
+						rndY = r.nextInt(appgc.getHeight());	  
+					}
+					//Adds a new zombie
+					entities.add(new Enemy(this, rndX, rndY));
+				} else {
+					//To ensure the random position is not near the player, the random X and Y will be randomized until the criterias are met.
+					while(rndX < hero.getPositionX()+200 && rndX > hero.getPositionX()-200 &&
+							rndY < hero.getPositionY() + 200 && rndY > hero.getPositionY()-200)
+					{  
+						rndX = r.nextInt(appgc.getWidth());
+						rndY = r.nextInt(appgc.getHeight());	  
+					}
+					//Adds a new spider
+					entities.add(new Spider(this, rndX, rndY));
+				}		
+				//			//Resets the spawn timer. 
+				enemySpawnTimer.reset();
+			}
 		}
-		
 		// checks through all dead entities
 		for (Entity e : deadEntities) {
 			//closes all dead entities and removes them from the entities list.
-			e.close();
-			entities.remove(e);
+			//pauses the timer of showing how many seconds the hero has survived if he dies. 
+			if (e instanceof Hero)
+			{
+				e.close();
+				entities.remove(e);
+				gameTime.pause();
+				//	gameTime.pause();
+			}
+			else
+			{
+				e.close();
+				entities.remove(e);
+			}
 		}
-		
-		//If statement to check if the game time has proceeded the spawnTime variable.
-		if(gameTime.getTime() > spawnTime)
-		{
-			//if the game time has proceeded the spawnTime variable, the spawnTimer is decreased, so enemies will spawn faster.
-			spawnTimer -= 0.05;
-			//spawnTime is increased by 10 sec.
-			spawnTime += 10;
-			//The level is increased
-			levelCounter += 1;
-			System.out.println(levelCounter);
-		}
-		
-		//Spawns an enemy at the specified spawn rate, and handles the spawn position of them.
-		if(enemySpawnTimer.getTime() > spawnTimer)
-		{
-			//Generates random X and Y positions for the enemy
-			int rndX = r.nextInt(appgc.getWidth());
-			int rndY = r.nextInt(appgc.getHeight());
-			//Random number to determine which enemy to spawn
-			int rndNum = r.nextInt(20);
-			
-			//Check which enemy should spawn by using the random number
-			if(rndNum > 5){
-				//To ensure the random position is not near the player, the random X and Y will be randomized until the criterias are met.
-				while(rndX < hero.getPositionX()+100 && rndX > hero.getPositionX()-100 &&
-						  rndY < hero.getPositionY() +100 && rndY > hero.getPositionY()-100)
-					{  
-						rndX = r.nextInt(appgc.getWidth());
-						rndY = r.nextInt(appgc.getHeight());	  
-					}
-				//Adds a new zombie
-				entities.add(new Enemy(this, rndX, rndY));
-			} else {
-				//To ensure the random position is not near the player, the random X and Y will be randomized until the criterias are met.
-				while(rndX < hero.getPositionX()+200 && rndX > hero.getPositionX()-200 &&
-						  rndY < hero.getPositionY() + 200 && rndY > hero.getPositionY()-200)
-					{  
-						rndX = r.nextInt(appgc.getWidth());
-						rndY = r.nextInt(appgc.getHeight());	  
-					}
-				//Adds a new spider
-				entities.add(new Spider(this, rndX, rndY));
-			}		
-//			//Resets the spawn timer. 
-			enemySpawnTimer.reset();
-		}
-		
 	}
-	
+
+
+
 	//The render function controls the rendering of graphics such as sprites and particles.
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException
 	{
-		
+
 		//renders the map at position (0.0).
 		map.render(0,0);
-		
+
 		//Checks through all entities
 		for(Entity e: entities )
 		{
@@ -185,13 +193,14 @@ public class SimpleSlickGame extends BasicGame
 			{
 				g.setColor(Color.red);
 				g.fillRect(appgc.getWidth()/5, appgc.getHeight()/20, ((Hero) e).getHealth()*1.5f , 10);			
+
 			}
 			//Switching sprite according to entity's direction or mousePos.
 			e.spriteSwitch();
 
 			//Drawing all sprites
 			g.drawImage(e.getSprite(), e.getPositionX() - (e.getSprite().getWidth()/2), e.getPositionY() - (e.getSprite().getHeight()/2));
-			
+
 			//Rendering all Particles.
 			e.renderParticles();
 		}
@@ -218,7 +227,7 @@ public class SimpleSlickGame extends BasicGame
 			Logger.getLogger(SimpleSlickGame.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
-	
+
 	//keyPressed function to detect which key is pressed.
 	@Override
 	public void keyPressed(int key, char c)
@@ -236,7 +245,7 @@ public class SimpleSlickGame extends BasicGame
 			krl.keyReleased(key, c);
 		}
 	}
-	
+
 	//mousePressed function to detect when and where the mouse is pressed
 	@Override
 	public void mousePressed ( int button, int mousePosX, int mousePosY )
@@ -249,7 +258,7 @@ public class SimpleSlickGame extends BasicGame
 	// getEntities function that returns the entities list
 	public ArrayList<Entity> getEntities() { return entities; }
 
-	
+
 	public void addKeyPressedListener(KeyPressedListener toAdd) {
 		keyPressedListeners.add(toAdd);
 	}

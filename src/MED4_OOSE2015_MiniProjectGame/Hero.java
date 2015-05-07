@@ -50,6 +50,7 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 	{
 		game.removeKeyPressedListener(this);
 		game.removeKeyReleasedListener(this);
+		super.close();
 	}
 	
 	public void keyPressed(int key, char c)
@@ -74,15 +75,14 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 		
 		if (e instanceof Enemy)
 		{
-			// ... Loose health
 			this.setHealth(getHealth() - 20);
-			if(this.getHealth() == 0)
-			{
-				System.out.println("Died");
-				this.isAlive = false;
-				
-			}
 			System.out.println("lost 20 health current health: " + this.getHealth());
+			
+			if(this.getHealth() <= 0)
+			{
+				System.out.println("Hero Died");
+				this.isAlive = false;	
+			}
 		}
 	}
 	

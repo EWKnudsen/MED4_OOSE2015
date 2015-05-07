@@ -49,13 +49,11 @@ public class Entity
 	//Collision() is used to generate an enitity specific action if this entity collides with another specific entity
 	public void Collision(Entity e)
 	{
-		
 	}
 	
 	//renderParticles is used by children classes to render their particle effects
 	public void renderParticles()
 	{
-		
 	}
 	
 	//collides(Entity other) is used to check whether two entities collide or not. It returns a boolean to determine this.
