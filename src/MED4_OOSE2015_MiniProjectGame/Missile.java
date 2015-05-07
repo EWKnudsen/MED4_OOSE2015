@@ -92,7 +92,7 @@ public class Missile extends Entity
 	@Override
 	public boolean collides (Entity other)
 	{
-		if (other == owner && other instanceof Missile)
+		if (other == owner || other instanceof Missile)
 			return false;
 		else
 			return super.collides(other);
