@@ -133,7 +133,7 @@ public class SimpleSlickGame extends BasicGame
 					//Adds a new spider
 					entities.add(new Spider(this, rndX, rndY));
 				}		
-				//			//Resets the spawn timer. 
+				//Resets the spawn timer. 
 				enemySpawnTimer.reset();
 			}
 		}
