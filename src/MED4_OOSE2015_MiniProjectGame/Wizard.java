@@ -127,7 +127,7 @@ public class Wizard extends Hero implements MousePressedListener
 			this.setSprite(wizardBackRight);
 		}
 		else if (Mouse.getEventX() <= this.getPositionX() && game.appgc.getHeight() - Mouse.getEventY() <= this.getPositionY()){
-			//set new sprite
+			
 			this.setSprite(wizardBackLeft);
 		}
 	}

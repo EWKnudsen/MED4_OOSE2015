@@ -36,10 +36,10 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 		//Initializes and adds a particle system to the entity
 		try 
 		{
-			Image particleImg = new Image ("Graphics/Particles/particle.png");
+			Image particleImg = new Image ("src/Graphics/particle.png");
 			particles = new ParticleSystem(particleImg,1500);
 			
-			File xmlFile = new File ("Graphics/Particles/ouch effect.xml");
+			File xmlFile = new File ("src/Graphics/ouch aeffect.xml");
 			emitter = ParticleIO.loadEmitter(xmlFile);
 			
 			emitter.setPosition(this.getPositionX(), this.getPositionY(),false);
@@ -167,7 +167,12 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 			}
 		}
 		//sets the particle emitter's position to the hero's position
-		emitter.setPosition(this.getPositionX(), this.getPositionY());
+		try{
+			emitter.setPosition(this.getPositionX(), this.getPositionY());
+		} catch (NullPointerException n){
+			
+		}
+
 	}
 }
 

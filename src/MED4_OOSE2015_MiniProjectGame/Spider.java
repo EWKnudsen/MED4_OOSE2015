@@ -44,10 +44,10 @@ public class Spider extends Enemy {
 		//Initializes and adds a particle system to the entity
 		try 
 		{
-			Image particleImg = new Image ("Graphics/Particles/web.png");
+			Image particleImg = new Image ("src/Graphics/web.png");
 			particles = new ParticleSystem(particleImg,1500);
 			
-			File xmlFile = new File ("Graphics/Particles/web effect.xml");
+			File xmlFile = new File ("src/Graphics/web effect.xml");
 			emitter = ParticleIO.loadEmitter(xmlFile);
 			emitter.setPosition(this.getPositionX(), this.getPositionY(),false);
 			
