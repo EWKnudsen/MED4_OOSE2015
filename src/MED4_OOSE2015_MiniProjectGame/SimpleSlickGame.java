@@ -130,7 +130,7 @@ public class SimpleSlickGame extends BasicGame
 				entities.add(new Enemy(this, rndX, rndY));
 			} else {
 				while(rndX < hero.getPositionX()+200 && rndX > hero.getPositionX()-200 &&
-						  rndY < hero.getPositionY() + 100 && rndY > hero.getPositionY()-100)
+						  rndY < hero.getPositionY() + 200 && rndY > hero.getPositionY()-200)
 					{  
 						rndX = r.nextInt(appgc.getWidth());
 						rndY = r.nextInt(appgc.getHeight());	  
