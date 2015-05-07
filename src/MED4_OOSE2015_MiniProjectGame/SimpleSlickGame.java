@@ -28,7 +28,7 @@ public class SimpleSlickGame extends BasicGame
 	public int mapHeight, mapWidth;
 	private Hero hero;
 
-	Timer timer = new Timer();
+	static Timer timer = new Timer();
 	Timer timer2 = new Timer();
 	Random r = new Random();
 
@@ -91,7 +91,7 @@ public class SimpleSlickGame extends BasicGame
 		map.getTileId(0, 0, objectLayer);
 
 		//Spawns an enemy every 3 seconds at a position that is +-100 the position of the Hero.
-		if(timer.getTime() > 1)
+		if(timer.getTime() > 3)
 		{
 			int rndX = r.nextInt(appgc.getWidth()) ;
 			int rndY = r.nextInt(appgc.getHeight());
@@ -141,6 +141,7 @@ public class SimpleSlickGame extends BasicGame
 			Logger.getLogger(SimpleSlickGame.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
+	
 	
 	@Override
 	public void keyPressed(int key, char c)

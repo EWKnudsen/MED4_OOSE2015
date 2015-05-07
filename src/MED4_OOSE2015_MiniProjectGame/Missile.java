@@ -78,7 +78,7 @@ public class Missile extends Entity
 	public void recalculateVector(int destX, int destY)
     {
        float rad = (float)(Math.atan2(destX - startX, startY - destY));
-       speed = 10;
+       speed = 5;
        
        this.dx = (float) Math.sin(rad) * speed;
        this.dy = -(float) Math.cos(rad) * speed;
@@ -92,7 +92,7 @@ public class Missile extends Entity
 	@Override
 	public boolean collides (Entity other)
 	{
-		if (other == owner)
+		if (other == owner && other instanceof Missile)
 			return false;
 		else
 			return super.collides(other);
