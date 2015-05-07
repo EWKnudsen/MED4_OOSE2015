@@ -3,18 +3,18 @@ package MED4_OOSE2015_MiniProjectGame;
 import java.io.File;
 import java.io.IOException;
 
-import org.lwjgl.util.Timer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.particles.ConfigurableEmitter;
 import org.newdawn.slick.particles.ParticleIO;
 import org.newdawn.slick.particles.ParticleSystem;
 
+//The missile class extends the Entity class
 public class Missile extends Entity
 {
+	//sets variables for the missile entity
 	private Entity owner;
 	private int destX, destY;
 	private int startX, startY;
@@ -23,8 +23,10 @@ public class Missile extends Entity
 	private Image missileImg;
 	Point location = new Point(0,0);
 	
+	//The constructor initialises the missile with essential variables.
 	public Missile(SimpleSlickGame _game, int x, int y, int destX, int destY, Entity owner) 
 	{
+		//the super constructor is called to give the x and y coordinates and call the game to use its variable and 
 		super(_game, x,y);
 		setHitboxRadius(20); 
 		this.startX = x;
@@ -35,6 +37,7 @@ public class Missile extends Entity
 		setLocation(startX, startY);
 		recalculateVector(destX, destY);
 		
+		//Initializes and adds a particle system to the entity
 		try 
 		{
 			Image particleImg = new Image ("Graphics/Particles/particle.png");
@@ -54,7 +57,8 @@ public class Missile extends Entity
 			System.out.println("Cannot assign xml file to emitter. File might be missing.");
 			e.printStackTrace();
 		}
-			
+		
+		//Adds sound files to the entity
 		try
 		{
 			Sound sound = new Sound("Sounds/lazer.wav");
@@ -64,6 +68,7 @@ public class Missile extends Entity
 			System.out.println("Could not find sound file");
 		}
 		
+		//Adds sprites to the entity
 		try
 		{
 			missileImg = new Image("Graphics/Fireball.png");
@@ -84,6 +89,7 @@ public class Missile extends Entity
        this.dy = -(float) Math.cos(rad) * speed;
     }
 	
+	//calls the recalculateVector(int destX, int destY) 
 	public void recalculateVector()
     {
        recalculateVector(destX, destY);

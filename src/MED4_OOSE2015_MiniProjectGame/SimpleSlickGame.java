@@ -109,8 +109,6 @@ public class SimpleSlickGame extends BasicGame
 		if(hero.isAlive){
 			//If statement to check if the game time has proceeded the spawnTime variable.
 			if(gameTime.getTime() > levelTimer){
-				for (Entity e : deadEntities) 
-				{
 					//if the game time has proceeded the spawnTime variable, the spawnTimer is decreased, so enemies will spawn faster.
 					spawnTimer -= 0.05;
 					//spawnTime is increased by 10 sec.
@@ -118,7 +116,6 @@ public class SimpleSlickGame extends BasicGame
 					//The level is increased
 					levelCounter += 1;
 					System.out.println(levelCounter);
-				}
 			}
 
 			//Spawns an enemy at the specified spawn rate, and handles the spawn position of them.
