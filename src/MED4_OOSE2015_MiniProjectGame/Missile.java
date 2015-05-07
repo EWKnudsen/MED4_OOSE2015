@@ -75,6 +75,7 @@ public class Missile extends Entity
 		}
 	}
 	
+	//Recalculates the vector to the destination (where the user clicks) with a certain speed.
 	public void recalculateVector(int destX, int destY)
     {
        float rad = (float)(Math.atan2(destX - startX, startY - destY));
