@@ -83,7 +83,8 @@ public class SimpleSlickGame extends BasicGame
 			}
 		}
 
-		if(hero.isAlive){
+		if(hero.isAlive)
+		{
 			//If statement to check if the game time has proceeded the spawnTime variable.
 			if(gameTime.getTime() > levelTimer){
 				//if the game time has proceeded the spawnTime variable, the spawnTimer is decreased, so enemies will spawn faster.
@@ -147,9 +148,6 @@ public class SimpleSlickGame extends BasicGame
 			e.close();
 			entities.remove(e);
 		}
-
-		int objectLayer = map.getLayerIndex("Objects");
-		map.getTileId(0, 0, objectLayer);
 		
 		if(gameTime.getTime() > levelTimer)
 		{
@@ -158,34 +156,6 @@ public class SimpleSlickGame extends BasicGame
 			levelCounter += 1;
 			System.out.println(levelCounter);
 		}
-		//Spawns an enemy every 3 seconds at a position that is +-100 the position of the Hero.
-
-		if(enemySpawnTimer.getTime() > spawnTimer)
-		{
-			int rndX = r.nextInt(appgc.getWidth());
-			int rndY = r.nextInt(appgc.getHeight());
-			int rndNum = r.nextInt(20);
-			
-			if(rndNum > 5){
-				while(rndX < hero.getPositionX()+100 && rndX > hero.getPositionX()-100 &&
-						  rndY < hero.getPositionY() +100 && rndY > hero.getPositionY()-100)
-					{  
-						rndX = r.nextInt(appgc.getWidth());
-						rndY = r.nextInt(appgc.getHeight());	  
-					}
-				entities.add(new Enemy(this, rndX, rndY));
-			} else {
-				while(rndX < hero.getPositionX()+200 && rndX > hero.getPositionX()-200 &&
-						  rndY < hero.getPositionY() + 100 && rndY > hero.getPositionY()-100)
-					{  
-						rndX = r.nextInt(appgc.getWidth());
-						rndY = r.nextInt(appgc.getHeight());	  
-					}
-				entities.add(new Spider(this, rndX, rndY));
-			}			
-			enemySpawnTimer.reset();
-		}
-		
 	}
 
 	@Override
