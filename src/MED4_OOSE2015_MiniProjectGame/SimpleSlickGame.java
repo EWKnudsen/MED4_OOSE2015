@@ -21,12 +21,10 @@ public class SimpleSlickGame extends BasicGame
 	static AppGameContainer appgc;
 
 	// Initializing entity and keys-pressed lists
-	// // When removing from this collection remember to call entity.close()
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
 	ArrayList<KeyPressedListener> keyPressedListeners = new ArrayList<KeyPressedListener>();
 	ArrayList<KeyReleasedListener> keyReleasedListeners = new ArrayList<KeyReleasedListener>();
 	ArrayList<MousePressedListener> mousePressedListeners = new ArrayList<MousePressedListener>();
-	//Initializing global variables, such as map height and level counter.
 	private TiledMap map;
 	private Hero hero;
 	private float spawnTimer = 1f;

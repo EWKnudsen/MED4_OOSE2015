@@ -42,29 +42,25 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 		} catch (IOException e) {
 			System.out.println("Cannot assign xml file to emitter. File might be missing.");
 			e.printStackTrace();
-		}	
+		}
 	}
 
 	@Override
-	public void close()
-	{
+	public void close() {
 		game.removeKeyPressedListener(this);
 		game.removeKeyReleasedListener(this);
 		super.close();
 	}
 	
-	public void keyPressed(int key, char c)
-	{
+	public void keyPressed(int key, char c)	{
 		lastChar = c;
 	}
 	
-	public void keyReleased(int key, char c)
-	{
+	public void keyReleased(int key, char c) {
 		lastChar = ' ';
 	}
 	
-	public void particleUpdate()
-	{
+	public void particleUpdate() {
 		particles.update(1);
 	}
 	
@@ -93,18 +89,18 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 		if (pressed == 'a')
 		{	
 			if(this.getPositionX() <= 0)
-			{
-				
-			}else{
+			{	
+			}
+			else {
 				this.setPositionX(this.getPositionX() - 3);	
 			}
 		}
 		else if (pressed == 'd')
 		{
-			if(this.getPositionX() > game.mapWidth)
+			if(this.getPositionX() > game.appgc.getWidth())
 			{
-				
-			}else{
+			}
+			else {
 				this.setPositionX(this.getPositionX() + 3);	
 			}
 		}
@@ -112,21 +108,20 @@ public abstract class Hero extends Character implements KeyPressedListener, KeyR
 		{
 			if(this.getPositionY() <= 0)
 			{
-
-			}else{
+			}
+			else {
 				this.setPositionY(this.getPositionY() - 3);
 			}
 		}
 		else if (pressed == 's')
 		{
-			if(this.getPositionY() > game.mapHeight)
-			{
-				
-			}else{
+			if(this.getPositionY() > game.appgc.getHeight())
+			{	
+			}
+			else{
 				this.setPositionY(this.getPositionY() + 3);
 			}
 		}
-	
 		emitter.setPosition(this.getPositionX(), this.getPositionY());
 	}
 }
